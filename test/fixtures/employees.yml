@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  emp_code: MyString
+  name: MyString
+  unit: MyString
+  sbu: MyString
+  unit: MyString
+  department: MyString
+  location: MyString
+  reporting_manager_code: MyString
+  reporting_manager: MyString
+
+two:
+  emp_code: MyString
+  name: MyString
+  unit: MyString
+  sbu: MyString
+  unit: MyString
+  department: MyString
+  location: MyString
+  reporting_manager_code: MyString
+  reporting_manager: MyString

@@ -1,0 +1,69 @@
+<div class="sidebar" data-color="blue" style="background-color:#fff;">
+    <div class="logo">
+        <a href="https://dnlapps.dnlpune.com/gurukul/batch" class="simple-text">
+            <img src="/assets/logo.png" width="200px">
+        </a>
+    </div>
+    <div class="sidebar-wrapper">
+        <center>
+            <h4>
+                <a class="btn btn-sm btn-primary" style="background-color:#093a9c" href="https://dnlapps.dnlpune.com/Data/Gurukul_Guide.pdf" target="_blank">
+                    User Guide
+                </a>
+            </h4>
+        </center>
+
+        <ul class="nav">
+            <li id="" class="active">
+                <center>
+                    <% current_employee = current_user.employee %>
+                    <table class="mTable" width="100%" style="margin-left: 5px;">
+                        <tbody>
+                            <tr>
+                                <td class="title">Name</td>
+                                <td><%= current_employee.name %></td>
+                            </tr>
+                            <tr>
+                                <td class="title">Emp Code</td>
+                                <td><%= current_employee.emp_code %></td>
+                            </tr>
+                            <tr>
+                                <td class="title">SBU</td>
+                                <td><%= current_employee.sbu %></td>
+                            </tr>
+                            <tr>
+                                <td class="title">Unit</td>
+                                <td><%= current_employee.unit %></td>
+                            </tr>
+                            <tr>
+                                <td class="title">Dept.</td>
+                                <td><%= current_employee.department %></td>
+                            </tr>
+                            <tr>
+                                <td class="title">Location</td>
+                                <td><%= current_employee.location %></td>
+                            </tr>
+                            <tr>
+                                <td class="title">Reporting Manager</td>
+                                <td><%= current_employee.reporting_manager %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+            </li>
+            
+            <li id="" class="active" data-color="green">
+                <a href="https://dnlapps.dnlpune.com/gurukul/batch">
+                    <i class="material-icons">dashboard</i>
+                    <p><b>Dashboard</b></p>
+                </a>
+            </li>
+            <li id="" class="active" data-color="green">
+                <a href="https://dnlapps.dnlpune.com/gurukul/reports">
+                    <i class="material-icons">assignment_turned_in</i>
+                    <p><b>My Nominees</b></p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

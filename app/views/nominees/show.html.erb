@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nomination:</strong>
+  <%= @nominee.nomination_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @nominee.user_id %>
+</p>
+
+<p>
+  <strong>Emp code:</strong>
+  <%= @nominee.emp_code %>
+</p>
+
+<%= link_to 'Edit', edit_nominee_path(@nominee) %> |
+<%= link_to 'Back', nominees_path %>

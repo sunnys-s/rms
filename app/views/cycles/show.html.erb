@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @cycle.title %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @cycle.status %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @cycle.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @cycle.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_cycle_path(@cycle) %> |
+<%= link_to 'Back', cycles_path %>

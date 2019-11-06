@@ -1,0 +1,95 @@
+<%= form_with(model: nomination, local: true) do |form| %> 
+  <div class="container-fluid" id="main-form">
+      <div class='card'>
+          <div class='card-header' data-background-color='blue'>
+              <b>Add Nomination Information</b>
+          </div>
+          <div class='card-content'>
+              <div class='row'>
+                  <div class='col-md-12'>
+                      <div class="form-group label">
+                          <label class="control-label ">Select Award Type</label>
+                          <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {class: "form-control"}%>
+                      </div>
+                  </div>
+                  <div class='col-md-12'>
+                      <div class="form-group label">
+                        <%= form.fields_for :nominees do |s| %>
+                          <label class="control-label ">Select Nominee</label>
+                          <%= s.select :user_id, options_from_collection_for_select(@users, 'id', 'emp_code'), {}, {class: "form-control"}%>
+                        <% end %>
+                      </div>
+                  </div>
+                  <div class='col-md-6'>
+                      <div class="form-group label">
+                          <label class="control-label ">Nominator</label>
+                          <%= form.hidden_field :nominator_id, value: current_user.id %>
+                          <%= form.hidden_field :nominator_type, value: current_user.class.to_s %>
+                          <input type='text' class='form-control disabled' disabled value='<%= current_user.employee.name %>'>
+                      </div>
+                  </div>
+                  <div class='col-md-6'>
+                      <div class="form-group label">
+                          <label class="control-label ">Date</label>
+                          <%= form.hidden_field :date, value: Date.today %>
+                          <input type='text' class='form-control disabled' disabled value='<%= Date.today.strftime("%d-%m-%Y")%>'>
+                      </div>
+                  </div>
+                  
+                  <div class='col-md-12'>
+                      <h5>Please select the answer of your choice based on following scale</h5>
+                      <table class='table table-bordered'>
+                          <tbody>
+                              <tr>
+                                  <td>Excellent</td><td>3</td>
+                              </tr>
+                                  <tr>
+                                  <td>Very Good</td><td>2</td>
+                              </tr><tr>
+                                  <td>Good</td><td>1</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                  </div>
+                  <div class='col-md-12' id='aw1'>
+                      <h5>Please answer the following</h5>
+                      <table class='table table-bordered' id='rating-table'>
+                          <%= form.fields_for :ratings do |rating| %>
+                          <tr>
+                              <td style='width: 75%'>
+                                <%= rating.object.title %>
+                                <%= rating.hidden_field :title, value: rating.object.title %>
+                              </td>
+                              <td>
+                                  <div class="row">
+                                      <div class='col-md-4'>
+                                        3 <%= rating.radio_button(:value, 3) %>
+                                      </div>
+                                      <div class='col-md-4'>
+                                        2 <%= rating.radio_button(:value, 2) %>
+                                      </div>
+                                      <div class='col-md-4'>
+                                        1 <%= rating.radio_button(:value, 1) %>
+                                      </div>
+                                  </div>
+                              </td>
+                          </tr>
+                          <% end %>
+                      </table>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+<% end %>
+<script>
+    $('#nomination_award_id').on('change', function() {
+        var awardId = $(this).find(":selected").val();
+        $.get('/nominations/load_rating_form/' + awardId, function(data, status){
+            $('#rating-table').html(data);
+        });
+    });
+</script>

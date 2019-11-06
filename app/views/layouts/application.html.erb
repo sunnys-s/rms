@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Rms</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    
+    <%= render partial: "layouts/cover" %>
+    <div class="wrapper">
+      <%= render partial: "layouts/sidebar" %>
+      <div class="main-panel">
+        <%= render partial: "layouts/header" %>
+        
+        <div class="container-fluid" style="text-align: left;">
+          <h3 style="padding:10px;font-weight: bolder;"> Rewards & Recognition App : 2019-20</h3>
+        </div>
+        <div class="content" style="margin-top:0px; min-height: 600px !important;">
+          <p class="notice"><%= notice %></p>
+          <p class="alert"><%= alert %></p>
+          <%= yield %>
+        </div>
+        <%= render partial: "layouts/footer" %>
+      </div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(function () {
+        $('.cover').slideUp(2000);
+    });
+  </script>
+</html>

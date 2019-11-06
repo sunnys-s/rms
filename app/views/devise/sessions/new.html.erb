@@ -1,0 +1,54 @@
+<style>
+  .container-login100{
+    background-color:#011b38 !important;
+  }
+</style>
+<div class="wrap-login100" style="padding-top:15px;">
+    <center>
+        <h5 id="err_box"></h5>
+        <img src="/assets/logo.png" width="180px">
+    </center>
+    <span class="">
+    </span>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="wrap-input100 validate-input">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input100 has-val" %>
+      </div>
+
+      <div class="wrap-input100 validate-input" data-validate="Enter password">
+        <%= f.password_field :password, autocomplete: "current-password", class:"input100 has-val" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        
+      </div>
+      <div class="container-login100-form-btn">
+            <div class="wrap-login100-form-btn">
+                <div class="login100-form-bgbtn"></div>
+                <%= f.submit "Login", id: "submit_link" , class: "login100-form-btn", style: "color:white;display:none;"%>
+                <!-- <a id="submitButton" class="login100-form-btn" style="color:white;">Login</a> -->
+                <%= content_tag(:a, 'Login', :name => 'submit', :id => 'submitButton', :class => "login100-form-btn") %>
+            </div>
+        </div>
+        <br>
+        <center>
+            <span id="quote" style="font-family: Futura;">
+                <b><i>" The highest reward for a person's toil is not what they get for it, but what they become by it "</i></b>
+            </span>
+        </center>
+    <% end %>
+</div>
+<script>
+  $(document).ready(function() {
+      $(document).on("click","#submit_link",function() {
+          $('#form_submit_button').click();
+      });
+  });
+</script>
