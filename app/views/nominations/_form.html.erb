@@ -38,7 +38,7 @@
                   
                   <div class='col-md-12'>
                       <h5>Please select the answer of your choice based on following scale</h5>
-                      <table class='table table-bordered'>
+                      <table class='table table-bordered infoTable'>
                           <tbody>
                               <tr>
                                   <td>Excellent</td><td>3</td>
@@ -75,17 +75,43 @@
                               </td>
                           </tr>
                           <% end %>
+                          <tr class='table_total_tr'>
+                            <td style='width: 75%'>Total</td>
+                            <td id='aw1_total'>0</td>
+                          </tr>
                       </table>
                   </div>
+                  <div class='col-md-12'>
+                        <h5>Enter Justification</h5>
+                        <div class="form-group label">
+                            <%= form.text_area :justification %>
+                            
+                        </div>
+                    </div>
+                    <div class='col-md-12'>
+                        <h5>Add Attachments</h5>
+                        <%= form.fields_for :nomination_attachments do |p| %>
+                            <div class="field">
+                                <%#= p.label :attachment %><br>
+                                <%= p.file_field :attachment, :multiple => true, name: "nomination_attachments[attachment][]" %>
+                            </div>
+                        <% end %>
+                    </div>
+                    <div class='card-footer'>
+
+                        <%= form.submit "Add Nomination", class: 'btn btn-success pull-right' %>
+                    </div>
               </div>
           </div>
       </div>
   </div>
-    <div class="actions">
-      <%= form.submit %>
-    </div>
 <% end %>
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <script>
+    $(document).ready(function () {
+        CKEDITOR.replace('nomination[justification]');
+        $('select').select2();
+    });
     $('#nomination_award_id').on('change', function() {
         var awardId = $(this).find(":selected").val();
         $.get('/nominations/load_rating_form/' + awardId, function(data, status){

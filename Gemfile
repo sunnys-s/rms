@@ -57,3 +57,6 @@ gem "devise", "~> 4.7"
 gem 'rails_admin', '~> 2.0'
 gem 'cancancan'
 gem 'faker'
+gem "rails_state_machine", "~> 2.0"
+
+gem "carrierwave", "~> 2.0"

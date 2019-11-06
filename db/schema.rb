@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_054345) do
+ActiveRecord::Schema.define(version: 2019_11_06_061243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,14 @@ ActiveRecord::Schema.define(version: 2019_11_06_054345) do
     t.index ["user_id"], name: "index_employees_on_user_id"
   end
 
+  create_table "nomination_attachments", force: :cascade do |t|
+    t.bigint "nomination_id", null: false
+    t.string "attachment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["nomination_id"], name: "index_nomination_attachments_on_nomination_id"
+  end
+
   create_table "nominations", force: :cascade do |t|
     t.bigint "award_id", null: false
     t.string "nomination_type"
@@ -89,6 +97,8 @@ ActiveRecord::Schema.define(version: 2019_11_06_054345) do
     t.date "date"
     t.string "nominator_type"
     t.bigint "nominator_id"
+    t.string "state"
+    t.text "justification"
     t.index ["award_id"], name: "index_nominations_on_award_id"
     t.index ["nominator_type", "nominator_id"], name: "index_nominations_on_nominator_type_and_nominator_id"
   end
@@ -155,6 +165,7 @@ ActiveRecord::Schema.define(version: 2019_11_06_054345) do
   add_foreign_key "commitees", "awards"
   add_foreign_key "commitees", "cycles"
   add_foreign_key "employees", "users"
+  add_foreign_key "nomination_attachments", "nominations"
   add_foreign_key "nominations", "awards"
   add_foreign_key "nominees", "nominations"
   add_foreign_key "nominees", "users"

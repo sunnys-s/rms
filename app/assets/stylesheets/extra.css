@@ -131,3 +131,23 @@
     text-align: right;
 }
 
+.infoTable tbody tr td {
+    background-color: #efefef;
+}
+.select2-selection__choice{
+    color: #232222;
+    padding: 10px !important;
+}
+.badge{
+    padding:7px;
+}
+
+.nav-tabs {
+    background:none;
+}
+.action_td {
+    text-align: center;
+}
+.tab{
+    cursor: pointer;
+}

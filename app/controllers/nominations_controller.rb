@@ -93,11 +93,9 @@ class NominationsController < ApplicationController
       params.require(:nomination).permit(
         :award_id, :nomination_type, 
         :nominator_id, :date, 
-        ratings_attributes: [
-          :id, :title, :nomination_id, :value, :_destroy
-        ], 
-        nominees_attributes: 
-        [:id, :nomination_id, :user_id, :emp_code, :_destroy]
+        ratings_attributes: [:id, :title, :nomination_id, :value, :justification, :_destroy], 
+        nominees_attributes: [:id, :nomination_id, :user_id, :emp_code, :_destroy],
+        nomination_attachments_attributes: [:id, :nomination_id, :attachment, :destroy]
       )
     end
 end
