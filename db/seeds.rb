@@ -81,6 +81,6 @@ end
 
 
 create_award_masters
-# create_role_masters
-# create_admin
-# create_employees
+create_role_masters
+create_admin
+create_employees

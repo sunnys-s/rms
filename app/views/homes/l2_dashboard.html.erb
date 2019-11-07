@@ -1,0 +1,380 @@
+<div class="container-fluid" style="text-align: left;">
+    <h3 style="padding:10px;font-weight: bolder;">Apex-Commitee's Dashboard</h3>
+</div>
+
+<div class="content" style="margin-top:0px; min-height: 600px !important;">
+    <div class="container-fluid" id="">
+        <div class='card'>
+            <div class='card-header' data-background-color=blue>
+                <ul class="nav nav-tabs">
+                    <li class='active'><a data-toggle="tab" class='tab' id='btnhome'  onclick='doSwitch("home")'>The Most Inspiring Leader</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenu1' onclick='doSwitch("menu1")'>The Best Employee</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenu2'  onclick='doSwitch("menu2")'>The Most Innovative Employee</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenu3' onclick='doSwitch("menu3")'>The Best Cross-Function Team</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenu4' onclick='doSwitch("menu4")'><b>Final Verdict</b></a></li>
+                </ul>
+            </div>
+            <div class='card-content'>
+                <div class="tab-content">
+                    <div id="menu4" class="tab-pane fade">
+                    <h3>Enter your final comments for Chairman's Approval</h3>
+                    Select Award<br>
+                    <select name='award'>
+                        <option>The Most Inspiring Leader</option>
+                        <option>The Best Employee</option>
+                        <option>The Most Innovative Employee</option>
+                        <option>The Best Cross-Functional Team</option>
+                    </select>
+                    <br><br>
+                        <textarea name='comments' id='comments'></textarea>
+                        <button class='btn btn-lg btn-success' onclick="submitVerdict()">Update</button>
+                    </div>
+                    <div id="home" class="tab-pane fade in active">
+                        <h3>The Most Inspiring Leader</h3>
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <table class='table table-bordered datatable'>
+                                    <thead>
+                                        <th>Nominee Information</th>
+                                        <!-- <th>Nominators</th>
+                                        <th>Number of Nominations</th> -->
+                                        <th>Average Points (Out of 18)</th>
+                                        <th>Award Towards</th>
+                                        <th>Recommended By</th>
+                                        <th>Comments</th>
+                                        <th>Justification & Attachments</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody>
+                                        <% @most_inspiring_leaders_nominations.each do |nomination| %>
+                                            <tr id='nomination_2'>
+                                                <% nominee = nomination.nominees.last.user %>
+                                                <td>
+                                                    <p>Name : <%= nominee.employee.name %></p>
+                                                    <p>Employee ID : <%= nominee.employee.emp_code %></p>
+                                                    <p>DOJ : 15-06-2017</p>
+                                                    <p>Reporting Manager : <%= nominee.employee.reporting_manager %></p>
+                                                    <p>Department : <%= nominee.employee.department %></p>
+                                                    <p>Section : <%= nominee.employee.unit %></p>
+                                                    <p>SBU : <%= nominee.employee.sbu %></p>
+                                                    <p>Location :  <%= nominee.employee.location %></p>
+                                                </td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td><%= nomination.summary %></td>
+                                                <td>
+                                                    <li>Member 1</li>
+                                                    <li>Member 2</li>
+                                                    <li>Member 3</li>
+                                                </td>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat.
+                                                </td>
+                                                <td class='action_td'>
+                                                    Justifications
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    Attachments
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                </td>
+                                                <td class='action_td'>
+                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
+                                                    <br>
+                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                </td>
+                                            </tr>
+                                        <% end %>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="menu1" class="tab-pane fade">
+                        <h3>The Best Employee</h3>
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <table class='table table-bordered datatable'>
+                                    <thead>
+                                        <th>Nominee Information</th>
+                                        <th>Average Points (Out of 18)</th>
+                                        <th>Award Towards</th>
+                                        <th>Recommended By</th>
+                                        <th>Comments</th>
+                                        <th>Justification & Attachments</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody>
+                                        <% @best_employee_nominations.each do |nomination| %>
+                                            <tr id='nomination_2'>
+                                                <% nominee = nomination.nominees.last.user %>
+                                                <td>
+                                                    <p>Name : <%= nominee.employee.name %></p>
+                                                    <p>Employee ID : <%= nominee.employee.emp_code %></p>
+                                                    <p>DOJ : 15-06-2017</p>
+                                                    <p>Reporting Manager : <%= nominee.employee.reporting_manager %></p>
+                                                    <p>Department : <%= nominee.employee.department %></p>
+                                                    <p>Section : <%= nominee.employee.unit %></p>
+                                                    <p>SBU : <%= nominee.employee.sbu %></p>
+                                                    <p>Location :  <%= nominee.employee.location %></p>
+                                                </td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td><%= nomination.summary %></td>
+                                                <td>
+                                                    <li>Member 1</li>
+                                                    <li>Member 2</li>
+                                                    <li>Member 3</li>
+                                                </td>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat.
+                                                </td>
+                                                <td class='action_td'>
+                                                    Justifications
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    Attachments
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                </td>
+                                                <td class='action_td'>
+                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
+                                                    <br>
+                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                </td>
+                                            </tr>
+                                        <% end %>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div id="menu2" class="tab-pane fade">
+                        <h3>The Most Innovative Employee</h3>
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <table class='table table-bordered datatable'>
+                                    <thead>
+                                        <th>Nominee Information</th>
+                                        <th>Average Points (Out of 18)</th>
+                                        <th>Award Towards</th>
+                                        <th>Recommended By</th>
+                                        <th>Comments</th>
+                                        <th>Justification & Attachments</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody>
+                                        <% @most_innovative_employee_nominations.each do |nomination| %>
+                                            <tr id='nomination_2'>
+                                                <% nominee = nomination.nominees.last.user %>
+                                                <td>
+                                                    <p>Name : <%= nominee.employee.name %></p>
+                                                    <p>Employee ID : <%= nominee.employee.emp_code %></p>
+                                                    <p>DOJ : 15-06-2017</p>
+                                                    <p>Reporting Manager : <%= nominee.employee.reporting_manager %></p>
+                                                    <p>Department : <%= nominee.employee.department %></p>
+                                                    <p>Section : <%= nominee.employee.unit %></p>
+                                                    <p>SBU : <%= nominee.employee.sbu %></p>
+                                                    <p>Location :  <%= nominee.employee.location %></p>
+                                                </td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td><%= nomination.summary %></td>
+                                                <td>
+                                                    <li>Member 1</li>
+                                                    <li>Member 2</li>
+                                                    <li>Member 3</li>
+                                                </td>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat.
+                                                </td>
+                                                <td class='action_td'>
+                                                    Justifications
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    Attachments
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                </td>
+                                                <td class='action_td'>
+                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
+                                                    <br>
+                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                </td>
+                                            </tr>
+                                        <% end %>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="menu3" class="tab-pane fade">
+                        <h3>The Best Cross-Functional Team</h3>
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <table class='table table-bordered datatable'>
+                                    <thead>
+                                        <th>Nominee Information</th>
+                                        <th>Average Points (Out of 18)</th>
+                                        <th>Award Towards</th>
+                                        <th>Recommended By</th>
+                                        <th>Comments</th>
+                                        <th>Justification & Attachments</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody>
+                                        <% @best_team_nominations.each do |nomination| %>
+                                            <tr id='nomination_2'>
+                                                 <td>
+                                                    <% nomination.nominees.each_with_index do |nominee, index| %>
+                                                        <% nominee = nominee.user %>
+                                                        <p>
+                                                            <b><%= index+1 %>. <%= nominee.employee.name %></b> (<%= nominee.employee.emp_code %>)<br>
+                                                            <%= nominee.employee.department %>
+                                                        </p>
+                                                    <% end %>
+                                                </td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td><%= nomination.summary %></td>
+                                                <td>
+                                                    <li>Member 1</li>
+                                                    <li>Member 2</li>
+                                                    <li>Member 3</li>
+                                                </td>
+                                                <td>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat.
+                                                </td>
+                                                <td class='action_td'>
+                                                    Justifications
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    Attachments
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                </td>
+                                                <td class='action_td'>
+                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
+                                                    <br>
+                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                </td>
+                                            </tr>
+                                        <% end %>
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Accept/Reject Modal-->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class='row'>
+            <div class='col-md-12'>
+                <h5><span class='action_mode'></span> recommended By</h5>
+                <select name='subcommittee_list' multiple style='width: auto;'>
+                    <option>Member 1</option>
+                    <option>Member 2</option>
+                    <option>Member 3</option>
+                    <option>Member 4</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <button name='action_button' class='btn pull-right' onclick="doAction()"></button>
+    </div>
+</div>
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<script>
+    $(document).ready(function() {
+        CKEDITOR.replace('comments');
+        $('select').select2({'placeholder':'Select Members'});
+    });
+    var span = document.getElementsByClassName("close")[0];
+    var modal = document.getElementById("myModal");
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+        modal.style.display = "none";
+        }
+    }
+    function showModal() {
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    function doSwitch(mode) {
+        $('.tab-pane').removeClass('in active');
+        $('#'+mode).addClass('in active');
+        $('.tab').parent().removeClass('active');
+        $('#btn'+mode).parent().addClass('active');
+    }
+
+    var nomination_id = -1;
+    var action_mode = '';
+    
+    function approve(id)
+    {
+        nomination_id = id;
+        action_mode = 'a';
+        makeup();
+    }
+
+    function reject(id)
+    {
+        nomination_id = id;
+        action_mode = 'r';
+        makeup();
+    }
+
+    function makeup()
+    {
+        if(action_mode == 'a')
+        {
+            $('.action_mode').html("Approval");
+            $('button[name=action_button]').removeClass('btn-danger').addClass('btn-success').html("Approve");
+        }
+        else{
+            $('.action_mode').html("Rejection");
+            $('button[name=action_button]').removeClass('btn-success').addClass('btn-danger').html("Reject");
+        }
+        showModal();
+    }
+
+    function doAction() {
+        var list_of_memebers = $('select[name=subcommittee_list]').val();
+        if(list_of_memebers != ''){
+            //$.ajax on success
+            closeModal();
+            $('#'+nomination_id).fadeOut();
+            if(action_mode == 'a')
+            $.notify("Nomination Approved","success");
+            else 
+            $.notify("Nomination Rejected","success");
+        } else{
+            $.notify('Please Select Members');
+        }
+
+    }
+
+    function submitVerdict() {
+        var comments = CKEDITOR.instances.comments.getData();
+        if(comments){
+        //$.ajax on success
+            $.notify("Comment Updated Successfully","success")
+        }else{
+            $.notify("Please Enter Comment");
+        }
+    }
+</script>

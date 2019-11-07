@@ -1,0 +1,235 @@
+<div class="container-fluid" style="text-align: left;">
+    <h3 style="padding:10px;font-weight: bolder;">Chairman's Dashboard</h3>
+</div>
+
+<div class="content" style="margin-top:0px; min-height: 600px !important;">
+    <div class="container-fluid" id="">
+        <div class='card'>
+            <div class='card-header' data-background-color=blue>
+                <ul class="nav nav-tabs">
+                    <li class='active'><a data-toggle="tab" class='tab' id='btnhome'  onclick='doSwitch("home")'>The Most Inspiring Leader</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenu1' onclick='doSwitch("menu1")'>The Best Employee</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenu2'  onclick='doSwitch("menu2")'>The Most Innovative Employee</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenu3' onclick='doSwitch("menu3")'>The Best Cross-Function Team</a></li>
+                </ul>
+            </div>
+            <div class='card-content'>
+                <div class="tab-content">
+                    <div id="home" class="tab-pane fade in active">
+                        <h3>The Most Inspiring Leader</h3>
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                <h4>Winners</h4>
+                                <% @most_inspiring_leaders_nominations.each do |nomination| %>
+                                    <% nominee = nomination.nominees.last.user %>
+                                    <div class='col-md-6'>
+                                        <div class='card'>
+                                            <div class='card-header card-header-middle' data-background-color="orange">
+                                                <h4><%= nominee.employee.name %></h4>
+                                            </div>
+                                            <div class='card-content'>
+                                                    <%= nominee.employee.department %> <br>
+                                                    <%= nominee.employee.emp_code %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                            <div class='col-md-6'>
+                                <h4>Comments</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat. Etiam fermentum faucibus turpis quis auctor. Vestibulum posuere posuere volutpat. Sed scelerisque ipsum quis tortor malesuada consectetur. Donec in ex suscipit, volutpat tellus consequat, pharetra sem. Praesent sit amet elit in libero vehicula venenatis eu ut urna. Aenean vitae libero purus. Nunc consequat erat vitae dui mattis, eu cursus ante eleifend.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="menu1" class="tab-pane fade">
+                        <h3>The Best Employee</h3>
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                <h4>Winners</h4>
+                                <% @best_employee_nominations.each do |nomination| %>
+                                    <% nominee = nomination.nominees.last.user %>
+                                    <div class='col-md-6'>
+                                        <div class='card'>
+                                            <div class='card-header card-header-middle' data-background-color="orange">
+                                                <h4><%= nominee.employee.name %></h4>
+                                            </div>
+                                            <div class='card-content'>
+                                                    <%= nominee.employee.department %> <br>
+                                                    <%= nominee.employee.emp_code %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                            <div class='col-md-6'>
+                                <h4>Comments</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat. Etiam fermentum faucibus turpis quis auctor. Vestibulum posuere posuere volutpat. Sed scelerisque ipsum quis tortor malesuada consectetur. Donec in ex suscipit, volutpat tellus consequat, pharetra sem. Praesent sit amet elit in libero vehicula venenatis eu ut urna. Aenean vitae libero purus. Nunc consequat erat vitae dui mattis, eu cursus ante eleifend.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu2" class="tab-pane fade">
+                        <h3>The Most Innovative Employee</h3>
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                <h4>Winners</h4>
+                                <% @most_innovative_employee_nominations.each do |nomination| %>
+                                    <% nominee = nomination.nominees.last.user %>
+                                    <div class='col-md-6'>
+                                        <div class='card'>
+                                            <div class='card-header card-header-middle' data-background-color="orange">
+                                                <h4><%= nominee.employee.name %></h4>
+                                            </div>
+                                            <div class='card-content'>
+                                                    <%= nominee.employee.department %> <br>
+                                                    <%= nominee.employee.emp_code %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                            <div class='col-md-6'>
+                                <h4>Comments</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat. Etiam fermentum faucibus turpis quis auctor. Vestibulum posuere posuere volutpat. Sed scelerisque ipsum quis tortor malesuada consectetur. Donec in ex suscipit, volutpat tellus consequat, pharetra sem. Praesent sit amet elit in libero vehicula venenatis eu ut urna. Aenean vitae libero purus. Nunc consequat erat vitae dui mattis, eu cursus ante eleifend.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu3" class="tab-pane fade">
+                        <h3>The Best Cross-Functional Team</h3>
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                <h4>Winners</h4>
+                                <% @best_team_nominations.each_with_index do |nomination, index| %>
+                                    <div class='col-md-12'>
+                                        <div class='card'>
+                                            <div class='card-header card-header-middle' data-background-color="purple">
+                                                <h4>Team <%= index + 1 %></h4>
+                                            </div>
+                                            <div class='card-content'>
+                                                <div class='row'>
+                                                    <% nomination.nominees.each_with_index do |nominee, index| %>
+                                                        <div class='col-md-4'>
+                                                            <p><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></p>
+                                                        </div>
+                                                    <% end %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                            <div class='col-md-6'>
+                                <h4>Comments</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat. Etiam fermentum faucibus turpis quis auctor. Vestibulum posuere posuere volutpat. Sed scelerisque ipsum quis tortor malesuada consectetur. Donec in ex suscipit, volutpat tellus consequat, pharetra sem. Praesent sit amet elit in libero vehicula venenatis eu ut urna. Aenean vitae libero purus. Nunc consequat erat vitae dui mattis, eu cursus ante eleifend.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Accept/Reject Modal-->
+<div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class='row'>
+            <div class='col-md-12'>
+                <h5><span class='action_mode'></span> recommended By</h5>
+                <select name='subcommittee_list' multiple style='width: auto;'>
+                    <option>Member 1</option>
+                    <option>Member 2</option>
+                    <option>Member 3</option>
+                    <option>Member 4</option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <button name='action_button' class='btn pull-right' onclick="doAction()"></button>
+    </div>
+</div>
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+<script>
+    $(document).ready(function() {
+        //$('.datatable').datatable();
+        // CKEDITOR.replace('comments');
+        $('select').select2({'placeholder':'Select Members'});
+    });
+
+    var span = document.getElementsByClassName("close")[0];
+    var modal = document.getElementById("myModal");
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+        modal.style.display = "none";
+        }
+    }
+    function showModal() {
+        modal.style.display = "block";
+    }
+
+    function closeModal() {
+        modal.style.display = "none";
+    }
+
+    function doSwitch(mode){
+        $('.tab-pane').removeClass('in active');
+        $('#'+mode).addClass('in active');
+        $('.tab').parent().removeClass('active');
+        $('#btn'+mode).parent().addClass('active');
+    }
+    var nomination_id = -1;
+    var action_mode = '';
+    
+    function approve(id) {
+        nomination_id = id;
+        action_mode = 'a';
+        makeup();
+    }
+
+    function reject(id) {
+        nomination_id = id;
+        action_mode = 'r';
+        makeup();
+    }
+
+    function makeup() {
+        if(action_mode == 'a') {
+            $('.action_mode').html("Approval");
+            $('button[name=action_button]').removeClass('btn-danger').addClass('btn-success').html("Approve");
+        } else {
+            $('.action_mode').html("Rejection");
+            $('button[name=action_button]').removeClass('btn-success').addClass('btn-danger').html("Reject");
+        }
+        showModal();
+    }
+
+    function doAction() {
+        var list_of_memebers = $('select[name=subcommittee_list]').val();
+        if(list_of_memebers != '') {
+            //$.ajax on success
+            closeModal();
+            $('#'+nomination_id).fadeOut();
+            if(action_mode == 'a')
+            $.notify("Nomination Approved","success");
+            else 
+            $.notify("Nomination Rejected","success");
+        } else {
+            $.notify('Please Select Members');
+        }
+
+    }
+
+    function submitVerdict() {
+        var comments = CKEDITOR.instances.comments.getData();
+        if(comments) {
+        //$.ajax on success
+            $.notify("Comment Updated Successfully","success")
+        } else {
+            $.notify("Please Enter Comment");
+        }
+    }
+</script>

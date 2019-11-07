@@ -2,7 +2,7 @@
 
 <div class="container-fluid" style="text-align: left;">
     <h3 style="padding:10px;font-weight: bolder;">
-        Validator's Dashboard
+        Sub-Commitee's Dashboard
     </h3>
 </div>
 
@@ -26,9 +26,10 @@
                             <table class='table table-bordered datatable'>
                                 <thead>
                                     <th>Nominee Information</th>
-                                    <th>Nominator</th>
-                                    <th>Date</th>
-                                    <th>Points (Out of 18) </th>
+                                    <th>Nominators</th>
+                                    <th>Number of Nominations</th>
+                                    <th>Average Points (Out of 18)</th>
+                                    <th>Award Towards</th>
                                     <th>Justification & Attachments</th>
                                     <th>Action</th>
                                 </thead>
@@ -47,17 +48,19 @@
                                                 <p>Location :  <%= nominee.employee.location %></p>
                                             </td>
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
-                                            <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
-                                            <td><%= nomination.ratings.map(&:value).reduce(&:+)%></td>
+                                            <td class='action_td'><h2>3</h2></td>
+                                            <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                            <td><%= nomination.summary %></td>
                                             <td class='action_td'>
-                                                <button class='btn btn-primary btn-sm'>View Justification</button><br>
-                                                <button class='btn btn-primary btn-sm'>View Attachments</button>
+                                                Justifications
+                                                <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                Attachments
+                                                <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                             </td>
                                             <td class='action_td'>
-                                                <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" onclick="setNominationID('nomination_1')"> Forward <i class='material-icons'>send</i></button>
-                                                <hr>
-                                                <input type='text' class='form-control' name='pushback_reason' id='rsn_nomination_1' placeholder="Enter Reason for pushback">
-                                                <button class='btn btn-danger btn-sm' onclick="pushback('nomination_1') "><i class='material-icons'>undo</i> Pushback</button>
+                                                <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
+                                                <br>
+                                                <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
                                             </td>
                                         </tr>
                                     <% end %>
@@ -70,13 +73,14 @@
                     <div id="menu1" class="tab-pane fade">
                         <h3>The Best Employee</h3>
                         <div class='row'>
-                        <div class='col-md-12'>
+                            <div class='col-md-12'>
                             <table class='table table-bordered datatable'>
                                 <thead>
                                     <th>Nominee Information</th>
-                                    <th>Nominator</th>
-                                    <th>Date</th>
-                                    <th>Points (Out of 12) </th>
+                                    <th>Nominators</th>
+                                    <th>Number of Nominations</th>
+                                    <th>Average Points (Out of 18)</th>
+                                    <th>Award Towards</th>
                                     <th>Justification & Attachments</th>
                                     <th>Action</th>
                                 </thead>
@@ -95,23 +99,25 @@
                                                 <p>Location :  <%= nominee.employee.location %></p>
                                             </td>
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
-                                            <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
-                                            <td><%= nomination.ratings.map(&:value).reduce(&:+)%></td>
+                                            <td class='action_td'><h2>3</h2></td>
+                                            <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                            <td><%= nomination.summary %></td>
                                             <td class='action_td'>
-                                                <button class='btn btn-primary btn-sm'>View Justification</button><br>
-                                                <button class='btn btn-primary btn-sm'>View Attachments</button>
+                                                Justifications
+                                                <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                Attachments
+                                                <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                             </td>
                                             <td class='action_td'>
-                                                <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" onclick="setNominationID('nomination_1')"> Forward <i class='material-icons'>send</i></button>
-                                                <hr>
-                                                <input type='text' class='form-control' name='pushback_reason' id='rsn_nomination_1' placeholder="Enter Reason for pushback">
-                                                <button class='btn btn-danger btn-sm' onclick="pushback('nomination_1') "><i class='material-icons'>undo</i> Pushback</button>
+                                                <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
+                                                <br>
+                                                <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
                                             </td>
                                         </tr>
                                     <% end %>
                                 </tbody>
                             </table>
-                        </div>
+                            </div>
                         </div>
                     </div>
 
@@ -122,9 +128,10 @@
                                 <table class='table table-bordered datatable'>
                                     <thead>
                                         <th>Nominee Information</th>
-                                        <th>Nominator</th>
-                                        <th>Date</th>
-                                        <th>Points (Out of 12) </th>
+                                        <th>Nominators</th>
+                                        <th>Number of Nominations</th>
+                                        <th>Average Points (Out of 18)</th>
+                                        <th>Award Towards</th>
                                         <th>Justification & Attachments</th>
                                         <th>Action</th>
                                     </thead>
@@ -143,17 +150,19 @@
                                                     <p>Location :  <%= nominee.employee.location %></p>
                                                 </td>
                                                 <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
-                                                <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
-                                                <td><%= nomination.ratings.map(&:value).reduce(&:+)%></td>
+                                                <td class='action_td'><h2>3</h2></td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td><%= nomination.summary %></td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-primary btn-sm'>View Justification</button><br>
-                                                    <button class='btn btn-primary btn-sm'>View Attachments</button>
+                                                    Justifications
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    Attachments
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" onclick="setNominationID('nomination_1')"> Forward <i class='material-icons'>send</i></button>
-                                                    <hr>
-                                                    <input type='text' class='form-control' name='pushback_reason' id='rsn_nomination_1' placeholder="Enter Reason for pushback">
-                                                    <button class='btn btn-danger btn-sm' onclick="pushback('nomination_1') "><i class='material-icons'>undo</i> Pushback</button>
+                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
+                                                    <br>
+                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
                                                 </td>
                                             </tr>
                                         <% end %>
@@ -169,17 +178,17 @@
                             <div class='col-md-12'>
                                 <table class='table table-bordered datatable'>
                                     <thead>
-                                        <th>Nominees</th>
-                                        <th>Nominator</th>
-                                        <th>Date</th>
-                                        <th>Points (Out of 9) </th>
+                                        <th>Nominee Information</th>
+                                        <th>Nominators</th>
+                                        <th>Number of Nominations</th>
+                                        <th>Average Points (Out of 18)</th>
+                                        <th>Award Towards</th>
                                         <th>Justification & Attachments</th>
                                         <th>Action</th>
                                     </thead>
                                     <tbody>
                                         <% @best_team_nominations.each do |nomination| %>
                                             <tr id=<%= "nomination_#{nomination.id}"%>>
-                                                <%# nominee = nomination.nominees.last.user %>
                                                 <td>
                                                     <% nomination.nominees.each_with_index do |nominee, index| %>
                                                         <% nominee = nominee.user %>
@@ -190,17 +199,19 @@
                                                     <% end %>
                                                 </td>
                                                 <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
-                                                <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
-                                                <td><%= nomination.ratings.map(&:value).reduce(&:+)%></td>
+                                                <td class='action_td'><h2>3</h2></td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td><%= nomination.summary %></td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-primary btn-sm'>View Justification</button><br>
-                                                    <button class='btn btn-primary btn-sm'>View Attachments</button>
+                                                    Justifications
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    Attachments
+                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" onclick="setNominationID('nomination_1')"> Forward <i class='material-icons'>send</i></button>
-                                                    <hr>
-                                                    <input type='text' class='form-control' name='pushback_reason' id='rsn_nomination_1' placeholder="Enter Reason for pushback">
-                                                    <button class='btn btn-danger btn-sm' onclick="pushback('nomination_1') "><i class='material-icons'>undo</i> Pushback</button>
+                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
+                                                    <br>
+                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
                                                 </td>
                                             </tr>
                                         <% end %>
@@ -209,25 +220,42 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Forward Modal-->
+    <!-- Accept/Reject Modal-->
 <div id="myModal" class="modal">
     <!-- Modal content -->
     <div class="modal-content">
         <span class="close">&times;</span>
-        
-        <h5>Enter a few key highlights in bulletins.</h5>
-        <textarea name='highlights' id='highlights' placeholder="Enter A few key highlight points"></textarea>
-        <button onclick="doForward()" class='btn btn-success'>Forward <i class='material-icons'>send</i></button>
+        <div class='row'>
+        <div class='col-md-6'>
+        <h5>Reason/Comments for <span class='action_mode'></span></h5>
+        <textarea name='comments' id='comments'></textarea>
+        </div>
+        <div class='col-md-6'></div>
+        <h5><span class='action_mode'></span> recommended By</h5>
+        <select name='subcommittee_list' multiple style='width: auto;'>
+            <option>Member 1</option>
+            <option>Member 2</option>
+            <option>Member 3</option>
+            <option>Member 4</option>
+        </select>
+        </div>
+        <button name='action_button' class='btn pull-right' onclick="doAction()"></button>
+        </div>
     </div>
+
 </div>
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <script>
+    $(document).ready(function() {
+        //$('.datatable').datatable();
+        CKEDITOR.replace('comments');
+        $('select').select2({'placeholder':'Select Members'});
+    });
     var span = document.getElementsByClassName("close")[0];
     var modal = document.getElementById("myModal");
     span.onclick = function() {
@@ -246,44 +274,56 @@
         modal.style.display = "none";
     }
 
-    $(document).ready(function() {
-        CKEDITOR.replace('highlights');
-    });
-
-    function doSwitch(mode) {
+    function doSwitch(mode){
         $('.tab-pane').removeClass('in active');
         $('#'+mode).addClass('in active');
         $('.tab').parent().removeClass('active');
         $('#btn'+mode).parent().addClass('active');
     }
     var nomination_id = -1;
+    var action_mode = '';
     
-    function setNominationID(id){
-        showModal();
+    function approve(id) {
         nomination_id = id;
+        action_mode = 'a';
+        makeup();
     }
 
-    function doForward() {
-        var highlights = CKEDITOR.instances.highlights.getData();
-        if(highlights.includes('<ul>') && highlights.includes("<li>")){
-            //$.ajax on success
-            closeModal();
-            $('#'+nomination_id).fadeOut();
-            $.notify("Nomination forwarded successfully","success");
-        }else{
-            $.notify('Highligts must be in Bulletin format');
-        }
+    function reject(id) {
+        nomination_id = id;
+        action_mode = 'r';
+        makeup();
     }
 
-    function pushback(nomination_id) {
-        var reason = $('#rsn_'+nomination_id).val();
-        if(!reason.trim()) {
-            $.notify("Please enter reason for pushback");
-            $('#rsn_'+nomination_id).focus();
-            return;
+    function makeup() {
+        if(action_mode == 'a') {
+            $('.action_mode').html("Approval");
+            $('button[name=action_button]').removeClass('btn-danger').addClass('btn-success').html("Approve");
+        } else {
+            $('.action_mode').html("Rejection");
+            $('button[name=action_button]').removeClass('btn-success').addClass('btn-danger').html("Reject");
         }
-        //$.ajax on success
-        $('#'+nomination_id).fadeOut();
-        $.notify("Nomination pushed back successfully","success");
+        showModal();
+    }
+
+    function doAction()
+    {
+        var comments = CKEDITOR.instances.comments.getData();
+        var list_of_memebers = $('select[name=subcommittee_list]').val();
+        if(comments) {
+            if(list_of_memebers != ''){
+                //$.ajax on success
+                closeModal();
+                $('#'+nomination_id).fadeOut();
+                if(action_mode == 'a')
+                $.notify("Nomination Approved","success");
+                else 
+                $.notify("Nomination Rejected","success");
+            } else {
+                $.notify('Please Select Members');
+            }
+        } else {
+            $.notify('Please Enter Comment');
+        }
     }
 </script>
