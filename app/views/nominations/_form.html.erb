@@ -9,14 +9,19 @@
                   <div class='col-md-12'>
                       <div class="form-group label">
                           <label class="control-label ">Select Award Type</label>
-                          <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {class: "form-control"}%>
+                          <% if params[:action] == "new" %>
+                            <%= form.select :award_id, options_from_collection_for_select(@awards[1..-1], 'id', 'title'), {}, {class: "form-control"}%>
+                          <% else %>
+                            <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {:disabled => true, class: "form-control"}%>
+                            <%= form.hidden_field :award_id, :value => @award.id %>
+                          <% end %>
                       </div>
                   </div>
                   <div class='col-md-12'>
                       <div class="form-group label">
                         <%= form.fields_for :nominees do |s| %>
                           <label class="control-label ">Select Nominee</label>
-                          <%= s.select :user_id, options_from_collection_for_select(@users, 'id', 'emp_code'), {}, {class: "form-control"}%>
+                          <%= s.select :user_id, options_from_collection_for_select(@users, 'id', 'emp_code'), {include_hidden: false}, {:multiple => true, class: "form-control"}%>
                         <% end %>
                       </div>
                   </div>
@@ -75,10 +80,12 @@
                               </td>
                           </tr>
                           <% end %>
-                          <tr class='table_total_tr'>
-                            <td style='width: 75%'>Total</td>
-                            <td id='aw1_total'>0</td>
-                          </tr>
+                          <% unless params[:action] == "new" %>
+                            <tr class='table_total_tr'>
+                                <td style='width: 75%'>Total</td>
+                                <td id='aw1_total'>0</td>
+                            </tr>
+                          <% end %>
                       </table>
                   </div>
                   <div class='col-md-12'>
@@ -114,6 +121,7 @@
     });
     $('#nomination_award_id').on('change', function() {
         var awardId = $(this).find(":selected").val();
+        $('.hidden').show();
         $.get('/nominations/load_rating_form/' + awardId, function(data, status){
             $('#rating-table').html(data);
         });

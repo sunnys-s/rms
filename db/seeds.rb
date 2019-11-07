@@ -38,7 +38,7 @@ end
 
 def create_award_masters
     awards = [
-        {title: "The Best Cross-Functional Team", ratings: []}, 
+        {title: "The Best Cross-Functional Team", ratings: ["Inception", "Execution", "Documentation"]}, 
         {title: "The Most Inspiring Leader", ratings: ["Innovation","Agility","Customer Focus","Ownership","Performance Delivery","Responsiveness"]}, 
         {title: "The Best Employee", ratings: ["Productivity","Quality","Cost Delivery","Safety & Morale"]}, 
         {title: "The Most Innovative Employee", ratings: ["Ideation","Implementation Benefits","Replication","Documentation"]},

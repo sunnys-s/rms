@@ -31,6 +31,19 @@ class NominationsController < ApplicationController
     # return
   end
 
+  def team_nomination
+    @cycle = Cycle.current_cycle
+    @awards = @cycle.awards
+    @users = User.all
+    @nomination = Nomination.new
+    @nomination.nominees.build
+    @award = @cycle.awards.find_by(award_master_id: AwardMaster.find_by(title: "The Best Cross-Functional Team").id)
+    @nomination.award = @award
+    @award.award_master.rating_scales.each do |rs|
+      @nomination.ratings.build(title: rs.title)
+    end
+  end
+
   def load_rating_form
     @award = Award.find(params[:award_id])
     @rating_scales = @award.award_master.rating_scales
@@ -44,8 +57,15 @@ class NominationsController < ApplicationController
   # POST /nominations
   # POST /nominations.json
   def create
+    # render json: params
+    # return
     @nomination = Nomination.new(nomination_params)
-
+    if params[:nomination][:nominees_attributes]["0"]["user_id"].class.to_s == "Array"
+      @nomination.nominees.destroy_all
+      params[:nomination][:nominees_attributes]["0"]["user_id"].each do |u|
+        @nomination.nominees.new(user_id: u)
+      end
+    end
     respond_to do |format|
       if @nomination.save
         format.html { redirect_to @nomination, notice: 'Nomination was successfully created.' }
@@ -92,8 +112,8 @@ class NominationsController < ApplicationController
     def nomination_params
       params.require(:nomination).permit(
         :award_id, :nomination_type, 
-        :nominator_id, :date, 
-        ratings_attributes: [:id, :title, :nomination_id, :value, :justification, :_destroy], 
+        :nominator_id, :date, :justification,
+        ratings_attributes: [:id, :title, :nomination_id, :value, :_destroy], 
         nominees_attributes: [:id, :nomination_id, :user_id, :emp_code, :_destroy],
         nomination_attachments_attributes: [:id, :nomination_id, :attachment, :destroy]
       )

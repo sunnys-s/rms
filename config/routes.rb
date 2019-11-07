@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       get '/load_rating_form/:award_id' => 'nominations#load_rating_form'
     end
   end
+  get '/team_nominations/new' => 'nominations#team_nomination'
   resources :award_masters
   resources :cycles
   devise_for :users
