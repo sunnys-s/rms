@@ -4,8 +4,18 @@ Rails.application.routes.draw do
     collection do
       get '/load_rating_form/:award_id' => 'nominations#load_rating_form'
     end
+    member do
+      post 'push_back'
+      post 'forward'
+      post 'l1_approval'
+      post 'l2_approval'
+    end
   end
+  
+  get '/nominations/:id/pushback' => 'nominations#pushback'
   get '/team_nominations/new' => 'nominations#team_nomination'
+  post '/awards/:id/add_comment_to_award' => 'award#add_comment_to_award'
+
   resources :award_masters
   resources :cycles
   devise_for :users

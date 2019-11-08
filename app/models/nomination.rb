@@ -12,6 +12,7 @@ class Nomination < ApplicationRecord
   state_machine do
     state :draft, initial: true
     state :review_pending
+    state :pushed_back
     state :l1_review_pending
     state :l2_review_pending
     state :final_review_pending
@@ -23,7 +24,7 @@ class Nomination < ApplicationRecord
     state :rejected
 
     event :request_review do
-      transitions from: [:draft, :rejected], to: :review_pending
+      transitions from: [:draft, :pushed_back], to: :review_pending
     end
 
     event :approve do
@@ -32,6 +33,30 @@ class Nomination < ApplicationRecord
 
     event :reject do
       transitions from: :final_review_pending, to: :rejected
+    end
+
+    event :push_back do
+      transitions from: [:draft, :review_pending], to: :pushed_back
+    end
+
+    event :forward do
+      transitions from: [:draft, :review_pending], to: :l1_review_pending
+    end
+
+    event :l1_approve do
+      transitions from: :l1_review_pending, to: :l2_review_pending
+    end
+
+    event :l1_reject do
+      transitions from: :l1_review_pending, to: :rejected
+    end
+
+    event :l2_approve do
+      transitions from: :l2_review_pending, to: :approved
+    end
+
+    event :l2_reject do
+      transitions from: :l2_review_pending, to: :rejected
     end
   end
 end

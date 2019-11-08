@@ -13,27 +13,39 @@ class HomesController < ApplicationController
   def l1_dashboard
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
-    @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations
-    @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations
-    @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations
-    @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations
+    states = ["l1_review_pending", "l2_review_pending", "rejected"]
+    @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations.where(:state => states)
+    @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations.where(:state => states)
+    @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(:state => states)
+    @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations.where(:state => states)
+    @commitee_members = @cycle.commitees.find_by(level: "Level 1").commitee_members.map{|i| i.user.employee}.flatten
+    # render json: @commitee_members
+    # return
   end
 
   def l2_dashboard
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
-    @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations
-    @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations
-    @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations
-    @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations
+    states = ["l2_review_pending", "approved", "rejected"]
+    @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations.where(:state => states)
+    @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations.where(:state => states)
+    @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(:state => states)
+    @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations.where(:state => states)
+    @commitee_members = @cycle.commitees.find_by(level: "Appex").commitee_members.map{|i| i.user.employee}.flatten
   end
 
   def chairman_dashboard
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
-    @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations
-    @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations
-    @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations
-    @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations
+    states = ["approved"]
+    @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations.where(:state => states)
+    @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations.where(:state => states)
+    @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(:state => states)
+    @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations.where(:state => states)
+
+    @most_inspiring_leaders_verdict = @awards.find_by(title: "The Most Inspiring Leader").final_verdict
+    @best_employee_verdict = @awards.find_by(title: "The Best Employee").final_verdict
+    @most_innovative_employee_verdict = @awards.find_by(title: "The Most Innovative Employee").final_verdict
+    @best_team_verdict = @awards.find_by(title: "The Most Innovative Employee").final_verdict
   end
 end

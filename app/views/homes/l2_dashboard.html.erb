@@ -19,12 +19,7 @@
                     <div id="menu4" class="tab-pane fade">
                     <h3>Enter your final comments for Chairman's Approval</h3>
                     Select Award<br>
-                    <select name='award'>
-                        <option>The Most Inspiring Leader</option>
-                        <option>The Best Employee</option>
-                        <option>The Most Innovative Employee</option>
-                        <option>The Best Cross-Functional Team</option>
-                    </select>
+                    <%= select_tag "award", options_from_collection_for_select(@awards, 'id', 'title'), {id: "award"} %>
                     <br><br>
                         <textarea name='comments' id='comments'></textarea>
                         <button class='btn btn-lg btn-success' onclick="submitVerdict()">Update</button>
@@ -47,7 +42,7 @@
                                     </thead>
                                     <tbody>
                                         <% @most_inspiring_leaders_nominations.each do |nomination| %>
-                                            <tr id='nomination_2'>
+                                            <tr id=<%=  nomination.id %>>
                                                 <% nominee = nomination.nominees.last.user %>
                                                 <td>
                                                     <p>Name : <%= nominee.employee.name %></p>
@@ -60,14 +55,20 @@
                                                     <p>Location :  <%= nominee.employee.location %></p>
                                                 </td>
                                                 <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
-                                                <td><%= nomination.summary %></td>
+                                                <td><%= raw(nomination.summary) %></td>
                                                 <td>
-                                                    <li>Member 1</li>
-                                                    <li>Member 2</li>
-                                                    <li>Member 3</li>
+                                                    <% if nomination.state != 'rejected' %>
+                                                        <% nomination.approvers.each do |r| %>
+                                                            <li><%= "#{Employee.find(r).name} (#{Employee.find(r).emp_code})" %></li>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <% nomination.rejectors.each do |r| %>
+                                                            <li><%= "#{Employee.find(r).name} (#{Employee.find(r).emp_code})" %></li>
+                                                        <% end %>
+                                                    <% end%>
                                                 </td>
                                                 <td>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat.
+                                                    <%= nomination.state != 'rejected' ? raw(nomination.l1_approval_reason) : raw(nomination.l1_rejection_reason) %>
                                                 </td>
                                                 <td class='action_td'>
                                                     Justifications
@@ -76,9 +77,17 @@
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
-                                                    <br>
-                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                    <% if nomination.state != 'approved' %>
+                                                        <% if nomination.state != 'rejected' %>
+                                                            <button class='btn btn-success btn-sm' onclick="approve(<%=  nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
+                                                            <br>
+                                                            <button class='btn btn-danger btn-sm' onclick="reject(<%=  nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                        <% else %>
+                                                            <h5>Rejected</h5>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <h5>Approved</h5>
+                                                    <% end %>
                                                 </td>
                                             </tr>
                                         <% end %>
@@ -105,7 +114,7 @@
                                     </thead>
                                     <tbody>
                                         <% @best_employee_nominations.each do |nomination| %>
-                                            <tr id='nomination_2'>
+                                            <tr id=<%=  nomination.id %>>
                                                 <% nominee = nomination.nominees.last.user %>
                                                 <td>
                                                     <p>Name : <%= nominee.employee.name %></p>
@@ -118,14 +127,20 @@
                                                     <p>Location :  <%= nominee.employee.location %></p>
                                                 </td>
                                                 <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
-                                                <td><%= nomination.summary %></td>
+                                                <td><%= raw(nomination.summary) %></td>
                                                 <td>
-                                                    <li>Member 1</li>
-                                                    <li>Member 2</li>
-                                                    <li>Member 3</li>
+                                                    <% if nomination.state != 'rejected' %>
+                                                        <% nomination.approvers.each do |r| %>
+                                                            <li><%= "#{Employee.find(r).name} (#{Employee.find(r).emp_code})" %></li>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <% nomination.rejectors.each do |r| %>
+                                                            <li><%= "#{Employee.find(r).name} (#{Employee.find(r).emp_code})" %></li>
+                                                        <% end %>
+                                                    <% end%>
                                                 </td>
                                                 <td>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat.
+                                                    <%= nomination.state != 'rejected' ? raw(nomination.l1_approval_reason) : raw(nomination.l1_rejection_reason) %>
                                                 </td>
                                                 <td class='action_td'>
                                                     Justifications
@@ -134,9 +149,17 @@
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
-                                                    <br>
-                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                    <% if nomination.state != 'approved' %>
+                                                        <% if nomination.state != 'rejected' %>
+                                                            <button class='btn btn-success btn-sm' onclick="approve(<%=  nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
+                                                            <br>
+                                                            <button class='btn btn-danger btn-sm' onclick="reject(<%=  nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                        <% else %>
+                                                            <h5>Rejected</h5>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <h5>Approved</h5>
+                                                    <% end %>
                                                 </td>
                                             </tr>
                                         <% end %>
@@ -165,7 +188,7 @@
                                     </thead>
                                     <tbody>
                                         <% @most_innovative_employee_nominations.each do |nomination| %>
-                                            <tr id='nomination_2'>
+                                            <tr id=<%=  nomination.id %>>
                                                 <% nominee = nomination.nominees.last.user %>
                                                 <td>
                                                     <p>Name : <%= nominee.employee.name %></p>
@@ -178,14 +201,20 @@
                                                     <p>Location :  <%= nominee.employee.location %></p>
                                                 </td>
                                                 <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
-                                                <td><%= nomination.summary %></td>
+                                                <td><%= raw(nomination.summary) %></td>
                                                 <td>
-                                                    <li>Member 1</li>
-                                                    <li>Member 2</li>
-                                                    <li>Member 3</li>
+                                                    <% if nomination.state != 'rejected' %>
+                                                        <% nomination.approvers.each do |r| %>
+                                                            <li><%= "#{Employee.find(r).name} (#{Employee.find(r).emp_code})" %></li>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <% nomination.rejectors.each do |r| %>
+                                                            <li><%= "#{Employee.find(r).name} (#{Employee.find(r).emp_code})" %></li>
+                                                        <% end %>
+                                                    <% end%>
                                                 </td>
                                                 <td>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat.
+                                                    <%= nomination.state != 'rejected' ? raw(nomination.l1_approval_reason) : raw(nomination.l1_rejection_reason) %>
                                                 </td>
                                                 <td class='action_td'>
                                                     Justifications
@@ -194,9 +223,17 @@
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
-                                                    <br>
-                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                    <% if nomination.state != 'approved' %>
+                                                        <% if nomination.state != 'rejected' %>
+                                                            <button class='btn btn-success btn-sm' onclick="approve(<%=  nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
+                                                            <br>
+                                                            <button class='btn btn-danger btn-sm' onclick="reject(<%=  nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                        <% else %>
+                                                            <h5>Rejected</h5>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <h5>Approved</h5>
+                                                    <% end %>
                                                 </td>
                                             </tr>
                                         <% end %>
@@ -224,7 +261,7 @@
                                     </thead>
                                     <tbody>
                                         <% @best_team_nominations.each do |nomination| %>
-                                            <tr id='nomination_2'>
+                                            <tr id=<%=  nomination.id %>>
                                                  <td>
                                                     <% nomination.nominees.each_with_index do |nominee, index| %>
                                                         <% nominee = nominee.user %>
@@ -235,14 +272,20 @@
                                                     <% end %>
                                                 </td>
                                                 <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
-                                                <td><%= nomination.summary %></td>
+                                                <td><%= raw(nomination.summary) %></td>
                                                 <td>
-                                                    <li>Member 1</li>
-                                                    <li>Member 2</li>
-                                                    <li>Member 3</li>
+                                                    <% if nomination.state != 'rejected' %>
+                                                        <% nomination.approvers.each do |r| %>
+                                                            <li><%= "#{Employee.find(r).name} (#{Employee.find(r).emp_code})" %></li>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <% nomination.rejectors.each do |r| %>
+                                                            <li><%= "#{Employee.find(r).name} (#{Employee.find(r).emp_code})" %></li>
+                                                        <% end %>
+                                                    <% end%>
                                                 </td>
                                                 <td>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur finibus odio et ante dapibus, vel faucibus urna tristique. Maecenas non libero mi. Sed ullamcorper dui finibus sapien placerat egestas. Morbi in massa ornare augue sodales iaculis. Sed sollicitudin, lectus ac ultrices euismod, tellus metus accumsan orci, et placerat erat tellus vel erat.
+                                                    <%= nomination.state != 'rejected' ? raw(nomination.l1_approval_reason) : raw(nomination.l1_rejection_reason) %>
                                                 </td>
                                                 <td class='action_td'>
                                                     Justifications
@@ -251,9 +294,17 @@
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
-                                                    <br>
-                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                    <% if nomination.state != 'approved' %>
+                                                        <% if nomination.state != 'rejected' %>
+                                                            <button class='btn btn-success btn-sm' onclick="approve(<%=  nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
+                                                            <br>
+                                                            <button class='btn btn-danger btn-sm' onclick="reject(<%=  nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                        <% else %>
+                                                            <h5>Rejected</h5>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <h5>Approved</h5>
+                                                    <% end %>
                                                 </td>
                                             </tr>
                                         <% end %>
@@ -278,12 +329,7 @@
         <div class='row'>
             <div class='col-md-12'>
                 <h5><span class='action_mode'></span> recommended By</h5>
-                <select name='subcommittee_list' multiple style='width: auto;'>
-                    <option>Member 1</option>
-                    <option>Member 2</option>
-                    <option>Member 3</option>
-                    <option>Member 4</option>
-                </select>
+                <%= select_tag "subcommittee_list", options_from_collection_for_select(@commitee_members, 'user_id', 'emp_code'), {id: "commitee_member", multiple: true, style: 'width: 200px'} %>
             </div>
         </div>
         <br>
@@ -294,7 +340,8 @@
 <script>
     $(document).ready(function() {
         CKEDITOR.replace('comments');
-        $('select').select2({'placeholder':'Select Members'});
+        $('#commitee_member').select2({'placeholder':'Select Members'});
+        $('#award').select2({'placeholder':'Select Members'});
     });
     var span = document.getElementsByClassName("close")[0];
     var modal = document.getElementById("myModal");
@@ -353,15 +400,49 @@
     }
 
     function doAction() {
-        var list_of_memebers = $('select[name=subcommittee_list]').val();
+        var list_of_memebers = $('#commitee_member').val();
+        var url = '/nominations/' + nomination_id + '/l2_approval';
         if(list_of_memebers != ''){
             //$.ajax on success
             closeModal();
             $('#'+nomination_id).fadeOut();
-            if(action_mode == 'a')
-            $.notify("Nomination Approved","success");
-            else 
-            $.notify("Nomination Rejected","success");
+            if(action_mode == 'a'){
+                var data = {
+                    members: list_of_memebers,
+                    action_mode: 'approve'
+                }
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        //$.ajax on success
+                        closeModal();
+                        $('#commitee_member').val(null).trigger('change');
+                        $.notify("Nomination Approved","success");
+                    },
+                });
+            } else {
+                var data = {
+                    members: list_of_memebers,
+                    action_mode: 'reject'
+                }
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: JSON.stringify(data),
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    success: function (data) {
+                        //$.ajax on success
+                        closeModal();
+                        $('#commitee_member').val(null).trigger('change');
+                        $.notify("Nomination Rejected","success");
+                    },
+                });
+            }
         } else{
             $.notify('Please Select Members');
         }
@@ -370,9 +451,27 @@
 
     function submitVerdict() {
         var comments = CKEDITOR.instances.comments.getData();
+        var award_id = $('#award').val();
+        var url = '/awards/' + award_id + '/add_comment_to_award'
         if(comments){
+            var data = {
+                final_verdict_text: comments
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    //$.ajax on success
+                    closeModal();
+                    $('#award').val(null).trigger('change');
+                    CKEDITOR.instances.comments.setData('');
+                    $.notify("Comment Updated Successfully","success")
+                },
+            });
         //$.ajax on success
-            $.notify("Comment Updated Successfully","success")
         }else{
             $.notify("Please Enter Comment");
         }

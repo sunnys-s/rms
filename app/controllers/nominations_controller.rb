@@ -1,5 +1,6 @@
 class NominationsController < ApplicationController
-  before_action :set_nomination, only: [:show, :edit, :update, :destroy]
+  skip_before_action :verify_authenticity_token, only: [:push_back, :forward, :l1_approval, :l2_approval]
+  before_action :set_nomination, only: [:show, :edit, :update, :destroy, :push_back, :forward, :l1_approval, :l2_approval]
 
   # GET /nominations
   # GET /nominations.json
@@ -102,6 +103,68 @@ class NominationsController < ApplicationController
     end
   end
 
+  def pushback
+    render json: params
+    return
+  end
+
+  # POST /nominations/1/push_back
+  def push_back
+    @nomination.pushback_reason = params[:reason]
+    @nomination.save!
+    @nomination.push_back
+    render json: { message: "Pushed back successfully"}
+    return
+  end
+
+  # POST /nominations/1/forward
+  def forward
+    @nomination.summary = params[:summary]
+    @nomination.save!
+    @nomination.forward
+    render json: { message: "Pushed back successfully"}
+    return
+  end
+
+  def l1_approval
+    action_mode = params[:action_mode]
+    members = params[:members].map(&:to_i)
+    if action_mode == "approve"
+      @nomination.l1_approval_reason = params[:comments]
+      @nomination.approvers = members
+      @nomination.save
+      @nomination.l1_approve
+      render json: { message: "Approved Successfully"}
+      return
+    else
+      @nomination.l1_rejection_reason = params[:comments]
+      @nomination.rejectors = members
+      @nomination.save
+      @nomination.l1_reject
+      render json: { message: "Rejected Successfully"}
+      return
+    end  
+  end
+  
+  def l2_approval
+    action_mode = params[:action_mode]
+    members = params[:members].map(&:to_i)
+    if action_mode == "approve"
+      @nomination.approvers = @nomination.approvers + members
+      @nomination.save
+      @nomination.l2_approve
+      render json: { message: "Approved Successfully"}
+      return
+    else
+      @nomination.l1_rejection_reason = params[:comments]
+      @nomination.rejectors = members
+      @nomination.save
+      @nomination.l2_reject
+      render json: { message: "Rejected Successfully"}
+      return
+    end  
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_nomination

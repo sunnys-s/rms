@@ -50,7 +50,7 @@
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                             <td class='action_td'><h2>3</h2></td>
                                             <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
-                                            <td><%= nomination.summary %></td>
+                                            <td><%= raw(nomination.summary) %></td>
                                             <td class='action_td'>
                                                 Justifications
                                                 <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
@@ -58,9 +58,19 @@
                                                 <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                             </td>
                                             <td class='action_td'>
-                                                <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
-                                                <br>
-                                                <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                <% if nomination.state != 'l2_review_pending' %>
+                                                    <% if nomination.state != 'rejected' %>
+                                                        <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
+                                                        <br>
+                                                        <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                    <% else %>
+                                                        <h5>Rejected</h5>
+                                                        <%= raw(nomination.l1_rejection_reason)%>
+                                                    <% end %>
+                                                <% else %>
+                                                    <h5>Approved</h5>
+                                                    <%= raw(nomination.l1_approval_reason)%>
+                                                <% end %>
                                             </td>
                                         </tr>
                                     <% end %>
@@ -101,7 +111,7 @@
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                             <td class='action_td'><h2>3</h2></td>
                                             <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
-                                            <td><%= nomination.summary %></td>
+                                            <td><%= raw(nomination.summary) %></td>
                                             <td class='action_td'>
                                                 Justifications
                                                 <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
@@ -109,9 +119,19 @@
                                                 <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                             </td>
                                             <td class='action_td'>
-                                                <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
-                                                <br>
-                                                <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                <% if nomination.state != 'l2_review_pending' %>
+                                                    <% if nomination.state != 'rejected' %>
+                                                        <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
+                                                        <br>
+                                                        <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                    <% else %>
+                                                        <h5>Rejected</h5>
+                                                        <%= raw(nomination.l1_rejection_reason)%>
+                                                    <% end %>
+                                                <% else %>
+                                                    <h5>Approved</h5>
+                                                    <%= raw(nomination.l1_approval_reason)%>
+                                                <% end %>
                                             </td>
                                         </tr>
                                     <% end %>
@@ -152,7 +172,7 @@
                                                 <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                                 <td class='action_td'><h2>3</h2></td>
                                                 <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
-                                                <td><%= nomination.summary %></td>
+                                                <td><%= raw(nomination.summary) %></td>
                                                 <td class='action_td'>
                                                     Justifications
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
@@ -160,9 +180,19 @@
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
-                                                    <br>
-                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                    <% if nomination.state != 'l2_review_pending' %>
+                                                        <% if nomination.state != 'rejected' %>
+                                                            <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
+                                                            <br>
+                                                            <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                        <% else %>
+                                                            <h5>Rejected</h5>
+                                                            <%= raw(nomination.l1_rejection_reason)%>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <h5>Approved</h5>
+                                                        <%= raw(nomination.l1_approval_reason)%>
+                                                    <% end %>
                                                 </td>
                                             </tr>
                                         <% end %>
@@ -201,7 +231,7 @@
                                                 <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                                 <td class='action_td'><h2>3</h2></td>
                                                 <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
-                                                <td><%= nomination.summary %></td>
+                                                <td><%= raw(nomination.summary) %></td>
                                                 <td class='action_td'>
                                                     Justifications
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
@@ -209,9 +239,20 @@
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-success btn-sm' onclick="approve('nomination_2')"> Approve <i class='material-icons'>done</i></button>
-                                                    <br>
-                                                    <button class='btn btn-danger btn-sm' onclick="reject('nomination_2') ">Reject <i class='material-icons'>clear</i></button>
+                                                    <% if nomination.state != 'l2_review_pending' %>
+                                                        <% if nomination.state != 'rejected' %>
+                                                            <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
+                                                            <br>
+                                                            <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                        <% else %>
+                                                            <h5>Rejected</h5>
+                                                            <%= raw(nomination.l1_rejection_reason)%>
+                                                            <%= raw(nomination.l1_approval_reason)%>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <h5>Approved</h5>
+                                                        <%= raw(nomination.l1_approval_reason)%>
+                                                    <% end %>
                                                 </td>
                                             </tr>
                                         <% end %>
@@ -237,12 +278,7 @@
         </div>
         <div class='col-md-6'></div>
         <h5><span class='action_mode'></span> recommended By</h5>
-        <select name='subcommittee_list' multiple style='width: auto;'>
-            <option>Member 1</option>
-            <option>Member 2</option>
-            <option>Member 3</option>
-            <option>Member 4</option>
-        </select>
+        <%= select_tag "subcommittee_list", options_from_collection_for_select(@commitee_members, 'user_id', 'emp_code'), {id: "commitee_member", multiple: true, style: 'width: 200px'} %>
         </div>
         <button name='action_button' class='btn pull-right' onclick="doAction()"></button>
         </div>
@@ -254,7 +290,7 @@
     $(document).ready(function() {
         //$('.datatable').datatable();
         CKEDITOR.replace('comments');
-        $('select').select2({'placeholder':'Select Members'});
+        $('#commitee_member').select2({'placeholder':'Select Members'});
     });
     var span = document.getElementsByClassName("close")[0];
     var modal = document.getElementById("myModal");
@@ -309,16 +345,57 @@
     function doAction()
     {
         var comments = CKEDITOR.instances.comments.getData();
-        var list_of_memebers = $('select[name=subcommittee_list]').val();
+        var list_of_memebers = $('#commitee_member').val();
+        var url = '/nominations/' + nomination_id + '/l1_approval'; 
         if(comments) {
             if(list_of_memebers != ''){
                 //$.ajax on success
-                closeModal();
+                // closeModal();
                 $('#'+nomination_id).fadeOut();
-                if(action_mode == 'a')
-                $.notify("Nomination Approved","success");
-                else 
-                $.notify("Nomination Rejected","success");
+                if(action_mode == 'a'){
+                    var data = {
+                        members: list_of_memebers,
+                        comments: comments,
+                        action_mode: 'approve'
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            //$.ajax on success
+                            closeModal();
+                            // $('#'+nomination_id).fadeOut();
+                            $('#commitee_member').val(null).trigger('change');
+                            CKEDITOR.instances.comments.setData('');
+                            $.notify("Nomination Approved","success");
+                        },
+                    });
+        
+                } else {
+                    var data = {
+                        members: list_of_memebers,
+                        comments: comments,
+                        action_mode: 'reject'
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            //$.ajax on success
+                            closeModal();
+                            CKEDITOR.instances.comments.setData('');
+                            $('#commitee_member').val(null).trigger('change');
+                            $.notify("Nomination forwarded successfully","success");
+                        },
+                    });
+                    $.notify("Nomination Rejected","success");
+                } 
             } else {
                 $.notify('Please Select Members');
             }

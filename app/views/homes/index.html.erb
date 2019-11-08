@@ -54,10 +54,20 @@
                                                 <button class='btn btn-primary btn-sm'>View Attachments</button>
                                             </td>
                                             <td class='action_td'>
-                                                <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" onclick="setNominationID('nomination_1')"> Forward <i class='material-icons'>send</i></button>
-                                                <hr>
-                                                <input type='text' class='form-control' name='pushback_reason' id='rsn_nomination_1' placeholder="Enter Reason for pushback">
-                                                <button class='btn btn-danger btn-sm' onclick="pushback('nomination_1') "><i class='material-icons'>undo</i> Pushback</button>
+                                                <% if nomination.state != 'l1_review_pending' %>
+                                                    <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" data-nomination-id="<%= nomination.id %>" onclick="setNominationID(<%= nomination.id %>)"> Forward <i class='material-icons'>send</i></button>
+                                                    <hr>
+                                                    <% if nomination.state != 'pushed_back' and  nomination.state != 'l1_review_pending' %>
+                                                        <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
+                                                        <button class='btn btn-danger btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
+                                                    <% else %>
+                                                        <h5>Pushed Back</h5>
+                                                        <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
+                                                    <% end %>
+                                                <% else %>
+                                                    <h5>Forwarded</h5>
+                                                    <p><strong>Highligts: </strong><br/><%= raw nomination.summary %><p>
+                                                <% end %>
                                             </td>
                                         </tr>
                                     <% end %>
@@ -102,10 +112,20 @@
                                                 <button class='btn btn-primary btn-sm'>View Attachments</button>
                                             </td>
                                             <td class='action_td'>
-                                                <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" onclick="setNominationID('nomination_1')"> Forward <i class='material-icons'>send</i></button>
-                                                <hr>
-                                                <input type='text' class='form-control' name='pushback_reason' id='rsn_nomination_1' placeholder="Enter Reason for pushback">
-                                                <button class='btn btn-danger btn-sm' onclick="pushback('nomination_1') "><i class='material-icons'>undo</i> Pushback</button>
+                                                <% if nomination.state != 'l1_review_pending' %>
+                                                    <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" data-nomination-id="<%= nomination.id %>" onclick="setNominationID(<%= nomination.id %>)"> Forward <i class='material-icons'>send</i></button>
+                                                    <hr>
+                                                    <% if nomination.state != 'pushed_back' and  nomination.state != 'l1_review_pending' %>
+                                                        <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
+                                                        <button class='btn btn-danger btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
+                                                    <% else %>
+                                                        <h5>Pushed Back</h5>
+                                                        <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
+                                                    <% end %>
+                                                <% else %>
+                                                    <h5>Forwarded</h5>
+                                                    <p><strong>Highligts: </strong><br/><%= raw nomination.summary %><p>
+                                                <% end %>
                                             </td>
                                         </tr>
                                     <% end %>
@@ -150,10 +170,20 @@
                                                     <button class='btn btn-primary btn-sm'>View Attachments</button>
                                                 </td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" onclick="setNominationID('nomination_1')"> Forward <i class='material-icons'>send</i></button>
-                                                    <hr>
-                                                    <input type='text' class='form-control' name='pushback_reason' id='rsn_nomination_1' placeholder="Enter Reason for pushback">
-                                                    <button class='btn btn-danger btn-sm' onclick="pushback('nomination_1') "><i class='material-icons'>undo</i> Pushback</button>
+                                                    <% if nomination.state != 'l1_review_pending' %>
+                                                        <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" data-nomination-id="<%= nomination.id %>" onclick="setNominationID(<%= nomination.id %>)"> Forward <i class='material-icons'>send</i></button>
+                                                        <hr>
+                                                        <% if nomination.state != 'pushed_back' and  nomination.state != 'l1_review_pending' %>
+                                                            <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
+                                                            <button class='btn btn-danger btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
+                                                        <% else %>
+                                                            <h5>Pushed Back</h5>
+                                                            <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <h5>Forwarded</h5>
+                                                        <p><strong>Highligts: </strong><br/><%= raw nomination.summary %><p>
+                                                    <% end %>
                                                 </td>
                                             </tr>
                                         <% end %>
@@ -197,10 +227,21 @@
                                                     <button class='btn btn-primary btn-sm'>View Attachments</button>
                                                 </td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" onclick="setNominationID('nomination_1')"> Forward <i class='material-icons'>send</i></button>
-                                                    <hr>
-                                                    <input type='text' class='form-control' name='pushback_reason' id='rsn_nomination_1' placeholder="Enter Reason for pushback">
-                                                    <button class='btn btn-danger btn-sm' onclick="pushback('nomination_1') "><i class='material-icons'>undo</i> Pushback</button>
+                                                    <% if nomination.state != 'l1_review_pending' %>
+                                                        <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" data-nomination-id="<%= nomination.id %>" onclick="setNominationID(<%= nomination.id %>)"> Forward <i class='material-icons'>send</i></button>
+                                                        <hr>
+                                                        <% if nomination.state != 'pushed_back' and  nomination.state != 'l1_review_pending' %>
+                                                            <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
+                                                            <button class='btn btn-danger btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
+                                                        <% else %>
+                                                            <h5>Pushed Back</h5>
+                                                            <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <h5>Forwarded</h5>
+                                                        <p><strong>Highligts: </strong><br/><%= raw nomination.summary %><p>
+                                                    <% end %>
+                                                    
                                                 </td>
                                             </tr>
                                         <% end %>
@@ -266,24 +307,54 @@
     function doForward() {
         var highlights = CKEDITOR.instances.highlights.getData();
         if(highlights.includes('<ul>') && highlights.includes("<li>")){
-            //$.ajax on success
-            closeModal();
-            $('#'+nomination_id).fadeOut();
-            $.notify("Nomination forwarded successfully","success");
+            var url = '/nominations/' + nomination_id + '/forward'
+            var data = {
+                summary: highlights
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    //$.ajax on success
+                    closeModal();
+                    $('#'+nomination_id).fadeOut();
+                    CKEDITOR.instances.highlights.setData('');
+                    $.notify("Nomination forwarded successfully","success");
+                },
+            });
+            
         }else{
+            CKEDITOR.instances.highlights.setData('');
             $.notify('Highligts must be in Bulletin format');
         }
     }
 
     function pushback(nomination_id) {
-        var reason = $('#rsn_'+nomination_id).val();
+        var reason = $('#rsn_nomination_'+nomination_id).val();
+        var url = '/nominations/' + nomination_id + '/push_back'
+        var data = {
+            reason: reason
+        }
         if(!reason.trim()) {
             $.notify("Please enter reason for pushback");
             $('#rsn_'+nomination_id).focus();
             return;
         }
         //$.ajax on success
-        $('#'+nomination_id).fadeOut();
-        $.notify("Nomination pushed back successfully","success");
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: JSON.stringify(data),
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                $('#target').html(data.msg);
+                $('#nomination_'+nomination.id).fadeOut();
+                $.notify("Nomination pushed back successfully","success");
+            },
+        });
     }
 </script>
