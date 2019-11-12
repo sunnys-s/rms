@@ -19,8 +19,7 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  username: postgres
-  password: postgres
+  
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -29,6 +28,8 @@ default: &default
 development:
   <<: *default
   database: rms_development
+  username: postgres
+  password: postgres
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -84,7 +85,9 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: rms_production
-  username: rms
-  password: <%= ENV['RMS_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+# production:
+#   <<: *default
+#   database: rms_production
+#   username: rms
+#   password: <%#= ENV['RMS_DATABASE_PASSWORD'] %>
