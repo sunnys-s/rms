@@ -53,6 +53,9 @@ class NominationsController < ApplicationController
 
   # GET /nominations/1/edit
   def edit
+    @cycle = Cycle.current_cycle
+    @awards = @cycle.awards
+    @users = User.all
   end
 
   # POST /nominations

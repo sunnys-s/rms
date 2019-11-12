@@ -1,0 +1,100 @@
+<div class="content" style="margin-top:0px; min-height: 600px !important;">
+    <div class="container-fluid" id="main-form">
+        <h4>Add New Nominations</h4>
+        <div class="row">
+            <a href='/nominations/new' class='btn btn-large btn-success'>Add Individual Nomination</a>
+            <a href='/team_nominations/new' class='btn btn-large btn-success'>Add Team Nomination</a>
+        </div>
+        <h4>Nominations Added By You</h4>
+        <div class='row'>
+            <% @my_default_nominees.each_with_index do |nominee, index| %>
+                <div class='col-md-4'>
+                    <div class='card' >
+                        <div class='card-header'  data-background-color='blue'>
+                            <b><%= "#{index + 1}. #{nominee.award.title}" %></b>
+                        </div>
+                        <div class='card-content point-div'>
+                            <% emp = nominee.nominees.last.user %>
+                            <h4><%= emp.employee.name %></h4>
+                            <h2 class='point point-indi'><%= nominee.ratings.map(&:value).reduce(&:+) %></h2>
+                            Points
+                        </div>
+                        <div class='card-footer'>
+                            <% if nominee.state == 'approved' %>
+                                <span class='label label-success'>Approved</span>
+                            <% elsif nominee.state == 'rejected' %>
+                                <span class='label label-danger'>Rejected</span>
+                            <% elsif nominee.state == 'pushed_back' %>
+                                <span class='label label-danger'>Pushed Back</span>
+                            <% else %>
+                                <span class='label label-info'>Pending</span>
+                            <% end %>
+                            <% if nominee.state != 'pushed_back' %>
+                                <button data-nomination-id=<%= nominee.id%> class='btn btn-sm btn-info pull-right show-nominee'><i class='material-icons'>remove_red_eye</i></button>
+                            <% else %>
+                                <button data-nomination-id=<%= nominee.id%> class='btn btn-sm btn-warning pull-right edit-nominee'><i class='material-icons'>create</i></button>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>   
+            <% end %>
+            <% @my_team_nominees.each_with_index do |nominee, index| %>
+                <div class='col-md-6'>
+                    <div class='card' >
+                        <div class='card-header'  data-background-color='purple'>
+                            <b><%= "#{index + 1}. #{nominee.award.title}" %></b>
+                        </div>
+                        <div class='card-content'>
+                            <div class='row'>
+                                <div class='col-md-9'>
+                                    <% nominee.nominees.each do |nn| %>
+                                        <div class='col-md-4 names-div'>
+                                            <p><%= nn.user.employee.name %></p>
+                                        </div>
+                                    <% end %>
+                                </div>
+                                
+                                <div class='col-md-3 point-div '>
+                                    <h2 class='point point-team'><%= nominee.ratings.map(&:value).reduce(&:+) %></h2>
+                                    <p>Points</p>
+                                </div>
+                            </div>
+                        </div>
+                         <div class='card-footer'>
+                            <% if nominee.state == 'approved' %>
+                                <span class='label label-success'>Approved</span>
+                            <% elsif nominee.state == 'rejected' %>
+                                <span class='label label-danger'>Rejected</span>
+                            <% elsif nominee.state == 'pushed_back' %>
+                                <span class='label label-danger'>Pushed Back</span>
+                            <% else %>
+                                <span class='label label-info'>Pending</span>
+                            <% end %>
+                            <% if nominee.state != 'pushed_back' %>
+                                <button data-nomination-id=<%= nominee.id%>  class='btn btn-sm btn-info pull-right show-nominee'><i class='material-icons'>remove_red_eye</i></button>
+                            <% else %>
+                                <button data-nomination-id=<%= nominee.id%> class='btn btn-sm btn-warning pull-right edit-nominee'><i class='material-icons'>create</i></button>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            
+        </div>
+        
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.edit-nominee').on('click', function(){
+            var nominationId = $(this).data('nomination-id');
+            window.location.href = '/nominations/' + nominationId + '/edit';
+        });
+
+        $('.show-nominee').on('click', function(){
+            var nominationId = $(this).data('nomination-id');
+            window.location.href = '/nominations/' + nominationId;
+        });
+    });
+</script>

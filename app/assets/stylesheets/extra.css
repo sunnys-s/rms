@@ -199,3 +199,29 @@ th{
     text-align:  center;
     font-weight: bolder;
   }
+
+.point-div
+{
+	text-align:center;
+}
+.point{
+	font-weight:bold;
+	font-size:50px;
+}
+.names-div{
+	text-align:center;
+}
+.names-div p{
+	border-radius:5px;
+	box-shadow:2px 2px 5px #bbb;
+	padding:5px;
+}
+
+.point-team{
+	color:#ab47bc;
+}
+
+.point-indi{
+	color:#26c6da;
+}
+

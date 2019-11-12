@@ -16,6 +16,7 @@ class HomesController < ApplicationController
     elsif(current_user.chairman?)
       redirect_to '/chairman_dashboard'
     else
+      redirect_to '/user_dashboard'
     end
   end
 
@@ -54,5 +55,20 @@ class HomesController < ApplicationController
     @best_employee_verdict = @awards.find_by(title: "The Best Employee").final_verdict
     @most_innovative_employee_verdict = @awards.find_by(title: "The Most Innovative Employee").final_verdict
     @best_team_verdict = @awards.find_by(title: "The Most Innovative Employee").final_verdict
+  end
+
+  def user_dashboard
+    @cycle = Cycle.current_cycle
+    @team_award = @cycle.awards.find_by(title: "The Best Cross-Functional Team")
+    @my_nominees = Nomination.where(nominator_id: current_user.id)
+    @my_default_nominees = []
+    @my_team_nominees = []
+    @my_nominees.each do |mn|
+      if mn.award_id == @team_award.id
+        @my_team_nominees << mn
+      else
+        @my_default_nominees << mn
+      end
+    end
   end
 end

@@ -9,7 +9,7 @@
                   <div class='col-md-12'>
                       <div class="form-group label">
                           <label class="control-label ">Select Award Type</label>
-                          <% if params[:action] == "new" %>
+                          <% if params[:action] != "team_nomination" %>
                             <%= form.select :award_id, options_from_collection_for_select(@awards[1..-1], 'id', 'title'), {}, {class: "form-control"}%>
                           <% else %>
                             <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {:disabled => true, class: "form-control"}%>

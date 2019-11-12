@@ -25,4 +25,5 @@ Rails.application.routes.draw do
   get '/l1_dashboard' => 'homes#l1_dashboard'
   get '/l2_dashboard' => 'homes#l2_dashboard'
   get '/chairman_dashboard' => 'homes#chairman_dashboard'
+  get '/user_dashboard' => 'homes#user_dashboard'
 end
