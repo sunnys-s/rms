@@ -15,7 +15,7 @@ def create_admin
         departments = ["HR", "Admin", "Finance", "IT"]
         locations = ["Mumbai", "Pune", "Vadodara"]
         e = Employee.new
-        e.emp_code = Faker::UniqueGenerator.clear
+        e.emp_code = Faker::Alphanumeric.alpha(number: 10)
         e.name = Faker::Name.name
         e.email = Faker::Internet.email
         e.sbu = sbus.sample
@@ -64,7 +64,7 @@ def create_user
     departments = ["HR", "Admin", "Finance", "IT"]
     locations = ["Mumbai", "Pune", "Vadodara"]
     e = Employee.new
-    e.emp_code = Faker::UniqueGenerator.clear
+    e.emp_code = Faker::Alphanumeric.alpha(number: 10)
     e.name = Faker::Name.name
     e.email = Faker::Internet.email
     e.sbu = sbus.sample
