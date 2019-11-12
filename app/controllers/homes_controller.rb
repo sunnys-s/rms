@@ -2,12 +2,21 @@ class HomesController < ApplicationController
   # GET /homes
   # GET /homes.json
   def index
-    @cycle = Cycle.current_cycle
-    @awards = @cycle.awards
-    @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations
-    @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations
-    @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations
-    @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations
+    if current_user.hr?
+      @cycle = Cycle.current_cycle
+      @awards = @cycle.awards
+      @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations
+      @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations
+      @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations
+      @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations
+    elsif(current_user.l1? or current_user.l1_rep?)
+      redirect_to '/l1_dashboard'
+    elsif(current_user.l1? or current_user.l2_rep?)
+      redirect_to '/l2_dashboard'
+    elsif(current_user.chairman?)
+      redirect_to '/chairman_dashboard'
+    else
+    end
   end
 
   def l1_dashboard
@@ -19,8 +28,6 @@ class HomesController < ApplicationController
     @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(:state => states)
     @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations.where(:state => states)
     @commitee_members = @cycle.commitees.find_by(level: "Level 1").commitee_members.map{|i| i.user.employee}.flatten
-    # render json: @commitee_members
-    # return
   end
 
   def l2_dashboard
