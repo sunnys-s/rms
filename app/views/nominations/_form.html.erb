@@ -131,4 +131,13 @@
             $('#rating-table').html(data);
         });
     });
+    $('#nomination_nominees_attributes_0_user_id').on('change', function(){
+        <% if params[:action] == 'team_nomination' %>
+            if ($('#nomination_nominees_attributes_0_user_id').select2('data').length < 2) {
+                // alert("Need at least one group");
+                // event.preventDefault();
+                $.notify("Need minimum two nominess","warning");
+            }
+        <% end %>
+    })
 </script>
