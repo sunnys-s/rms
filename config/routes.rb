@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       post 'forward'
       post 'l1_approval'
       post 'l2_approval'
+      post 'reject_single_nominee'
+      post 'chairman_approval'
     end
   end
   
