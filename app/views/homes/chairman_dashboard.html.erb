@@ -27,10 +27,10 @@
                                             <div class='card-header card-header-middle' data-background-color="orange">
                                                 <h4><%= nominee.employee.name %></h4>
                                             </div>
-                                            <div class='card-content'>
-                                                <%= nominee.employee.department %> <br>
-                                                <%= nominee.employee.emp_code %>
-                                                <%= image_tag(nominee.user.companies.last.logo.url, height: '12', width: '12') %>
+                                            <div class='card-content'>  
+                                                <p><%= nominee.employee.department %> </p>
+                                                <p><%= nominee.employee.emp_code %> </p>
+                                                <div class='pull-right'><%= image_tag(nominee.companies.last.logo.url,{class:'company_logo'}) %></div>
                                             </div>
                                         </div>
                                     </div>

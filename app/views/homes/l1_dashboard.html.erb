@@ -53,7 +53,7 @@
                                             <td><%= raw(nomination.summary) %></td>
                                             <td class='action_td'>
                                                 Justifications
-                                                <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 Attachments
                                                 <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                             </td>
@@ -114,7 +114,7 @@
                                             <td><%= raw(nomination.summary) %></td>
                                             <td class='action_td'>
                                                 Justifications
-                                                <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 Attachments
                                                 <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                             </td>
@@ -175,7 +175,7 @@
                                                 <td><%= raw(nomination.summary) %></td>
                                                 <td class='action_td'>
                                                     Justifications
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
                                                     Attachments
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
@@ -234,7 +234,7 @@
                                                 <td><%= raw(nomination.summary) %></td>
                                                 <td class='action_td'>
                                                     Justifications
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons' >remove_red_eye</i></button><br>
                                                     Attachments
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
@@ -272,18 +272,69 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <div class='row'>
-        <div class='col-md-6'>
-        <h5>Reason/Comments for <span class='action_mode'></span></h5>
-        <textarea name='comments' id='comments'></textarea>
-        </div>
-        <div class='col-md-6'></div>
-        <h5><span class='action_mode'></span> recommended By</h5>
-        <%= select_tag "subcommittee_list", options_from_collection_for_select(@commitee_members, 'user_id', 'emp_code'), {id: "commitee_member", multiple: true, style: 'width: 200px'} %>
-        </div>
-        <button name='action_button' class='btn pull-right' onclick="doAction()"></button>
+            <div class='col-md-6'>
+                <h5>Reason/Comments for <span class='action_mode'></span></h5>
+                <textarea name='comments' id='comments'></textarea>
+            </div>
+            <div class='col-md-6'>
+                <h5><span class='action_mode'></span> recommended By</h5>
+                <%= select_tag "subcommittee_list", options_from_collection_for_select(@commitee_members, 'user_id', 'emp_code'), {id: "commitee_member", multiple: true, style: 'width: 200px'} %>
+            </div>
+            <div class='col-md-12'>
+                <button class='btn pull-right btn-warning' onclick="openPreview()">Preview Before Submit</button>
+                <button name='action_button' class='btn pull-right' onclick="doAction()"></button>
+            </div>
         </div>
     </div>
 
+</div>
+<div id='previewModal' class='modal'>
+    <div class='modal-content'> 
+        <div class='row'>
+            <div class='col-md-12'>
+            <h5>Preview Before Submission</h5>
+            <table class="table table-bordered">
+                                <thead>
+                                   <tr><th>Nominee Information</th>
+                                        <th>Average Points (Out of 18)</th>
+                                        <th>Moderator’s Comment</th>
+                                        <th>Level 1 Committee’s Recommendations</th>
+                                        <th>Level 1 Committee’s Comment</th>
+                                        <th>Justification &amp; Attachments</th>
+                                    </tr></thead>
+                                <tbody>
+                                        <tr id="nomination_1">
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td> <div id='recommentdation' style='padding:20px;'></div></td>
+                                            <td><div id='recommendationComment' style='padding:20px;'></div></td>
+                                            <td></td>
+                                        </tr>
+                                </tbody>
+                            </table>
+           
+            </div>
+            <div class='pull-right'>
+                <button class='btn btn-danger' onclick='closePreview()'>Close</button>
+                 <button name='action_button' class='btn pull-right' onclick="doAction()"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id='justificationModal' class='modal'>
+    <div class='modal-content'>
+        <h5>Justification</h5>
+        <div class='row'>
+            <div class='col-md-12 justification-class'>
+                <span id='justificationHere'></span>
+            </div>
+            <div class='col-md-12 pull-right'>
+                <button class='btn btn-danger' onclick='closeJustification()'>Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <script>
@@ -294,7 +345,9 @@
     });
     var span = document.getElementsByClassName("close")[0];
     var modal = document.getElementById("myModal");
-    span.onclick = function() {
+    var previewModal = document.getElementById("previewModal");
+    var justificationModal = document.getElementById("justificationModal");
+        span.onclick = function() {
         modal.style.display = "none";
     }
     window.onclick = function(event) {
@@ -319,6 +372,26 @@
     var nomination_id = -1;
     var action_mode = '';
     
+    function openJustification(id)
+    {
+        var url = '/nominations/' + id + '/justification'
+        $.ajax({
+            type: "GET",
+            url: url,
+            contentType: 'application/json',
+            success: function (data) {
+                var justification = data.justification;
+                $('#justificationHere').html(justification);
+            },
+        });
+        justificationModal.style.display='block';
+    }
+
+    function closeJustification()
+    {
+        justificationModal.style.display='none';    
+    }
+
     function approve(id) {
         nomination_id = id;
         action_mode = 'a';
@@ -340,6 +413,23 @@
             $('button[name=action_button]').removeClass('btn-success').addClass('btn-danger').html("Reject");
         }
         showModal();
+    }
+
+    function openPreview()
+    {
+        var highlights = CKEDITOR.instances.comments.getData();
+        $('#recommendationComment').html(highlights);
+        var selected='';
+        $('#commitee_member :selected').each(function(){
+            selected = $(this).text()+"<br>";
+            });
+        $('#recommentdation').html(selected);
+        previewModal.style.display = "block";
+    }
+
+    function closePreview()
+    {
+        previewModal.style.display = "none";
     }
 
     function doAction()

@@ -1,6 +1,6 @@
 class NominationsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:push_back, :forward, :l1_approval, :l2_approval]
-  before_action :set_nomination, only: [:show, :edit, :update, :destroy, :push_back, :forward, :l1_approval, :l2_approval]
+  before_action :set_nomination, only: [:show, :edit, :update, :destroy, :push_back, :forward, :l1_approval, :l2_approval, :justification]
 
   # GET /nominations
   # GET /nominations.json
@@ -9,8 +9,13 @@ class NominationsController < ApplicationController
   end
 
   # GET /nominations/1
-  # GET /nominations/1.json
+  # GET /nominations/1.json 
   def show
+  end
+
+  def justification
+    #@nomination = Nomination.find(params[:id]
+    render json:{justification: @nomination.justification}
   end
 
   # GET /nominations/new

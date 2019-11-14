@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       post 'forward'
       post 'l1_approval'
       post 'l2_approval'
+      get 'justification'
     end
   end
   

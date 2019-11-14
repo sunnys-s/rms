@@ -239,5 +239,14 @@ li a p {
 body{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important;
 }
-
-
+.justification-class{
+    border:2px solid gray;
+    padding:20px;
+    max-height: 50vh;
+    overflow-y:scroll;
+}
+.company_logo{
+    width: 70px !important;
+    height: auto;
+    margin: 5px;
+}

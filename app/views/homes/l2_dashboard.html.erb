@@ -72,7 +72,7 @@
                                                 </td>
                                                 <td class='action_td'>
                                                     Justifications
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons' >remove_red_eye</i></button><br>
                                                     Attachments
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
@@ -144,7 +144,7 @@
                                                 </td>
                                                 <td class='action_td'>
                                                     Justifications
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons' >remove_red_eye</i></button><br>
                                                     Attachments
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
@@ -218,7 +218,7 @@
                                                 </td>
                                                 <td class='action_td'>
                                                     Justifications
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons' >remove_red_eye</i></button><br>
                                                     Attachments
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
@@ -289,7 +289,7 @@
                                                 </td>
                                                 <td class='action_td'>
                                                     Justifications
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons' >remove_red_eye</i></button><br>
                                                     Attachments
                                                     <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
@@ -327,24 +327,40 @@
     <div class="modal-content">
         <span class="close">&times;</span>
         <div class='row'>
-            <div class='col-md-12'>
+            <div class='col-md-6'>
                 <h5><span class='action_mode'></span> recommended By</h5>
                 <%= select_tag "subcommittee_list", options_from_collection_for_select(@commitee_members, 'user_id', 'emp_code'), {id: "commitee_member", multiple: true, style: 'width: 200px'} %>
             </div>
+            <div claa='col-md-6'>
+                <button name='action_button' class='btn pull-right' onclick="doAction()"></button>
+            </div>
         </div>
-        <br>
-        <button name='action_button' class='btn pull-right' onclick="doAction()"></button>
+    </div>
+</div>
+
+<div id='justificationModal' class='modal'>
+    <div class='modal-content'>
+        <h5>Justification</h5>
+        <div class='row'>
+            <div class='col-md-12 justification-class'>
+                <span id='justificationHere'></span>
+            </div>
+            <div class='col-md-12 pull-right'>
+                <button class='btn btn-danger' onclick='closeJustification()'>Close</button>
+            </div>
+        </div>
     </div>
 </div>
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <script>
     $(document).ready(function() {
-        CKEDITOR.replace('comments');
+        //CKEDITOR.replace('comments');
         $('#commitee_member').select2({'placeholder':'Select Members'});
         $('#award').select2({'placeholder':'Select Members'});
     });
     var span = document.getElementsByClassName("close")[0];
     var modal = document.getElementById("myModal");
+    var justificationModal = document.getElementById("justificationModal");
     span.onclick = function() {
         modal.style.display = "none";
     }
@@ -475,5 +491,27 @@
         }else{
             $.notify("Please Enter Comment");
         }
+
+
+    }
+
+    function openJustification(id)
+    {
+        var url = '/nominations/' + id + '/justification'
+        $.ajax({
+            type: "GET",
+            url: url,
+            contentType: 'application/json',
+            success: function (data) {
+                var justification = data.justification;
+                $('#justificationHere').html(justification);
+            },
+        });
+        justificationModal.style.display='block';
+    }
+
+    function closeJustification()
+    {
+        justificationModal.style.display='none';    
     }
 </script>
