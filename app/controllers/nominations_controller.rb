@@ -1,6 +1,6 @@
 class NominationsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:push_back, :forward, :l1_approval, :l2_approval]
-  before_action :set_nomination, only: [:show, :edit, :update, :destroy, :push_back, :forward, :l1_approval, :l2_approval]
+  before_action :set_nomination, only: [:show, :edit, :update, :destroy, :push_back, :forward, :l1_approval, :l2_approval, :reject_single_nominee]
 
   # GET /nominations
   # GET /nominations.json
@@ -147,6 +147,15 @@ class NominationsController < ApplicationController
       render json: { message: "Rejected Successfully"}
       return
     end  
+  end
+
+  def reject_single_nominee
+    @nominee = @nomination.nominees.find_by(user_id: params[:user_id])
+    @nominee.l1_rejection_reason = params[:reason]
+    @nominee.state = 'rejected'
+    @nominee.save
+    render json: { message: "Rejected Successfully"}
+    return
   end
   
   def l2_approval
