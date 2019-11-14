@@ -5,6 +5,13 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+def create_companies
+    companies = ["DNL", "DPL"]
+    companies.each do |c|
+        Company.create(name: c)
+    end
+end
+
 def create_admin
     u = User.find_by(email: "admin@linkwok.com")
     if u.nil?
@@ -27,6 +34,8 @@ def create_admin
     end
     role_master = RoleMaster.find_by(name: "admin")
     Role.create(user_id: u.id, role_master_id: role_master.id)
+    u.company_ids = Company.all.map(&:id)
+    u.save!
 end
 
 def create_role_masters
@@ -74,6 +83,8 @@ def create_user
     u = User.create!(emp_code: e.emp_code, email: e.email, password: "password", password_confirmation: "password")
     e.user_id = u.id
     e.save!
+    u.companies << Company.all.sample
+    u.save!
     role_master = RoleMaster.find_by(name: "user")
     Role.create(user_id: u.id, role_master_id: role_master.id)
     u

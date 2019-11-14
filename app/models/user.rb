@@ -9,6 +9,8 @@ class User < ApplicationRecord
   has_one :employee
   has_many :nominations, as: :nominator
 
+  has_and_belongs_to_many :companies
+
   def admin?
     self.role_masters.map(&:name).include?("admin")
     # true

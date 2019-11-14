@@ -28,8 +28,9 @@
                                                 <h4><%= nominee.employee.name %></h4>
                                             </div>
                                             <div class='card-content'>
-                                                    <%= nominee.employee.department %> <br>
-                                                    <%= nominee.employee.emp_code %>
+                                                <%= nominee.employee.department %> <br>
+                                                <%= nominee.employee.emp_code %>
+                                                <%= image_tag(nominee.user.companies.last.logo.url, height: '12', width: '12') %>
                                             </div>
                                         </div>
                                     </div>
@@ -57,6 +58,7 @@
                                             <div class='card-content'>
                                                     <%= nominee.employee.department %> <br>
                                                     <%= nominee.employee.emp_code %>
+                                                    <%= image_tag(nominee.user.companies.last.logo.url, height: '12', width: '12') %>
                                             </div>
                                         </div>
                                     </div>
@@ -83,6 +85,7 @@
                                             <div class='card-content'>
                                                     <%= nominee.employee.department %> <br>
                                                     <%= nominee.employee.emp_code %>
+                                                    <%= image_tag(nominee.user.companies.last.logo.url, height: '12', width: '12') %>
                                             </div>
                                         </div>
                                     </div>
@@ -109,7 +112,10 @@
                                                 <div class='row'>
                                                     <% nomination.nominees.each_with_index do |nominee, index| %>
                                                         <div class='col-md-4'>
-                                                            <p><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></p>
+                                                            <p>
+                                                                <%= "#{nominee.user.employee.name} (#{nominee.user.employee.emp_code})" %>
+                                                                <%= image_tag(nominee.user.companies.last.logo.url, height: '12', width: '12') %>
+                                                            </p>
                                                         </div>
                                                     <% end %>
                                                 </div>
