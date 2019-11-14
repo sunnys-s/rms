@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       post 'l1_approval'
       post 'l2_approval'
       get 'justification'
+      post 'reject_single_nominee'
+      post 'chairman_approval'
     end
   end
   
