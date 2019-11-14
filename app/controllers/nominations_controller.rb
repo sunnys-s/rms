@@ -17,7 +17,7 @@ class NominationsController < ApplicationController
   def new
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
-    @users = User.all
+    @users = User.all.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
     @nomination.nominees.build
     # if params[:award_id].nil?
@@ -35,7 +35,7 @@ class NominationsController < ApplicationController
   def team_nomination
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
-    @users = User.all
+    @users = User.all.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
     @nomination.nominees.build
     @award = @cycle.awards.find_by(award_master_id: AwardMaster.find_by(title: "The Best Cross-Functional Team").id)

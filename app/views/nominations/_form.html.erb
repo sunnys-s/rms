@@ -21,7 +21,12 @@
                       <div class="form-group label">
                         <%= form.fields_for :nominees do |s| %>
                           <label class="control-label ">Select Nominee</label>
-                          <%= s.select :user_id, options_from_collection_for_select(@users, 'id', 'emp_code'), {include_hidden: false}, {:multiple => true, class: "form-control"}%>
+                          <%#= s.select :user_id, options_from_collection_for_select(@users, 'id', "emp_code"), {include_hidden: false}, {:multiple => false, class: "form-control"}%>
+                          <% if params[:action] == 'new'%>
+                            <%= s.select :user_id, options_for_select(@users), {include_hidden: false}, {:multiple => false, class: "form-control"}%>
+                          <% else %>
+                            <%= s.select :user_id, options_for_select(@users), {include_hidden: false}, {:multiple => true, class: "form-control"}%>
+                          <% end %>
                         <% end %>
                       </div>
                   </div>
