@@ -144,6 +144,12 @@ class NominationsController < ApplicationController
       @nomination.l1_approve
       render json: { message: "Approved Successfully"}
       return
+    elsif action_mode == "pushback"
+      @nomination.pushback_reason = params[:comments]
+      @nomination.save!
+      @nomination.push_back
+      render json: { message: "Approved Successfully"}
+      return
     else
       @nomination.l1_rejection_reason = params[:comments]
       @nomination.rejectors = members
@@ -170,6 +176,12 @@ class NominationsController < ApplicationController
       @nomination.approvers = @nomination.approvers + members
       @nomination.save
       @nomination.l2_approve
+      render json: { message: "Approved Successfully"}
+      return
+    elsif action_mode == "pushback"
+      @nomination.pushback_reason = params[:comments]
+      @nomination.save!
+      @nomination.push_back
       render json: { message: "Approved Successfully"}
       return
     else

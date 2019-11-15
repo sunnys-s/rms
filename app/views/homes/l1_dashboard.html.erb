@@ -60,6 +60,8 @@
                                             <td class='action_td'>
                                                 <% if nomination.state != 'l2_review_pending' %>
                                                     <% if nomination.state != 'rejected' %>
+                                                        <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
+                                                        <br>
                                                         <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                         <br>
                                                         <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
@@ -121,6 +123,8 @@
                                             <td class='action_td'>
                                                 <% if nomination.state != 'l2_review_pending' %>
                                                     <% if nomination.state != 'rejected' %>
+                                                        <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
+                                                        <br>
                                                         <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                         <br>
                                                         <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
@@ -182,6 +186,8 @@
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'l2_review_pending' %>
                                                         <% if nomination.state != 'rejected' %>
+                                                            <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
+                                                            <br>
                                                             <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
@@ -241,6 +247,8 @@
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'l2_review_pending' %>
                                                         <% if nomination.state != 'rejected' %>
+                                                            <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
+                                                            <br>
                                                             <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
@@ -404,13 +412,22 @@
         makeup();
     }
 
+    function pushback(id) {
+        nomination_id = id;
+        action_mode = 'p';
+        makeup();
+    }
+
     function makeup() {
         if(action_mode == 'a') {
             $('.action_mode').html("Approval");
-            $('button[name=action_button]').removeClass('btn-danger').addClass('btn-success').html("Approve");
+            $('button[name=action_button]').removeClass('btn-danger').removeClass('btn-warning').addClass('btn-success').html("Approve");
+        }else if(action_mode == 'p') {
+            $('.action_mode').html("Pushback");
+            $('button[name=action_button]').removeClass('btn-danger').removeClass('btn-success').addClass('btn-warning').html("Pushback");
         } else {
             $('.action_mode').html("Rejection");
-            $('button[name=action_button]').removeClass('btn-success').addClass('btn-danger').html("Reject");
+            $('button[name=action_button]').removeClass('btn-success').removeClass('btn-warning').addClass('btn-danger').html("Reject");
         }
         showModal();
     }
@@ -439,8 +456,6 @@
         var url = '/nominations/' + nomination_id + '/l1_approval'; 
         if(comments) {
             if(list_of_memebers != ''){
-                //$.ajax on success
-                // closeModal();
                 $('#'+nomination_id).fadeOut();
                 if(action_mode == 'a'){
                     var data = {
@@ -463,8 +478,26 @@
                             $.notify("Nomination Approved","success");
                         },
                     });
-        
-                } else {
+                }else if(action_mode == 'p'){
+                    var data = {
+                        members: list_of_memebers,
+                        comments: comments,
+                        action_mode: 'pushback'
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: JSON.stringify(data),
+                        dataType: 'json',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            closeModal();
+                            $('#commitee_member').val(null).trigger('change');
+                            CKEDITOR.instances.comments.setData('');
+                            $.notify("Nomination Pushed-back","success");
+                        },
+                    });
+                }  else {
                     var data = {
                         members: list_of_memebers,
                         comments: comments,

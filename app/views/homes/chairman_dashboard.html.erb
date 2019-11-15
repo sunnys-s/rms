@@ -273,29 +273,6 @@
         nomination_id = id;
         action_mode = 'p';
         makeup();
-        // var reason = $('#rsn_nomination_'+nomination_id).val();
-        // var url = '/nominations/' + nomination_id + '/push_back'
-        // var data = {
-        //     reason: reason
-        // }
-        // if(!reason.trim()) {
-        //     $.notify("Please enter reason for pushback");
-        //     $('#rsn_'+nomination_id).focus();
-        //     return;
-        // }
-        // //$.ajax on success
-        // $.ajax({
-        //     type: "POST",
-        //     url: url,
-        //     data: JSON.stringify(data),
-        //     dataType: 'json',
-        //     contentType: 'application/json',
-        //     success: function (data) {
-        //         $('#target').html(data.msg);
-        //         $('#nomination_'+nomination.id).fadeOut();
-        //         $.notify("Nomination pushed back successfully","success");
-        //     },
-        // });
     }
 
     function makeup() {
