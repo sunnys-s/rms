@@ -1,5 +1,5 @@
 class NominationsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:push_back, :forward, :l1_approval, :l2_approval]
+  skip_before_action :verify_authenticity_token, only: [:push_back, :forward, :l1_approval, :l2_approval, :chairman_approval, :reject_single_nominee]
   before_action :set_nomination, only: [:show, :edit, :update, :destroy, :push_back, :forward, :l1_approval, :l2_approval, :justification, :chairman_approval, :reject_single_nominee]
 
   # GET /nominations
@@ -189,6 +189,12 @@ class NominationsController < ApplicationController
       @nomination.approvers = @nomination.approvers + members
       @nomination.save
       @nomination.approve
+      render json: { message: "Approved Successfully"}
+      return
+    elsif action_mode == "pushback"
+      @nomination.pushback_reason = params[:reason]
+      @nomination.save!
+      @nomination.push_back
       render json: { message: "Approved Successfully"}
       return
     else

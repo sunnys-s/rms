@@ -34,6 +34,21 @@
                                                 <div class='pull-right'><%= image_tag(nominee.companies.last.logo.url,{class:'company_logo'}) %></div>
                                             </div>
                                         </div>
+                                        <div class="col-md-12">
+                                            <% if nomination.state == 'approved' %>
+                                                <p>Approved</p>
+                                            <% else %>
+                                                <div class="col-md-4">
+                                                    <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> PB <i class='material-icons'>done</i></button>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> A <i class='material-icons'>done</i></button>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">R <i class='material-icons'>clear</i></button>
+                                                </div>
+                                            <% end %>
+                                        </div>
                                     </div>
                                 <% end %>
                             </div>
@@ -59,8 +74,23 @@
                                             <div class='card-content'>
                                                     <%= nominee.employee.department %> <br>
                                                     <%= nominee.employee.emp_code %>
-                                                    <%= image_tag(nominee.user.companies.last.logo.url, height: '12', width: '12') %>
+                                                    <%= image_tag(nominee.companies.last.logo.url, height: '12', width: '12') %>
                                             </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <% if nomination.state == 'approved' %>
+                                                <p>Approved</p>
+                                            <% else %>
+                                                <div class="col-md-4">
+                                                    <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> PB <i class='material-icons'>done</i></button>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> A <i class='material-icons'>done</i></button>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">R <i class='material-icons'>clear</i></button>
+                                                </div>
+                                            <% end %>
                                         </div>
                                     </div>
                                 <% end %>
@@ -86,7 +116,22 @@
                                             <div class='card-content'>
                                                     <%= nominee.employee.department %> <br>
                                                     <%= nominee.employee.emp_code %>
-                                                    <%= image_tag(nominee.user.companies.last.logo.url, height: '12', width: '12') %>
+                                                    <%= image_tag(nominee.companies.last.logo.url, height: '12', width: '12') %>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <% if nomination.state == 'approved' %>
+                                                    <p>Approved</p>
+                                                <% else %>
+                                                    <div class="col-md-4">
+                                                        <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> PB <i class='material-icons'>done</i></button>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> A <i class='material-icons'>done</i></button>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">R <i class='material-icons'>clear</i></button>
+                                                    </div>
+                                                <% end %>
                                             </div>
                                         </div>
                                     </div>
@@ -123,6 +168,22 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12">
+                                        <% if nomination.state == 'approved' %>
+                                            <p>Approved</p>
+                                        <% else %>
+                                            <div class="col-md-4">
+                                                <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button style="float:right;" class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                            </div>
+                                        <% end %>
+                                       
+                                    </div>
                                 <% end %>
                             </div>
                             <div class='col-md-6'>
@@ -143,24 +204,21 @@
         <span class="close">&times;</span>
         <div class='row'>
             <div class='col-md-12'>
-                <h5><span class='action_mode'></span> recommended By</h5>
-                <select name='subcommittee_list' multiple style='width: auto;'>
-                    <option>Member 1</option>
-                    <option>Member 2</option>
-                    <option>Member 3</option>
-                    <option>Member 4</option>
-                </select>
+                <h5>Reason/Comments for <span class='action_mode'></span></h5>
+                <textarea name='comments' id='comments'></textarea>
             </div>
+            
         </div>
         <br>
         <button name='action_button' class='btn pull-right' onclick="doAction()"></button>
     </div>
 </div>
+
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <script>
     $(document).ready(function() {
         //$('.datatable').datatable();
-        // CKEDITOR.replace('comments');
+        CKEDITOR.replace('comments');
         $('select').select2({'placeholder':'Select Members'});
     });
 
@@ -211,29 +269,106 @@
         makeup();
     }
 
+    function pushback(id) {
+        nomination_id = id;
+        action_mode = 'p';
+        makeup();
+        // var reason = $('#rsn_nomination_'+nomination_id).val();
+        // var url = '/nominations/' + nomination_id + '/push_back'
+        // var data = {
+        //     reason: reason
+        // }
+        // if(!reason.trim()) {
+        //     $.notify("Please enter reason for pushback");
+        //     $('#rsn_'+nomination_id).focus();
+        //     return;
+        // }
+        // //$.ajax on success
+        // $.ajax({
+        //     type: "POST",
+        //     url: url,
+        //     data: JSON.stringify(data),
+        //     dataType: 'json',
+        //     contentType: 'application/json',
+        //     success: function (data) {
+        //         $('#target').html(data.msg);
+        //         $('#nomination_'+nomination.id).fadeOut();
+        //         $.notify("Nomination pushed back successfully","success");
+        //     },
+        // });
+    }
+
     function makeup() {
         if(action_mode == 'a') {
             $('.action_mode').html("Approval");
-            $('button[name=action_button]').removeClass('btn-danger').addClass('btn-success').html("Approve");
+            $('button[name=action_button]').removeClass('btn-danger').removeClass('btn-warning').addClass('btn-success').html("Approve");
+        }else if(action_mode == 'p') {
+            $('.action_mode').html("Pushback");
+            $('button[name=action_button]').removeClass('btn-danger').removeClass('btn-success').addClass('btn-warning').html("Pushback");
         } else {
             $('.action_mode').html("Rejection");
-            $('button[name=action_button]').removeClass('btn-success').addClass('btn-danger').html("Reject");
+            $('button[name=action_button]').removeClass('btn-success').removeClass('btn-warning').addClass('btn-danger').html("Reject");
         }
         showModal();
     }
 
     function doAction() {
-        var list_of_memebers = $('select[name=subcommittee_list]').val();
-        if(list_of_memebers != '') {
-            //$.ajax on success
-            closeModal();
-            $('#'+nomination_id).fadeOut();
-            if(action_mode == 'a')
-            $.notify("Nomination Approved","success");
-            else 
-            $.notify("Nomination Rejected","success");
+        // var list_of_memebers = $('select[name=subcommittee_list]').val();
+        var comments = CKEDITOR.instances.comments.getData();
+        var url = '/nominations/' + nomination_id + '/chairman_approval';
+        closeModal();
+        // $('#'+nomination_id).fadeOut();
+        if(action_mode == 'a'){
+            var data = {
+                reason: comments,
+                action_mode: 'approve'
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    closeModal();
+                    CKEDITOR.instances.comments.setData('');
+                    $.notify("Nomination Approved","success");
+                },
+            });
+        } else if(action_mode == 'p') {
+            var data = {
+                reason: comments,
+                action_mode: 'pushback'
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    closeModal();
+                    CKEDITOR.instances.comments.setData('');
+                    $.notify("Nomination Pushedback","success");
+                },
+            });
         } else {
-            $.notify('Please Select Members');
+            var data = {
+                reason: comments,
+                action_mode: 'reject'
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: JSON.stringify(data),
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    closeModal();
+                    CKEDITOR.instances.comments.setData('');
+                    $.notify("Nomination Rejected","success");
+                },
+            });
         }
 
     }

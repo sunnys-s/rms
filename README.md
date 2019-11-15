@@ -29,3 +29,57 @@ After cloning the repository to run it you have to do following
 4. ``` rails db:migrate ```
 5. ``` rails db:seed ``` This command will create the default user in your application. You can get the credentials in **seed.rb** file.
 6. ``` rails s -b 0.0.0.0 ```
+
+## Deploying this app on heroku
+
+Install the Heroku CLI
+Download and install the Heroku CLI.
+
+If you haven't already, log in to your Heroku account and follow the prompts to create a new SSH public key.
+
+```$ heroku login```
+
+Create a new Git repository
+Initialize a git repository in a new or existing directory
+
+  ```
+  $ cd my-project/
+  $ git init
+  $ heroku git:remote -a cybit-rewards-and-recognistion
+  ```
+
+Deploy your application
+Commit your code to the repository and deploy it to Heroku using Git.
+
+  ```
+  $ git add .
+  $ git commit -am "make it better"
+  $ git push heroku master
+  ```
+
+Existing Git repository
+For existing repositories, simply add the heroku remote
+
+  ```$ heroku git:remote -a cybit-rewards-and-recognistion```
+
+## SCRIPTS
+
+  Go to project directory, open rails console, To open rails console in developement enter
+
+  ``` rails c ``` and in production ``` heroku run rails console```
+  and enter following code.
+
+  #### Script to add companies and add users in companies
+
+  ```ruby
+  companies = ["DNL", "DPL"]
+  companies.each do |c|
+    Company.create(name: c)
+  end
+
+  User.all.each do |u|
+    u.companies << Company.all.sample
+    u.save!
+  end
+  ```
+W
