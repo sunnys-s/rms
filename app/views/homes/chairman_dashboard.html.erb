@@ -11,6 +11,7 @@
                     <li><a data-toggle="tab" class='tab' id='btnmenu1' onclick='doSwitch("menu1")'>The Best Employee</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenu2'  onclick='doSwitch("menu2")'>The Most Innovative Employee</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenu3' onclick='doSwitch("menu3")'>The Best Cross-Function Team</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenuall' onclick='doSwitch("all")'>All</a></li>
                 </ul>
             </div>
             <div class='card-content'>
@@ -182,10 +183,18 @@
     }
 
     function doSwitch(mode){
+        if(mode=='all'){
+            $('.tab').parent().addClass('active');
+            $('#menu1').addClass('in active');
+            $('#menu2').addClass('in active');
+            $('#menu3').addClass('in active');
+            $('#home').addClass('in active');
+        }else{
         $('.tab-pane').removeClass('in active');
         $('#'+mode).addClass('in active');
         $('.tab').parent().removeClass('active');
         $('#btn'+mode).parent().addClass('active');
+        }
     }
     var nomination_id = -1;
     var action_mode = '';

@@ -59,7 +59,7 @@
                                                     <hr>
                                                     <% if nomination.state != 'pushed_back' and  nomination.state != 'l1_review_pending' %>
                                                         <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
-                                                        <button class='btn btn-danger btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
+                                                        <button class='btn btn-warning btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
                                                     <% else %>
                                                         <h5>Pushed Back</h5>
                                                         <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
@@ -117,7 +117,7 @@
                                                     <hr>
                                                     <% if nomination.state != 'pushed_back' and  nomination.state != 'l1_review_pending' %>
                                                         <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
-                                                        <button class='btn btn-danger btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
+                                                        <button class='btn btn-warning btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
                                                     <% else %>
                                                         <h5>Pushed Back</h5>
                                                         <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
@@ -175,7 +175,7 @@
                                                         <hr>
                                                         <% if nomination.state != 'pushed_back' and  nomination.state != 'l1_review_pending' %>
                                                             <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
-                                                            <button class='btn btn-danger btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
+                                                            <button class='btn btn-warning btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
                                                         <% else %>
                                                             <h5>Pushed Back</h5>
                                                             <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
@@ -232,7 +232,8 @@
                                                         <hr>
                                                         <% if nomination.state != 'pushed_back' and  nomination.state != 'l1_review_pending' %>
                                                             <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
-                                                            <button class='btn btn-danger btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
+                                                            <button class='btn btn-warning btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button><br>
+                                                            <button class='btn btn-danger btn-sm' onclick="removeMember_open('<%= nomination.id %>')">Remove Member</button>
                                                         <% else %>
                                                             <h5>Pushed Back</h5>
                                                             <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
@@ -279,6 +280,7 @@
 
     </div>
 </div>
+</div>
 <div id='previewModal' class='modal'>
     <div class='modal-content'> 
         <div class='row'>
@@ -307,9 +309,31 @@
                             </table>
            
             </div>
-            <div class='pull-right'>
+            <div class='pull-right' >
                 <button class='btn btn-danger' onclick='closePreview()'>Close</button>
                 <button onclick="doForward()" class='btn btn-success'>Forward <i class='material-icons'>send</i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class='modal' id='remove_member_modal'>
+    <div class='modal-content'>
+        <h4>Remove one or more members from this team</h4>
+        <div class='row'>
+            <div class='col-md-6'>
+                Select Team Members<br>
+                <select id='allMembers' class='form-control select2' multiple>
+                <option>
+                </option>
+                </select>
+            </div>
+            <div class='col-md-6'>
+            Enter Reason <br>
+                <textarea name='removal_reason' id='removal_reason'></textarea>
+            </div>
+            <div class='col-md-12 pull-right'>
+                <button class='btn btn-danger' onclick='removeMembers()'>Remove Members<button>
+                <button class='btn btn-default' onclick="closeRemovalModal()">Close</button>
             </div>
         </div>
     </div>
@@ -320,6 +344,7 @@
     var span = document.getElementsByClassName("close")[0];
     var modal = document.getElementById("myModal");
     var previewModal = document.getElementById("previewModal");
+    var remove_member_modal = document.getElementById("remove_member_modal");
     span.onclick = function() {
         modal.style.display = "none";
     }
@@ -338,6 +363,8 @@
 
     $(document).ready(function() {
         CKEDITOR.replace('highlights');
+        CKEDITOR.replace('removal_reason');
+         $('select').select2();
     });
 
     function doSwitch(mode) {
@@ -445,5 +472,21 @@
                 $.notify("Nomination pushed back successfully","success");
             },
         });
+    }
+
+    function removeMember_open(id)
+    {
+        remove_member_modal.style.display = 'block';
+    }
+    function closeRemovalModal()
+    {
+        remove_member_modal.style.display='none';
+    }
+
+    function removeMembers()
+    {
+        var reason = CKEDITOR.instances.removal_reason.getData();
+        var memebers = $('#allMembers').val();
+        //ajaxCalls
     }
 </script>
