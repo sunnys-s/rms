@@ -22,8 +22,9 @@ class NominationsController < ApplicationController
   def new
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
-    @users = User.all.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
+    @nomination.company_id = current_user.company.id rescue nil
     @nomination.nominees.build
     # if params[:award_id].nil?
     #   @award = @cycle.awards.last
@@ -40,8 +41,9 @@ class NominationsController < ApplicationController
   def team_nomination
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
-    @users = User.all.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
+    @nomination.company_id = current_user.company.id rescue nil
     @nomination.nominees.build
     @award = @cycle.awards.find_by(award_master_id: AwardMaster.find_by(title: "The Best Cross-Functional Team").id)
     @nomination.award = @award
@@ -230,7 +232,7 @@ class NominationsController < ApplicationController
       params.require(:nomination).permit(
         :award_id, :nomination_type, 
         :nominator_id, :date, :justification,
-        :summary, :review_feedback,
+        :summary, :review_feedback, :company_id,
         ratings_attributes: [:id, :title, :nomination_id, :value, :_destroy], 
         nominees_attributes: [:id, :nomination_id, :user_id, :emp_code, :_destroy],
         nomination_attachments_attributes: [:id, :nomination_id, :attachment, :destroy]

@@ -11,11 +11,11 @@
                           <label class="control-label ">Select Award Type</label>
                           <% if params[:action] != "team_nomination" %>
                             <%= form.select :award_id, options_from_collection_for_select(@awards[1..-1], 'id', 'title'), {}, {class: "form-control"}%>
-                            <%= form.hidden :nomination_type, value: "individual"%>
+                            <%= form.hidden_field :nomination_type, value: "individual"%>
                           <% else %>
                             <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {:disabled => true, class: "form-control"}%>
                             <%= form.hidden_field :award_id, :value => @award.id %>
-                            <%= form.hidden :nomination_type, value: "team"%>
+                            <%= form.hidden_field :nomination_type, value: "team"%>
                           <% end %>
                       </div>
                   </div>

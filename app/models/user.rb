@@ -40,4 +40,14 @@ class User < ApplicationRecord
   def l2_rep?
     self.role_masters.map(&:name).include?('l2_rep')
   end
+
+  def peers
+    self.companies.map{|c| c.users}.flatten.compact
+  end
+
+  def company
+    # TODO: Send some other value if condition does not matched
+    self.companies.size == 1 ? self.companies.last : self.companies.last
+  end
+
 end

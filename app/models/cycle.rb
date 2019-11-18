@@ -13,9 +13,11 @@ class Cycle < ApplicationRecord
     end
 
     def create_cycle_commitee
-        levels = ["Level 1", "Appex"]
-        levels.each do |level|
-            Commitee.create(cycle_id: self.id, level: level)
+        Company.all.each do |company|
+            levels = ["Level 1 for #{company.name}", "Appex for #{company.name}"]
+            levels.each do |level|
+                Commitee.create(cycle_id: self.id, level: level, company_id: company.id)
+            end
         end
     end
 
