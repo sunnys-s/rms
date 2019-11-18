@@ -125,6 +125,13 @@
     $(document).ready(function () {
         CKEDITOR.replace('nomination[justification]');
         $('select').select2();
+
+        //Filling up ratings once
+        var awardId = $(this).find(":selected").val();
+        $('.hidden').show();
+        $.get('/nominations/load_rating_form/' + awardId, function(data, status){
+            $('#rating-table').html(data);
+        });v
     });
     $('#nomination_award_id').on('change', function() {
         var awardId = $(this).find(":selected").val();
