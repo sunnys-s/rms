@@ -40,7 +40,7 @@ class Nomination < ApplicationRecord
     end
 
     event :forward do
-      transitions from: [:draft, :review_pending], to: :l1_review_pending
+      transitions from: [:draft, :review_pending , :pushed_back], to: :l1_review_pending
     end
 
     event :l1_approve do
