@@ -52,17 +52,33 @@
                 </center>
             </li>
             
+           
             <li id="" class="active" data-color="green">
-                <a href="/user_dashboard">
-                    <i class="material-icons">dashboard</i>
-                    <p><b>Dashboard</b></p>
-                </a>
-            </li>
-            <li id="" class="active" data-color="green">
-                <a href="/user_dashboard">
-                    <i class="material-icons">assignment_turned_in</i>
-                    <p><b>My Nominees</b></p>
-                </a>
+                <%= link_to '/user_dashboard' do %>
+                     <i class="material-icons">dashboard</i> 
+                     <b><p>My Nominations</p></b>
+                <% end %>
+
+            <% if current_user.hr? %>
+                    <%= link_to '/' do %>
+                        <i class="material-icons">call_split</i> 
+                        <b><p>Moderator Dashboard</p></b>
+                    <% end %>
+                <% end %>
+
+                <% if current_user.l1? %>
+                    <%= link_to '/l1_dashboard' do %>
+                        <i class="material-icons">done_outline</i> 
+                        <b><p>Committee Dashboard</p></b>
+                    <% end %>
+                <% end %>
+
+                <% if current_user.l2? %>
+                    <%= link_to '/l2_dashboard' do %>
+                        <i class="material-icons">done_outline</i> 
+                        <b><p>Apex Dashboard</p></b>
+                    <% end %>
+                <% end %>
             </li>
         </ul>
     </div>
