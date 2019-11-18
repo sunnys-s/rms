@@ -878,7 +878,7 @@ h2.title {
 
 .sidebar[data-color="blue"] .nav li.active a,
 .off-canvas-sidebar[data-color="blue"] .nav li.active a {
-    background-color: #00bcd4;
+    background-color: #2683da;
     box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2);
 }
 
@@ -2741,7 +2741,7 @@ output {
 }
 
 .label.label-info {
-    background-color: #00bcd4;
+    background-color: #2683da;
 }
 
 .label.label-warning {
@@ -5294,7 +5294,8 @@ footer .btn {
 }
 
 .card [data-background-color="blue"] {
-    background: linear-gradient(60deg, #26c6da, #00acc1);
+    /*background: linear-gradient(60deg, #26c6da, #00acc1);*/
+    background: linear-gradient(60deg, #2683da, #0064c1);
     box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2);
 }
 
