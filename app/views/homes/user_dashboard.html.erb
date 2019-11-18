@@ -5,7 +5,7 @@
             <%= link_to 'Add Individual Award', new_nomination_path, class: 'btn btn-large btn-success', method: :get %>
             <%= link_to 'Add Team Award', '/team_nominations/new', class: 'btn btn-large btn-success', method: :get %>
         </div>
-        <h4>Nominations Added By You</h4>
+        <h4>Individual Nominations Added By You</h4>
         <div class='row'>
             <% @my_default_nominees.each_with_index do |nominee, index| %>
                 <div class='col-md-4'>
@@ -16,7 +16,7 @@
                         <div class='card-content point-div'>
                             <% emp = nominee.nominees.last.user %>
                             <h4><%= emp.employee.name %></h4>
-                            <h2 class='point point-indi'><%= nominee.ratings.map(&:value).reduce(&:+) %></h2>
+                            <h2 class='point point-indi'><%= nominee.ratings.map(&:value).compact.reduce(&:+) %></h2>
                             Points
                         </div>
                         <div class='card-footer'>
@@ -30,7 +30,7 @@
                                 <span class='label label-info'>Pending</span>
                             <% end %>
                             <% if nominee.state != 'pushed_back' %>
-                                <button data-nomination-id=<%= nominee.id%> class='btn btn-sm btn-info pull-right show-nominee'><i class='material-icons'>remove_red_eye</i></button>
+                                <!--button data-nomination-id=<%= nominee.id%> class='btn btn-sm btn-info pull-right show-nominee'><i class='material-icons'>remove_red_eye</i></button-->
                             <% else %>
                                 <button data-nomination-id=<%= nominee.id%> class='btn btn-sm btn-warning pull-right edit-nominee'><i class='material-icons'>create</i></button>
                             <% end %>
@@ -38,6 +38,9 @@
                     </div>
                 </div>   
             <% end %>
+            </div>
+            <h4>Team Nominations Added By You</h4>
+            <div class='row'>
             <% @my_team_nominees.each_with_index do |nominee, index| %>
                 <div class='col-md-6'>
                     <div class='card' >
@@ -55,7 +58,7 @@
                                 </div>
                                 
                                 <div class='col-md-3 point-div '>
-                                    <h2 class='point point-team'><%= nominee.ratings.map(&:value).reduce(&:+) %></h2>
+                                    <h2 class='point point-team'><%= nominee.ratings.map(&:value).compact.reduce(&:+) %></h2>
                                     <p>Points</p>
                                 </div>
                             </div>
@@ -71,7 +74,7 @@
                                 <span class='label label-info'>Pending</span>
                             <% end %>
                             <% if nominee.state != 'pushed_back' %>
-                                <button data-nomination-id=<%= nominee.id%>  class='btn btn-sm btn-info pull-right show-nominee'><i class='material-icons'>remove_red_eye</i></button>
+                                    <!--button data-nomination-id=<%= nominee.id%>  class='btn btn-sm btn-info pull-right show-nominee'><i class='material-icons'>remove_red_eye</i></button-->
                             <% else %>
                                 <button data-nomination-id=<%= nominee.id%> class='btn btn-sm btn-warning pull-right edit-nominee'><i class='material-icons'>create</i></button>
                             <% end %>

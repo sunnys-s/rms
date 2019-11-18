@@ -59,12 +59,15 @@
                                             </td>
                                             <td class='action_td'>
                                                 <% if nomination.state != 'l2_review_pending' %>
+                                                
                                                     <% if nomination.state != 'rejected' %>
-                                                        <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
+                                                        <% if current_user.role_masters.map(&:name).include?('l1_rep') %>
+                                                        <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> <i class='material-icons'>undo</i> Pushback </button>
                                                         <br>
                                                         <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                         <br>
                                                         <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                        <% end %>
                                                     <% else %>
                                                         <h5>Rejected</h5>
                                                         <%= raw(nomination.l1_rejection_reason)%>
@@ -94,6 +97,7 @@
                                     <th>Average Points (Out of 18)</th>
                                     <th>Award Towards</th>
                                     <th>Justification & Attachments</th>
+                                    
                                     <th>Action</th>
                                 </thead>
                                 <tbody>
@@ -112,7 +116,7 @@
                                             </td>
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                             <td class='action_td'><h2>3</h2></td>
-                                            <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                            <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                             <td><%= raw(nomination.summary) %></td>
                                             <td class='action_td'>
                                                 Justifications
@@ -123,11 +127,13 @@
                                             <td class='action_td'>
                                                 <% if nomination.state != 'l2_review_pending' %>
                                                     <% if nomination.state != 'rejected' %>
-                                                        <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
+                                                        <% if current_user.role_masters.map(&:name).include?('l1_rep') %>
+                                                        <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> <i class='material-icons'>undo</i> Pushback </button>
                                                         <br>
                                                         <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                         <br>
                                                         <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                        <% end %>
                                                     <% else %>
                                                         <h5>Rejected</h5>
                                                         <%= raw(nomination.l1_rejection_reason)%>
@@ -186,11 +192,13 @@
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'l2_review_pending' %>
                                                         <% if nomination.state != 'rejected' %>
+                                                            <% if current_user.role_masters.map(&:name).include?('l1_rep') %>
                                                             <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback </button>
                                                             <br>
                                                             <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                            <% end %>
                                                         <% else %>
                                                             <h5>Rejected</h5>
                                                             <%= raw(nomination.l1_rejection_reason)%>
@@ -247,11 +255,13 @@
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'l2_review_pending' %>
                                                         <% if nomination.state != 'rejected' %>
-                                                            <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
+                                                            <% if current_user.role_masters.map(&:name).include?('l1_rep') %>
+                                                            <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> <i class='material-icons'>undo</i> Pushback </button>
                                                             <br>
                                                             <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                            <% end %>
                                                         <% else %>
                                                             <h5>Rejected</h5>
                                                             <%= raw(nomination.l1_rejection_reason)%>

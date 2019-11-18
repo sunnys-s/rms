@@ -48,7 +48,7 @@
                                             </td>
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                             <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
-                                            <td><%= nomination.ratings.map(&:value).reduce(&:+)%></td>
+                                            <td><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></td>
                                             <td class='action_td'>
                                             <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)">View Justification</button><br>
                                             <button class='btn btn-primary btn-sm'>View Attachments</button>
@@ -106,7 +106,7 @@
                                             </td>
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                             <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
-                                            <td><%= nomination.ratings.map(&:value).reduce(&:+)%></td>
+                                            <td><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></td>
                                             <td class='action_td'>
                                                     <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)">View Justification</button><br>
                                                     <button class='btn btn-primary btn-sm'>View Attachments</button>
@@ -164,7 +164,7 @@
                                                 </td>
                                                 <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                                 <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
-                                                <td><%= nomination.ratings.map(&:value).reduce(&:+)%></td>
+                                                <td><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></td>
                                                 <td class='action_td'>
                                                 <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)">View Justification</button><br>
                                                 <button class='btn btn-primary btn-sm'>View Attachments</button>
@@ -221,7 +221,7 @@
                                                 </td>
                                                 <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                                 <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
-                                                <td><%= nomination.ratings.map(&:value).reduce(&:+)%></td>
+                                                <td><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></td>
                                                 <td class='action_td'>
                                                     <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)">View Justification</button><br>
                                                     <button class='btn btn-primary btn-sm'>View Attachments</button>

@@ -79,14 +79,17 @@
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'approved' %>
                                                         <% if nomination.state != 'rejected' %>
+                                                        <% if current_user.l2_rep? %>
                                                             <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-success btn-sm' onclick="approve(<%=  nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-danger btn-sm' onclick="reject(<%=  nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                            <% end %>
                                                         <% else %>
                                                             <h5>Rejected</h5>
                                                         <% end %>
+                                                        
                                                     <% else %>
                                                         <h5>Approved</h5>
                                                     <% end %>
@@ -128,7 +131,7 @@
                                                     <p>SBU : <%= nominee.employee.sbu %></p>
                                                     <p>Location :  <%= nominee.employee.location %></p>
                                                 </td>
-                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                                 <td><%= raw(nomination.summary) %></td>
                                                 <td>
                                                     <% if nomination.state != 'rejected' %>
@@ -153,11 +156,13 @@
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'approved' %>
                                                         <% if nomination.state != 'rejected' %>
+                                                            <% if current_user.l2_rep? %>
                                                             <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-success btn-sm' onclick="approve(<%=  nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-danger btn-sm' onclick="reject(<%=  nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                            <% end %>
                                                         <% else %>
                                                             <h5>Rejected</h5>
                                                         <% end %>
@@ -229,11 +234,13 @@
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'approved' %>
                                                         <% if nomination.state != 'rejected' %>
+                                                            <% if current_user.role_masters.map(&:name).include?('l2_rep') %>
                                                             <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-success btn-sm' onclick="approve(<%=  nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-danger btn-sm' onclick="reject(<%=  nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                            <% end %>
                                                         <% else %>
                                                             <h5>Rejected</h5>
                                                         <% end %>
@@ -302,12 +309,15 @@
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'approved' %>
                                                         <% if nomination.state != 'rejected' %>
+                                                             <% if current_user.role_masters.map(&:name).include?('l2_rep') %>
                                                             <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-success btn-sm' onclick="approve(<%=  nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                             <br>
                                                             <button class='btn btn-danger btn-sm' onclick="reject(<%=  nomination.id %>) ">Reject <i class='material-icons'>clear</i></button>
+                                                            <% end %>
                                                         <% else %>
+
                                                             <h5>Rejected</h5>
                                                         <% end %>
                                                     <% else %>
