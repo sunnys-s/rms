@@ -62,7 +62,7 @@ class NominationsController < ApplicationController
   def edit
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
-    @users = User.all
+    @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
   end
 
   # POST /nominations

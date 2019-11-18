@@ -186,7 +186,7 @@
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'l2_review_pending' %>
                                                         <% if nomination.state != 'rejected' %>
-                                                            <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> Pushback <i class='material-icons'>done</i></button>
+                                                            <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback </button>
                                                             <br>
                                                             <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> Approve <i class='material-icons'>done</i></button>
                                                             <br>
