@@ -11,7 +11,7 @@ class HomesController < ApplicationController
       @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations
     elsif(current_user.l1? or current_user.l1_rep?)
       redirect_to '/l1_dashboard'
-    elsif(current_user.l1? or current_user.l2_rep?)
+    elsif(current_user.l2? or current_user.l2_rep?)
       redirect_to '/l2_dashboard'
     elsif(current_user.chairman?)
       redirect_to '/chairman_dashboard'
