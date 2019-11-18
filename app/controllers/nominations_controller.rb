@@ -11,6 +11,7 @@ class NominationsController < ApplicationController
   # GET /nominations/1
   # GET /nominations/1.json 
   def show
+    
   end
 
   def justification
@@ -80,7 +81,7 @@ class NominationsController < ApplicationController
     respond_to do |format|
       @nomination.company_id = current_user.company.id rescue nil
       if @nomination.save
-        format.html { redirect_to @nomination, notice: 'Nomination was successfully created.' }
+        format.html { redirect_to '/user_dashboard', notice: 'Nomination was successfully created.' }
         format.json { render :show, status: :created, location: @nomination }
       else
         # format.html { render :new }
@@ -97,7 +98,7 @@ class NominationsController < ApplicationController
       if @nomination.update(nomination_params)
         @nomination.state = "review_pending"
         @nomination.save
-        format.html { redirect_to @nomination, notice: 'Nomination was successfully updated.' }
+        format.html { redirect_to '/user_dashboard', notice: 'Nomination was successfully updated.' }
         format.json { render :show, status: :ok, location: @nomination }
       else
         format.html { render :edit }
@@ -111,7 +112,7 @@ class NominationsController < ApplicationController
   def destroy
     @nomination.destroy
     respond_to do |format|
-      format.html { redirect_to nominations_url, notice: 'Nomination was successfully destroyed.' }
+      format.html { redirect_to '/user_dashboard', notice: 'Nomination was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
