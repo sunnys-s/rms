@@ -2,8 +2,8 @@
     <div class="container-fluid" id="main-form">
         <h4>Add New Nominations</h4>
         <div class="row">
-            <a href='/nominations/new' class='btn btn-large btn-success'>Add Individual Award</a>
-            <a href='/team_nominations/new' class='btn btn-large btn-success'>Add Team Award</a>
+            <%= link_to 'Add Individual Award', new_nomination_path, class: 'btn btn-large btn-success', method: :get %>
+            <%= link_to 'Add Team Award', '/team_nominations/new', class: 'btn btn-large btn-success', method: :get %>
         </div>
         <h4>Nominations Added By You</h4>
         <div class='row'>
