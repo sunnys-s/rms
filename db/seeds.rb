@@ -90,7 +90,7 @@ def create_user
     u
 end
 
-
+create_companies
 create_award_masters
 create_role_masters
 create_admin
