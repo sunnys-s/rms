@@ -24,7 +24,7 @@ class NominationsController < ApplicationController
     @awards = @cycle.awards
     @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
-    @nomination.company_id = current_user.company.id rescue nil
+    # @nomination.company_id = current_user.company.id rescue nil
     @nomination.nominees.build
     # if params[:award_id].nil?
     #   @award = @cycle.awards.last
@@ -43,7 +43,7 @@ class NominationsController < ApplicationController
     @awards = @cycle.awards
     @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
-    @nomination.company_id = current_user.company.id rescue nil
+    # @nomination.company_id = current_user.company.id rescue nil
     @nomination.nominees.build
     @award = @cycle.awards.find_by(award_master_id: AwardMaster.find_by(title: "The Best Cross-Functional Team").id)
     @nomination.award = @award
@@ -78,6 +78,7 @@ class NominationsController < ApplicationController
       end
     end
     respond_to do |format|
+      @nomination.company_id = current_user.company.id rescue nil
       if @nomination.save
         format.html { redirect_to @nomination, notice: 'Nomination was successfully created.' }
         format.json { render :show, status: :created, location: @nomination }
