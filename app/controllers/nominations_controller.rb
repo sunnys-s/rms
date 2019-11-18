@@ -95,6 +95,8 @@ class NominationsController < ApplicationController
   def update
     respond_to do |format|
       if @nomination.update(nomination_params)
+        @nomination.state = "review_pending"
+        @nomination.save
         format.html { redirect_to @nomination, notice: 'Nomination was successfully updated.' }
         format.json { render :show, status: :ok, location: @nomination }
       else
