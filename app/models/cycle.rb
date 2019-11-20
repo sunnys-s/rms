@@ -1,6 +1,6 @@
 class Cycle < ApplicationRecord
-    has_many :awards
-    has_many :commitees
+    has_many :awards, dependent: :destroy
+    has_many :commitees, dependent: :destroy
 
     after_create :create_cycle_awards, :create_cycle_commitee
 
