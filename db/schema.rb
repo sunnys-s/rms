@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_061243) do
+ActiveRecord::Schema.define(version: 2019_11_18_051613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2019_11_06_061243) do
     t.integer "half"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "final_verdict"
     t.index ["award_master_id"], name: "index_awards_on_award_master_id"
     t.index ["cycle_id"], name: "index_awards_on_cycle_id"
   end
@@ -48,12 +49,23 @@ ActiveRecord::Schema.define(version: 2019_11_06_061243) do
 
   create_table "commitees", force: :cascade do |t|
     t.bigint "cycle_id", null: false
-    t.bigint "award_id", null: false
     t.string "level"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["award_id"], name: "index_commitees_on_award_id"
+    t.integer "company_id"
     t.index ["cycle_id"], name: "index_commitees_on_cycle_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "name"
+    t.string "logo"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "companies_users", id: false, force: :cascade do |t|
+    t.bigint "company_id", null: false
+    t.bigint "user_id", null: false
   end
 
   create_table "cycles", force: :cascade do |t|
@@ -99,6 +111,14 @@ ActiveRecord::Schema.define(version: 2019_11_06_061243) do
     t.bigint "nominator_id"
     t.string "state"
     t.text "justification"
+    t.text "summary"
+    t.text "review_feedback"
+    t.text "pushback_reason"
+    t.text "l1_approval_reason"
+    t.text "l1_rejection_reason"
+    t.integer "approvers", default: [], array: true
+    t.integer "rejectors", default: [], array: true
+    t.integer "company_id"
     t.index ["award_id"], name: "index_nominations_on_award_id"
     t.index ["nominator_type", "nominator_id"], name: "index_nominations_on_nominator_type_and_nominator_id"
   end
@@ -109,6 +129,8 @@ ActiveRecord::Schema.define(version: 2019_11_06_061243) do
     t.string "emp_code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "state", default: "active"
+    t.text "rejection_reason"
     t.index ["nomination_id"], name: "index_nominees_on_nomination_id"
     t.index ["user_id"], name: "index_nominees_on_user_id"
   end
@@ -162,7 +184,6 @@ ActiveRecord::Schema.define(version: 2019_11_06_061243) do
   add_foreign_key "awards", "cycles"
   add_foreign_key "commitee_members", "commitees"
   add_foreign_key "commitee_members", "users"
-  add_foreign_key "commitees", "awards"
   add_foreign_key "commitees", "cycles"
   add_foreign_key "employees", "users"
   add_foreign_key "nomination_attachments", "nominations"
