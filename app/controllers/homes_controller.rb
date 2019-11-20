@@ -48,15 +48,15 @@ class HomesController < ApplicationController
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
     states = ["final_review_pending","approved"]
-    @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations.where(:state => states)
-    @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations.where(:state => states)
-    @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(:state => states)
-    @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations.where(:state => states)
+    @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations.where(:state => states) rescue []
+    @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations.where(:state => states) rescue []
+    @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(:state => states) rescue []
+    @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations.where(:state => states) rescue []
 
-    @most_inspiring_leaders_verdict = @awards.find_by(title: "The Most Inspiring Leader").final_verdict
-    @best_employee_verdict = @awards.find_by(title: "The Best Employee").final_verdict
-    @most_innovative_employee_verdict = @awards.find_by(title: "The Most Innovative Employee").final_verdict
-    @best_team_verdict = @awards.find_by(title: "The Most Innovative Employee").final_verdict
+    @most_inspiring_leaders_verdict = @awards.find_by(title: "The Most Inspiring Leader").final_verdict rescue ''
+    @best_employee_verdict = @awards.find_by(title: "The Best Employee").final_verdict rescue ''
+    @most_innovative_employee_verdict = @awards.find_by(title: "The Most Innovative Employee").final_verdict rescue ''
+    @best_team_verdict = @awards.find_by(title: "The Most Innovative Employee").final_verdict rescue ''
   end
 
   def user_dashboard
