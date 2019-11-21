@@ -231,9 +231,11 @@
                                                         <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" data-nomination-id="<%= nomination.id %>" onclick="setNominationID(<%= nomination.id %>,true)"> Forward <i class='material-icons'>send</i></button>
                                                         <hr>
                                                         <% if nomination.state != 'pushed_back' and  nomination.state != 'l1_review_pending' %>
-                                                            <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
-                                                            <button class='btn btn-warning btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button><br>
-                                                            <button class='btn btn-danger btn-sm' onclick="removeMember_open('<%= nomination.id %>')">Remove Member</button>
+                                                            <% if Employee.find_by(user_id: nomination.nominator_id).location == @current_location %>
+                                                                <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
+                                                                <button class='btn btn-warning btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button><br>
+                                                                <button class='btn btn-danger btn-sm' onclick="removeMember_open('<%= nomination.id %>')">Remove Member</button>
+                                                            <% end %>
                                                         <% else %>
                                                             <h5>Pushed Back</h5>
                                                             <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>

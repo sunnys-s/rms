@@ -5,10 +5,12 @@ class HomesController < ApplicationController
     if current_user.hr?
       @cycle = Cycle.current_cycle
       @awards = @cycle.awards
-      @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations.where(company_id: current_user.company.id)
-      @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations.where(company_id: current_user.company.id)
-      @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(company_id: current_user.company.id)
-      @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations
+      @current_location = current_user.employee.location
+      location_peer_ids = Employee.where(location: @current_location).map(&:user_id)
+      @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations.where(company_id: current_user.company.id, nominator_id: location_peer_ids)
+      @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations.where(company_id: current_user.company.id, nominator_id: location_peer_ids)
+      @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(company_id: current_user.company.id, nominator_id: location_peer_ids)
+      @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team", nominator_id: location_peer_ids).nominations
     elsif(current_user.l1? or current_user.l1_rep?)
       redirect_to '/l1_dashboard'
     elsif(current_user.l2? or current_user.l2_rep?)
