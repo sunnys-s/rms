@@ -60,3 +60,4 @@ gem 'faker'
 gem "rails_state_machine", "~> 2.0"
 
 gem "carrierwave", "~> 2.0"
+gem "rails_admin_import", "~> 2.2"

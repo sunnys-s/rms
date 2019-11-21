@@ -27,7 +27,6 @@
                                 <thead>
                                     <th>Nominee Information</th>
                                     <th>Nominators</th>
-                                    <th>Number of Nominations</th>
                                     <th>Average Points (Out of 18)</th>
                                     <th>Award Towards</th>
                                     <th>Justification & Attachments</th>
@@ -48,8 +47,7 @@
                                                 <p>Location :  <%= nominee.employee.location %></p>
                                             </td>
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
-                                            <td class='action_td'><h2>3</h2></td>
-                                            <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                            <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                             <td><%= raw(nomination.summary) %></td>
                                             <td class='action_td'>
                                                 Justifications
@@ -93,7 +91,6 @@
                                 <thead>
                                     <th>Nominee Information</th>
                                     <th>Nominators</th>
-                                    <th>Number of Nominations</th>
                                     <th>Average Points (Out of 18)</th>
                                     <th>Award Towards</th>
                                     <th>Justification & Attachments</th>
@@ -115,7 +112,6 @@
                                                 <p>Location :  <%= nominee.employee.location %></p>
                                             </td>
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
-                                            <td class='action_td'><h2>3</h2></td>
                                             <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                             <td><%= raw(nomination.summary) %></td>
                                             <td class='action_td'>
@@ -159,7 +155,6 @@
                                     <thead>
                                         <th>Nominee Information</th>
                                         <th>Nominators</th>
-                                        <th>Number of Nominations</th>
                                         <th>Average Points (Out of 18)</th>
                                         <th>Award Towards</th>
                                         <th>Justification & Attachments</th>
@@ -180,8 +175,7 @@
                                                     <p>Location :  <%= nominee.employee.location %></p>
                                                 </td>
                                                 <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
-                                                <td class='action_td'><h2>3</h2></td>
-                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                                 <td><%= raw(nomination.summary) %></td>
                                                 <td class='action_td'>
                                                     Justifications
@@ -224,7 +218,6 @@
                                     <thead>
                                         <th>Nominee Information</th>
                                         <th>Nominators</th>
-                                        <th>Number of Nominations</th>
                                         <th>Average Points (Out of 18)</th>
                                         <th>Award Towards</th>
                                         <th>Justification & Attachments</th>
@@ -243,8 +236,7 @@
                                                     <% end %>
                                                 </td>
                                                 <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
-                                                <td class='action_td'><h2>3</h2></td>
-                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                                 <td><%= raw(nomination.summary) %></td>
                                                 <td class='action_td'>
                                                     Justifications

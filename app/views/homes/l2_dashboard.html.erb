@@ -54,7 +54,7 @@
                                                     <p>SBU : <%= nominee.employee.sbu %></p>
                                                     <p>Location :  <%= nominee.employee.location %></p>
                                                 </td>
-                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                                 <td><%= raw(nomination.summary) %></td>
                                                 <td>
                                                     <% if nomination.state != 'rejected' %>
@@ -209,7 +209,7 @@
                                                     <p>SBU : <%= nominee.employee.sbu %></p>
                                                     <p>Location :  <%= nominee.employee.location %></p>
                                                 </td>
-                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                                 <td><%= raw(nomination.summary) %></td>
                                                 <td>
                                                     <% if nomination.state != 'rejected' %>
@@ -284,7 +284,7 @@
                                                         </p>
                                                     <% end %>
                                                 </td>
-                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).reduce(&:+)%></h2></td>
+                                                <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                                 <td><%= raw(nomination.summary) %></td>
                                                 <td>
                                                     <% if nomination.state != 'rejected' %>
