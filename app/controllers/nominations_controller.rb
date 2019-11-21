@@ -22,7 +22,7 @@ class NominationsController < ApplicationController
   # GET /nominations/new
   def new
     @cycle = Cycle.current_cycle
-    @awards = @cycle.awards
+    @awards = @cycle.awards - [@cycle.awards.find_by(title: "The Best Cross-Functional Team")]
     @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
     # @nomination.company_id = current_user.company.id rescue nil
@@ -41,12 +41,12 @@ class NominationsController < ApplicationController
 
   def team_nomination
     @cycle = Cycle.current_cycle
-    @awards = @cycle.awards
     @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
     # @nomination.company_id = current_user.company.id rescue nil
     @nomination.nominees.build
-    @award = @cycle.awards.find_by(award_master_id: AwardMaster.find_by(title: "The Best Cross-Functional Team").id)
+    @award = @cycle.awards.find_by(title: "The Best Cross-Functional Team")
+    @awards = [@award]
     @nomination.award = @award
     @award.award_master.rating_scales.each do |rs|
       @nomination.ratings.build(title: rs.title)

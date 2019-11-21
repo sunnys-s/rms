@@ -10,7 +10,7 @@
                       <div class="form-group label">
                           <label class="control-label ">Select Award Type</label>
                           <% if params[:action] != "team_nomination" %>
-                            <%= form.select :award_id, options_from_collection_for_select(@awards[1..-1], 'id', 'title'), {}, {class: "form-control"}%>
+                            <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {class: "form-control"}%>
                             <%= form.hidden_field :nomination_type, value: "individual"%>
                           <% else %>
                             <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {:disabled => true, class: "form-control"}%>
