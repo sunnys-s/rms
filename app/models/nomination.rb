@@ -9,6 +9,8 @@ class Nomination < ApplicationRecord
   belongs_to :award
   has_many :nomination_attachments
 
+  after_create :notify_nominator
+
   state_machine do
     state :draft, initial: true
     state :review_pending
@@ -29,18 +31,30 @@ class Nomination < ApplicationRecord
 
     event :approve do
       transitions from: :final_review_pending, to: :approved
+      after_save do
+        NotificationMailer.approval_notification(self).deliver_later
+      end
     end
 
     event :reject do
       transitions from: :final_review_pending, to: :rejected
+      after_save do
+        NotificationMailer.rejection_notification(self).deliver_later
+      end
     end
 
     event :push_back do
       transitions from: [:draft, :review_pending, :l1_review_pending, :l2_review_pending, :final_review_pending], to: :pushed_back
+      after_save do
+        NotificationMailer.pushedback_notification(self).deliver_later
+      end
     end
 
     event :forward do
       transitions from: [:draft, :review_pending , :pushed_back], to: :l1_review_pending
+      after_save do
+        NotificationMailer.forward_notification(self).deliver_later
+      end
     end
 
     event :l1_approve do
@@ -58,5 +72,9 @@ class Nomination < ApplicationRecord
     event :l2_reject do
       transitions from: :l2_review_pending, to: :rejected
     end
+  end
+
+  def notify_nominator
+    NotificationMailer.welcome_email(self).deliver_later
   end
 end

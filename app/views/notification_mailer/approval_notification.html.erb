@@ -1,0 +1,17 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Dear <%= @user.employee.name %>,</p>
+    <p>&nbsp;</p>
+    <p>
+      Your request for nomination of <%= "#{@nomination.nominees.last.user.employee.name} (#{@nomination.nominees.last.user.employee.emp_code})" %> for
+      <%= @nomination.award.title %> award is approved.
+    </p>
+    
+    <p>Thanks for your contribution and have a great day!</p>
+  </body>
+</html>
