@@ -8,6 +8,7 @@ class Nomination < ApplicationRecord
   accepts_nested_attributes_for :ratings
   belongs_to :award
   has_many :nomination_attachments
+  accepts_nested_attributes_for :nomination_attachments
 
   after_create :notify_nominator
 

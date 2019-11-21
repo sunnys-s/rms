@@ -16,7 +16,7 @@ class NominationsController < ApplicationController
 
   def justification
     #@nomination = Nomination.find(params[:id]
-    render json:{justification: @nomination.justification}
+    render json:{justification: @nomination.justification, attachment: (@nomination.nomination_attachments.last.attachment.identifier rescue ''), url: (@nomination.nomination_attachments.last.attachment.to_s rescue '#') }
   end
 
   # GET /nominations/new
@@ -27,6 +27,7 @@ class NominationsController < ApplicationController
     @nomination = Nomination.new
     # @nomination.company_id = current_user.company.id rescue nil
     @nomination.nominees.build
+    @nomination.nomination_attachments.build
     # if params[:award_id].nil?
     #   @award = @cycle.awards.last
     # else
@@ -51,6 +52,7 @@ class NominationsController < ApplicationController
     @award.award_master.rating_scales.each do |rs|
       @nomination.ratings.build(title: rs.title)
     end
+    @nomination.nomination_attachments.build
   end
 
   def load_rating_form
@@ -234,7 +236,7 @@ class NominationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def nomination_params
       params.require(:nomination).permit(
-        :award_id, :nomination_type, 
+        :award_id, :nomination_type, :nominator_type,
         :nominator_id, :date, :justification,
         :summary, :review_feedback, :company_id,
         ratings_attributes: [:id, :title, :nomination_id, :value, :_destroy], 

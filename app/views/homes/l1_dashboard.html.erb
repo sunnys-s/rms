@@ -334,11 +334,11 @@
             <h5>Attachments</h5>
             <div id='attachmentHere'>
                 <div class='row' >
-                    <div class='col-md-4'>
+                    <div class='col-md-4' id="attachment">
                         FILE NAME
                     </div>
                     <div class='col-md-2'>
-                        <button class='btn btn-primary btn-sm' onclick="" >DOWNLOAD</button>
+                        <a id="attachement_url" href="#" class='btn btn-primary btn-sm' onclick="" >DOWNLOAD</a>
                     </div>
                 </div>
             </div>
@@ -394,6 +394,8 @@
             success: function (data) {
                 var justification = data.justification;
                 $('#justificationHere').html(justification);
+                $('#attachment').html(data.attachment);
+                $('#attachement_url').attr('href', data.url);
             },
         });
         justificationModal.style.display='block';
