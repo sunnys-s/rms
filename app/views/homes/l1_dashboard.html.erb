@@ -50,10 +50,8 @@
                                             <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                             <td><%= raw(nomination.summary) %></td>
                                             <td class='action_td'>
-                                                Justifications
-                                                <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
-                                                Attachments
-                                                <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                                                                   <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
+
                                             </td>
                                             <td class='action_td'>
                                                 <% if nomination.state != 'l2_review_pending' %>
@@ -115,10 +113,7 @@
                                             <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                             <td><%= raw(nomination.summary) %></td>
                                             <td class='action_td'>
-                                                Justifications
-                                                <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
-                                                Attachments
-                                                <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
+                                                        <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
                                             </td>
                                             <td class='action_td'>
                                                 <% if nomination.state != 'l2_review_pending' %>
@@ -178,10 +173,7 @@
                                                 <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                                 <td><%= raw(nomination.summary) %></td>
                                                 <td class='action_td'>
-                                                    Justifications
                                                     <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
-                                                    Attachments
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'l2_review_pending' %>
@@ -239,11 +231,9 @@
                                                 <td class='action_td'><h2><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></h2></td>
                                                 <td><%= raw(nomination.summary) %></td>
                                                 <td class='action_td'>
-                                                    Justifications
-                                                    <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons' >remove_red_eye</i></button><br>
-                                                    Attachments
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
-                                                </td>
+                                                                                                        <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
+
+                                                    </td>
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'l2_review_pending' %>
                                                         <% if nomination.state != 'rejected' %>
@@ -333,18 +323,30 @@
     </div>
 </div>
 
+
 <div id='justificationModal' class='modal'>
     <div class='modal-content'>
-        <h5>Justification</h5>
         <div class='row'>
+            <h5>Justification</h5>
             <div class='col-md-12 justification-class'>
                 <span id='justificationHere'></span>
             </div>
-            <div class='col-md-12 pull-right'>
-                <button class='btn btn-danger' onclick='closeJustification()'>Close</button>
+            <h5>Attachments</h5>
+            <div id='attachmentHere'>
+                <div class='row' >
+                    <div class='col-md-4'>
+                        FILE NAME
+                    </div>
+                    <div class='col-md-2'>
+                        <button class='btn btn-primary btn-sm' onclick="" >DOWNLOAD</button>
+                    </div>
+                </div>
             </div>
+        <div class='col-md-12 pull-right'>
+            <button class='btn btn-danger' onclick='closeJustification()'>Close</button>
         </div>
     </div>
+</div>
 </div>
 <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
 <script>

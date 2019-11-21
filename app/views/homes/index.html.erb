@@ -50,8 +50,8 @@
                                             <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
                                             <td><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></td>
                                             <td class='action_td'>
-                                            <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)">View Justification</button><br>
-                                            <button class='btn btn-primary btn-sm'>View Attachments</button>
+                                            <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
+                                            
                                         </td>   
                                             <td class='action_td'>
                                                 <% if nomination.state != 'l1_review_pending' %>
@@ -108,8 +108,8 @@
                                             <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
                                             <td><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></td>
                                             <td class='action_td'>
-                                                    <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)">View Justification</button><br>
-                                                    <button class='btn btn-primary btn-sm'>View Attachments</button>
+                                                    <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    
                                                 </td>
                                             <td class='action_td'>
                                                 <% if nomination.state != 'l1_review_pending' %>
@@ -166,8 +166,8 @@
                                                 <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
                                                 <td><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></td>
                                                 <td class='action_td'>
-                                                <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)">View Justification</button><br>
-                                                <button class='btn btn-primary btn-sm'>View Attachments</button>
+                                                <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
+                                                
                                             </td>
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'l1_review_pending' %>
@@ -223,8 +223,8 @@
                                                 <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
                                                 <td><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></td>
                                                 <td class='action_td'>
-                                                    <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)">View Justification</button><br>
-                                                    <button class='btn btn-primary btn-sm'>View Attachments</button>
+                                                    <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
+                                                    
                                                 </td>
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'l1_review_pending' %>
@@ -272,6 +272,18 @@
         <div class='col-md-6 justification-expandable'>
             <h4>Justification</h4>
             <div id='justificationHere' class='justification-class'></div>
+            <hr>
+            <h4>Attachments</h4>
+            <div id='attachmentHere'>
+                <div class='row' >
+                    <div class='col-md-4'>
+                        FILE NAME
+                    </div>
+                    <div class='col-md-2'>
+                        <button class='btn btn-primary btn-sm' onclick="" >DOWNLOAD</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class='col-md-12 highlightsHere'>
         <button onclick="openPreview()" class='btn btn-warning'>Preview Before Forward <i class='material-icons'>remove_red_eye</i></button>
