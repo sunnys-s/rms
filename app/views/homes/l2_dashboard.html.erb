@@ -71,10 +71,7 @@
                                                     <%= nomination.state != 'rejected' ? raw(nomination.l1_approval_reason) : raw(nomination.l1_rejection_reason) %>
                                                 </td>
                                                 <td class='action_td'>
-                                                    Justifications
                                                     <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons' >remove_red_eye</i></button><br>
-                                                    Attachments
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'approved' %>
@@ -148,10 +145,7 @@
                                                     <%= nomination.state != 'rejected' ? raw(nomination.l1_approval_reason) : raw(nomination.l1_rejection_reason) %>
                                                 </td>
                                                 <td class='action_td'>
-                                                    Justifications
                                                     <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons' >remove_red_eye</i></button><br>
-                                                    Attachments
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'approved' %>
@@ -226,10 +220,7 @@
                                                     <%= nomination.state != 'rejected' ? raw(nomination.l1_approval_reason) : raw(nomination.l1_rejection_reason) %>
                                                 </td>
                                                 <td class='action_td'>
-                                                    Justifications
                                                     <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons' >remove_red_eye</i></button><br>
-                                                    Attachments
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'approved' %>
@@ -301,10 +292,7 @@
                                                     <%= nomination.state != 'rejected' ? raw(nomination.l1_approval_reason) : raw(nomination.l1_rejection_reason) %>
                                                 </td>
                                                 <td class='action_td'>
-                                                    Justifications
                                                     <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons' >remove_red_eye</i></button><br>
-                                                    Attachments
-                                                    <button class='btn btn-primary btn-sm'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
                                                 <td class='action_td'>
                                                     <% if nomination.state != 'approved' %>
@@ -362,14 +350,24 @@
 
 <div id='justificationModal' class='modal'>
     <div class='modal-content'>
-        <h5>Justification</h5>
         <div class='row'>
+            <h5>Justification</h5>
             <div class='col-md-12 justification-class'>
                 <span id='justificationHere'></span>
             </div>
-            <div class='col-md-12 pull-right'>
-                <button class='btn btn-danger' onclick='closeJustification()'>Close</button>
+            <h5>Attachments</h5>
+            <div id='attachmentHere'>
+                <div class='row' >
+                    <div class='col-md-4'>
+                        FILE NAME
+                    </div>
+                    <div class='col-md-2'>
+                        <button class='btn btn-primary btn-sm' onclick="" >DOWNLOAD</button>
+                    </div>
+                </div>
             </div>
+        <div class='col-md-12 pull-right'>
+            <button class='btn btn-danger' onclick='closeJustification()'>Close</button>
         </div>
     </div>
 </div>
