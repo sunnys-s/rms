@@ -4,12 +4,13 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_many :roles
+  has_many :roles, dependent: :destroy
   has_many :role_masters, through: :roles
-  has_one :employee
+  has_one :employee, dependent: :destroy
   has_many :nominations, as: :nominator
 
   has_and_belongs_to_many :companies
+  accepts_nested_attributes_for :employee
 
   def admin?
     self.role_masters.map(&:name).include?("admin")

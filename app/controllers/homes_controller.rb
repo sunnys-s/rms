@@ -35,7 +35,7 @@ class HomesController < ApplicationController
   def l2_dashboard
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
-    states = ["l2_review_pending", "approved", "rejected"]
+    states = ["l2_review_pending", "final_review_pending", "approved", "rejected"]
     @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations.where(:state => states, company_id: current_user.company.id) rescue []
     @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations.where(:state => states, company_id: current_user.company.id)  rescue []
     @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(:state => states, company_id: current_user.company.id)  rescue []
