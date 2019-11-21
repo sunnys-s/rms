@@ -131,13 +131,15 @@
         $('.hidden').show();
         $.get('/nominations/load_rating_form/' + awardId, function(data, status){
             $('#rating-table').html(data);
-        });v
+            calculate_total();
+        });
     });
     $('#nomination_award_id').on('change', function() {
         var awardId = $(this).find(":selected").val();
         $('.hidden').show();
         $.get('/nominations/load_rating_form/' + awardId, function(data, status){
             $('#rating-table').html(data);
+            calculate_total();
         });
     });
     $('#nomination_nominees_attributes_0_user_id').on('change', function(){
@@ -149,4 +151,15 @@
             }
         <% end %>
     })
+
+    function calculate_total(){
+        $('input[type=radio]').on("change", function() { 
+            var total = 0;
+            $('input[type="radio"]:checked').each(function() {
+                total = total + parseInt($(this).val())
+            }); 
+            console.log(total)
+            $("#aw1_total").html(total);
+        });
+    }
 </script>
