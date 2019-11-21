@@ -53,7 +53,7 @@
                                                                                                    <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
 
                                             </td>
-                                            <td class='action_td'>
+                                            <td class='action_td' id=<%= "action_td_#{nomination.id}"%>>
                                                 <% if nomination.state != 'l2_review_pending' %>
                                                 
                                                     <% if nomination.state != 'rejected' %>
@@ -115,7 +115,7 @@
                                             <td class='action_td'>
                                                         <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
                                             </td>
-                                            <td class='action_td'>
+                                            <td class='action_td' id=<%= "action_td_#{nomination.id}"%>>
                                                 <% if nomination.state != 'l2_review_pending' %>
                                                     <% if nomination.state != 'rejected' %>
                                                         <% if current_user.role_masters.map(&:name).include?('l1_rep') %>
@@ -175,7 +175,7 @@
                                                 <td class='action_td'>
                                                     <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
-                                                <td class='action_td'>
+                                                <td class='action_td' id=<%= "action_td_#{nomination.id}"%>>
                                                     <% if nomination.state != 'l2_review_pending' %>
                                                         <% if nomination.state != 'rejected' %>
                                                             <% if current_user.role_masters.map(&:name).include?('l1_rep') %>
@@ -234,7 +234,7 @@
                                                                                                         <button class='btn btn-primary btn-sm' onclick='openJustification(<%= nomination.id %>)'><i class='material-icons'>remove_red_eye</i></button><br>
 
                                                     </td>
-                                                <td class='action_td'>
+                                                <td class='action_td' id=<%= "action_td_#{nomination.id}"%>>
                                                     <% if nomination.state != 'l2_review_pending' %>
                                                         <% if nomination.state != 'rejected' %>
                                                             <% if current_user.role_masters.map(&:name).include?('l1_rep') %>
@@ -479,6 +479,7 @@
                             //$.ajax on success
                             closeModal();
                             // $('#'+nomination_id).fadeOut();
+                            $("#action_td_" + nomination_id).html("Approved By Level 1");
                             $('#commitee_member').val(null).trigger('change');
                             CKEDITOR.instances.comments.setData('');
                             $.notify("Nomination Approved","success");
@@ -499,6 +500,7 @@
                         success: function (data) {
                             closeModal();
                             $('#commitee_member').val(null).trigger('change');
+                            $("#action_td_" + nomination_id).html("Pushed back");
                             CKEDITOR.instances.comments.setData('');
                             $.notify("Nomination Pushed-back","success");
                         },
@@ -518,6 +520,7 @@
                         success: function (data) {
                             //$.ajax on success
                             closeModal();
+                            $("#action_td_" + nomination_id).html("Rejected");
                             CKEDITOR.instances.comments.setData('');
                             $('#commitee_member').val(null).trigger('change');
                             $.notify("Nomination forwarded successfully","success");

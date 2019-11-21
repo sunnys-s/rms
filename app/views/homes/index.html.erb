@@ -53,7 +53,7 @@
                                             <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
                                             
                                         </td>   
-                                            <td class='action_td'>
+                                            <td class='action_td' id=<%= "action_td_#{nomination.id}"%>>
                                                 <% if nomination.state != 'l1_review_pending' %>
                                                     <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" data-nomination-id="<%= nomination.id %>" onclick="setNominationID(<%= nomination.id %>,true)"> Forward <i class='material-icons'>send</i></button>
                                                     <hr>
@@ -111,7 +111,7 @@
                                                     <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
                                                     
                                                 </td>
-                                            <td class='action_td'>
+                                            <td class='action_td' id=<%= "action_td_#{nomination.id}"%>>
                                                 <% if nomination.state != 'l1_review_pending' %>
                                                     <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" data-nomination-id="<%= nomination.id %>" onclick="setNominationID(<%= nomination.id %>,true)"> Forward <i class='material-icons'>send</i></button>
                                                     <hr>
@@ -169,7 +169,7 @@
                                                 <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
                                                 
                                             </td>
-                                                <td class='action_td'>
+                                                <td class='action_td' id=<%= "action_td_#{nomination.id}"%>>
                                                     <% if nomination.state != 'l1_review_pending' %>
                                                         <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" data-nomination-id="<%= nomination.id %>" onclick="setNominationID(<%= nomination.id %>,true)"> Forward <i class='material-icons'>send</i></button>
                                                         <hr>
@@ -226,7 +226,7 @@
                                                     <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
                                                     
                                                 </td>
-                                                <td class='action_td'>
+                                                <td class='action_td' id=<%= "action_td_#{nomination.id}"%>>
                                                     <% if nomination.state != 'l1_review_pending' %>
                                                         <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" data-nomination-id="<%= nomination.id %>" onclick="setNominationID(<%= nomination.id %>,true)"> Forward <i class='material-icons'>send</i></button>
                                                         <hr>
@@ -451,6 +451,7 @@
                 success: function (data) {
                     //$.ajax on success
                     closeModal();
+                    $("#action_td_" + nomination_id).html("Forwarded");
                     $('#'+nomination_id).fadeOut();
                     CKEDITOR.instances.highlights.setData('');
                     $.notify("Nomination forwarded successfully","success");
@@ -482,8 +483,9 @@
             dataType: 'json',
             contentType: 'application/json',
             success: function (data) {
+                $("#action_td_" + nomination_id).html("Pushed back");
                 $('#target').html(data.msg);
-                $('#nomination_'+nomination.id).fadeOut();
+                $('#nomination_'+nomination_id).fadeOut();
                 $.notify("Nomination pushed back successfully","success");
             },
         });
