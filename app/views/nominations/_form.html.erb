@@ -68,20 +68,20 @@
                       <table class='table table-bordered' id='rating-table'>
                           <%= form.fields_for :ratings do |rating| %>
                           <tr>
-                              <td style='width: 75%'>
+                              <td style='width: 50%'>
                                 <%= rating.object.title %>
                                 <%= rating.hidden_field :title, value: rating.object.title %>
                               </td>
                               <td>
                                   <div class="row">
                                       <div class='col-md-4'>
-                                        3 <%= rating.radio_button(:value, 3) %>
+                                        Excellent (3 Pts) <%= rating.radio_button(:value, 3) %>
                                       </div>
                                       <div class='col-md-4'>
-                                        2 <%= rating.radio_button(:value, 2) %>
+                                        Very Good (2 Pts) <%= rating.radio_button(:value, 2) %>
                                       </div>
                                       <div class='col-md-4'>
-                                        1 <%= rating.radio_button(:value, 1) %>
+                                        Good (1 Pt) <%= rating.radio_button(:value, 1) %>
                                       </div>
                                   </div>
                               </td>
@@ -89,12 +89,38 @@
                           <% end %>
                           <% unless params[:action] == "new" %>
                             <tr class='table_total_tr'>
-                                <td style='width: 75%'>Total</td>
+                                <td style='width: 50%'>Total</td>
                                 <td id='aw1_total'>0</td>
                             </tr>
                           <% end %>
                       </table>
                   </div>
+                  
+                  <div class='col-md-12'>
+                    <h5>Click on success drivers demonstrated by the nominee</h5>
+                    <div class='form-group'>
+                    <div class="row">
+                        <div class='col-md-4'>
+                            <input type='checkbox' name='sd_innovativeness'> Innovativeness
+                        </div>
+                         <div class='col-md-4'>
+                            <input type='checkbox' name='sd_agility'> Agility
+                        </div>
+                         <div class='col-md-4'>
+                            <input type='checkbox' name='sd_responsiveness'> Responsiveness
+                        </div>
+                         <div class='col-md-4'>
+                            <input type='checkbox' name='sd_performance_driven'>  Performance driven
+                        </div>
+                         <div class='col-md-4'>
+                            <input type='checkbox' name='sd_ownership'>  Ownership
+                        </div>
+                        
+                    </div>
+                        
+                    </div>
+                  </div>
+                  
                   <div class='col-md-12'>
                         <h5>Enter Justification</h5>
                         <div class="form-group label">
@@ -133,6 +159,15 @@
             $('#rating-table').html(data);
             calculate_total();
         });
+
+        CKEDITOR.instances.nomination_justification.on("blur",function(e){
+       var data = CKEDITOR.instances.nomination_justification.getData();
+       if(data.split(' ').length < 50){
+           alert("More Detailing Required");
+           CKEDITOR.instances.nomination_justification.focus();
+       }
+
+       });
     });
     $('#nomination_award_id').on('change', function() {
         var awardId = $(this).find(":selected").val();
@@ -162,4 +197,5 @@
             $("#aw1_total").html(total);
         });
     }
+   
 </script>

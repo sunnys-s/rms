@@ -1,27 +1,27 @@
 <tboby>
     <% @award.award_master.rating_scales.each_with_index do |r, index| %>
         <tr>
-            <td style="width: 75%">
+            <td style="width: 50%">
             <%= r.title %>
             <input value="<%= r.title %>" type="hidden" name=<%= "nomination[ratings_attributes][#{index}][title]" %> id= <%= "nomination_ratings_attributes_#{index}_title" %>
             </td>
             <td>
                 <div class="row">
                     <div class="col-md-4">
-                    3 <input type="radio" value="3" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_0_value_3"%>>
+                    Excellent (3 Pts) <input type="radio" value="3" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_0_value_3"%>>
                     </div>
                     <div class="col-md-4">
-                    2 <input type="radio" value="2" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_0_value_2"%>>
+                    Very Good (2 Pts) <input type="radio" value="2" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_0_value_2"%>>
                     </div>
                     <div class="col-md-4">
-                    1 <input type="radio" value="1" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_0_value_1"%>>
+                    Good (1 Pt) <input type="radio" value="1" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_0_value_1"%>>
                     </div>
                 </div>
             </td>
         </tr>
     <% end %>
     <tr class='table_total_tr'>
-        <td style='width: 75%'>Total</td>
+        <td style='width: 50%'>Total</td>
         <td id='aw1_total'>0</td>
     </tr>
 </tbody>
