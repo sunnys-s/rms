@@ -21,6 +21,10 @@ class Cycle < ApplicationRecord
         end
     end
 
+    def self.pending_status_by_location(location)
+        @awards = current_cycle.awards.map{ |i| {title: i.title, count: i.pending_count_by_location(location) }}
+    end
+
     def self.current_cycle
         Cycle.where(status: "active").last
     end

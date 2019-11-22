@@ -46,9 +46,21 @@ class User < ApplicationRecord
     self.companies.map{|c| c.users}.flatten.compact
   end
 
+  def self.all_hr
+    RoleMaster.includes(users: :employee).find_by(name: "hr").users
+  end
+
+  def self.all_hr_group_by_location
+    RoleMaster.includes(users: :employee).find_by(name: "hr").users.group_by{ |i| i.employee.location }
+  end
+
+  def self.user_ids_by_locations(location)
+    Employee.where(location: location).map(&:user_id)
+  end
+
   def company
     # TODO: Send some other value if condition does not matched
     self.companies.size == 1 ? self.companies.last : self.companies.last
   end
-
+  
 end

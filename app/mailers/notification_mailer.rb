@@ -28,4 +28,10 @@ class NotificationMailer < ApplicationMailer
         @user = User.find(@nomination.nominator_id)
         mail(to: @user.email, subject: 'Nomination Rejection Notifcation')
     end
+
+    def notify_hr(user, pending_status)
+        @user = user
+        @pending_status = pending_status
+        mail(to: @user.email, subject: 'Pending awards nomination notification')
+    end
 end

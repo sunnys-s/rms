@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Dear <%= @user.employee.name %>,</p>
+    <p>&nbsp;</p>
+    <p>
+      Actions in following needs to be taken:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Awards</th>
+          <th>Pending</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @pending_status.each do |ps| %>
+          <tr>
+            <td><%= ps[:title]%></td>
+            <td><%= ps[:count]%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    
+    <p>Thanks for your contribution and have a great day!</p>
+  </body>
+</html>
