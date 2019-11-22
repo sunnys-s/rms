@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :nominees
   resources :nominations do
     collection do
-      get '/load_rating_form/:award_id' => 'nominations#load_rating_form'
+      get '/load_rating_form/:award_id/(:nomination_id)' => 'nominations#load_rating_form'
     end
     member do
       post 'push_back'

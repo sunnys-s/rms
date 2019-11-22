@@ -1,5 +1,5 @@
 <tboby>
-    <% @award.award_master.rating_scales.each_with_index do |r, index| %>
+    <% @rating_scales.each_with_index do |r, index| %>
         <tr>
             <td style="width: 75%">
             <%= r.title %>
@@ -8,13 +8,13 @@
             <td>
                 <div class="row">
                     <div class="col-md-4">
-                    3 <input type="radio" value="3" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_0_value_3"%>>
+                    3 <input type="radio" value="3" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_#{index}_value_3"%>>
                     </div>
                     <div class="col-md-4">
-                    2 <input type="radio" value="2" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_0_value_2"%>>
+                    2 <input type="radio" value="2" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_#{index}_value_2"%>>
                     </div>
                     <div class="col-md-4">
-                    1 <input type="radio" value="1" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_0_value_1"%>>
+                    1 <input type="radio" value="1" name=<%= "nomination[ratings_attributes][#{index}][value]" %> id=<%= "nomination_ratings_attributes_#{index}_value_1"%>>
                     </div>
                 </div>
             </td>

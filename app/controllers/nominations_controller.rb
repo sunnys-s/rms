@@ -57,7 +57,12 @@ class NominationsController < ApplicationController
 
   def load_rating_form
     @award = Award.find(params[:award_id])
-    @rating_scales = @award.award_master.rating_scales
+    if !params[:nomination_id].nil?
+      @nomination = Nomination.find(params[:nomination_id])
+      @rating_scales = @nomination.ratings
+    else
+      @rating_scales = @award.award_master.rating_scales
+    end
     render partial: 'rating_form'
   end
 
@@ -66,6 +71,7 @@ class NominationsController < ApplicationController
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
     @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    # @selected_nominees = @nomination.nominees
   end
 
   # POST /nominations
