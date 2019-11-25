@@ -267,7 +267,7 @@ class NominationsController < ApplicationController
         :innovativeness, :agility, :responsiveness, :performance_driven, :ownership,
         ratings_attributes: [:id, :title, :nomination_id, :value, :_destroy], 
         nominees_attributes: [:id, :nomination_id, :user_id, :emp_code, :_destroy],
-        nomination_attachments_attributes: [:id, :nomination_id, :attachment, :destroy]
+        nomination_attachments_attributes: [:id, :nomination_id, :attachment, :_destroy]
       )
     end
 end
