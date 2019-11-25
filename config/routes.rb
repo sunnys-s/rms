@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   
   get '/nominations/:id/pushback' => 'nominations#pushback'
   get '/team_nominations/new' => 'nominations#team_nomination'
+  get '/individual_nominations/:type' => 'nominations#individual_nominations'
   post '/awards/:id/add_comment_to_award' => 'award#add_comment_to_award'
 
   resources :award_masters

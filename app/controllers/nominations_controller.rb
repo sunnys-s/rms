@@ -40,6 +40,24 @@ class NominationsController < ApplicationController
     # return
   end
 
+  def individual_nominations
+    @cycle = Cycle.current_cycle
+    @type = params[:type]
+    @award
+    if(@type=='tmil')
+      @award =  @cycle.awards.find_by(title: "The Most Inspiring Leader")
+    elsif(@type == 'tbe')
+      @award =  @cycle.awards.find_by(title: "The Best Employee")
+    elsif(@type == 'tmie')
+      @award =  @cycle.awards.find_by(title: "The Most Innovative Employee")
+    end
+    @awards = [@award]
+    @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @nomination = Nomination.new
+    @nomination.nominees.build
+    @nomination.nomination_attachments.build
+  end
+
   def team_nomination
     @cycle = Cycle.current_cycle
     @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}

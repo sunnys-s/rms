@@ -2,8 +2,10 @@
     <div class="container-fluid" id="main-form">
         <h4>Add New Nominations</h4>
         <div class="row">
-            <%= link_to 'Add Individual Nomination', new_nomination_path, class: 'btn btn-large btn-success', method: :get %>
-            <%= link_to 'Add Team Nomination', '/team_nominations/new', class: 'btn btn-large btn-success', method: :get %>
+            <%= link_to 'The Most Inspiring Leader', '/individual_nominations/tmil', class: 'btn btn-large btn-success', method: :get %>
+             <%= link_to 'The Best Employee', '/individual_nominations/tbe', class: 'btn btn-large btn-success', method: :get %>
+            <%= link_to 'The Most Innovative Employee', '/individual_nominations/tmie', class: 'btn btn-large btn-success', method: :get %>
+            <%= link_to 'The Best Cross Functional Team', '/team_nominations/new', class: 'btn btn-large btn-success', method: :get %>
         </div>
         <hr style=' border-top: 1px dotted #2683da;'>
         <h5>Individual Nominations Added By You</h5>
