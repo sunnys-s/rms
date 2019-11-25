@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_21_112450) do
+ActiveRecord::Schema.define(version: 2019_11_25_060002) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,12 @@ ActiveRecord::Schema.define(version: 2019_11_21_112450) do
     t.integer "approvers", default: [], array: true
     t.integer "rejectors", default: [], array: true
     t.integer "company_id"
+    t.boolean "innovativeness"
+    t.boolean "agility"
+    t.boolean "responsiveness"
+    t.boolean "performance_driven"
+    t.boolean "ownership"
+    t.integer "subcommitee_member_ids", default: [], array: true
     t.index ["award_id"], name: "index_nominations_on_award_id"
     t.index ["nominator_type", "nominator_id"], name: "index_nominations_on_nominator_type_and_nominator_id"
   end

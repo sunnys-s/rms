@@ -16,7 +16,7 @@ class NominationsController < ApplicationController
 
   def justification
     #@nomination = Nomination.find(params[:id]
-    render json:{justification: @nomination.justification, attachment: (@nomination.nomination_attachments.last.attachment.identifier rescue ''), url: (@nomination.nomination_attachments.last.attachment.to_s rescue '#') }
+    render json:{justification: @nomination.justification, attachment: (@nomination.nomination_attachments.last.attachment.identifier rescue ''), url: (@nomination.nomination_attachments.last.attachment.url rescue '#') }
   end
 
   # GET /nominations/new
@@ -160,6 +160,7 @@ class NominationsController < ApplicationController
   # POST /nominations/1/forward
   def forward
     @nomination.summary = params[:summary]
+    @nomination.subcommitee_ids = params[:subcommitee_ids].map(&:to_i)
     @nomination.save!
     @nomination.forward
     render json: { message: "Pushed back successfully"}
@@ -263,6 +264,7 @@ class NominationsController < ApplicationController
         :award_id, :nomination_type, :nominator_type,
         :nominator_id, :date, :justification,
         :summary, :review_feedback, :company_id,
+        :innovativeness, :agility, :responsiveness, :performance_driven, :ownership,
         ratings_attributes: [:id, :title, :nomination_id, :value, :_destroy], 
         nominees_attributes: [:id, :nomination_id, :user_id, :emp_code, :_destroy],
         nomination_attachments_attributes: [:id, :nomination_id, :attachment, :destroy]
