@@ -2,7 +2,7 @@ class HomesController < ApplicationController
   # GET /homes
   # GET /homes.json
   def index
-    # if current_user.hr?
+    if current_user.hr?
       @cycle = Cycle.current_cycle
       @awards = @cycle.awards
       @current_location = current_user.employee.location
@@ -13,17 +13,17 @@ class HomesController < ApplicationController
       @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations.where(nominator_id: location_peer_ids)
       # @commitee_members = @cycle.commitees.find_by(level: "Level 1 for #{current_user.company.name}", company_id: current_user.company.id).commitee_members.map{|i| i.user.employee}.flatten
       @commitee_members = @cycle.commitees.find_by(level: "Level 1 for #{current_user.company.name}").commitee_members.map{|u| ["#{u.user.emp_code} | #{u.user.employee.name rescue ""} | #{u.user.employee.location rescue ""} | #{u.user.employee.sbu rescue ""}", u.user.id]}.flatten
-      render json: @commitee_members
-      return
-      # elsif(current_user.l1? or current_user.l1_rep?)
-    #   redirect_to '/l1_dashboard'
-    # elsif(current_user.l2? or current_user.l2_rep?)
-    #   redirect_to '/l2_dashboard'
-    # elsif(current_user.chairman?)
-    #   redirect_to '/chairman_dashboard'
-    # else
-    #   redirect_to '/user_dashboard'
-    # end
+      # render json: @commitee_members
+      # return
+    elsif(current_user.l1? or current_user.l1_rep?)
+      redirect_to '/l1_dashboard'
+    elsif(current_user.l2? or current_user.l2_rep?)
+      redirect_to '/l2_dashboard'
+    elsif(current_user.chairman?)
+      redirect_to '/chairman_dashboard'
+    else
+      redirect_to '/user_dashboard'
+    end
   end
 
   def l1_dashboard
