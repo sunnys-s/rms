@@ -142,7 +142,7 @@ class NominationsController < ApplicationController
   # POST /nominations/1/forward
   def forward
     @nomination.summary = params[:summary]
-    @nomination.subcommitee_ids = params[:subcommitee_ids].map(&:to_i)
+    @nomination.subcommitee_ids = params[:subcommitee_ids].map(&:to_i) rescue []
     @nomination.save!
     @nomination.forward
     render json: { message: "Pushed back successfully"}
