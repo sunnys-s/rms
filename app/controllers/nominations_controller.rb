@@ -43,7 +43,6 @@ class NominationsController < ApplicationController
   def individual_nominations
     @cycle = Cycle.current_cycle
     @type = params[:type]
-    @award
     if(@type=='tmil')
       @award =  @cycle.awards.find_by(title: "The Most Inspiring Leader")
     elsif(@type == 'tbe')
@@ -88,6 +87,7 @@ class NominationsController < ApplicationController
   def edit
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
+    @award = @nomination.award
     @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     # @selected_nominees = @nomination.nominees
   end

@@ -131,11 +131,17 @@
                     <div class='col-md-12'>
                         <h5>Add Attachments</h5>
                         <%= form.fields_for :nomination_attachments, @nomination.nomination_attachments do |p| %>
+                            <%= render 'nomination_attachments', p: p%>
+                            <!--
                             <div class="field">
                                 <%#= p.label :attachment %><br>
-                                <%= p.file_field :attachment %>
+                                <%#= p.file_field :attachment %>
                             </div>
+                            -->
                         <% end %>
+                        <br>
+                        <br>
+                        <%= link_to_add_fields 'Add More Attachments', form, :nomination_attachments%>
                     </div>
                     <div class='card-footer'>
 
@@ -163,14 +169,28 @@
         }
 
         CKEDITOR.instances.nomination_justification.on("blur",function(e){
-       var data = CKEDITOR.instances.nomination_justification.getData();
-       if(data.split(' ').length < 50){
-           alert("More Detailing Required");
-           CKEDITOR.instances.nomination_justification.focus();
-       }
+            var data = CKEDITOR.instances.nomination_justification.getData();
+            if(data.split(' ').length < 50){
+                alert("More Detailing Required");
+                CKEDITOR.instances.nomination_justification.focus();
+            }
 
        });
+
+       $("[data-form-prepend]").click(function(e) {
+            var obj = $($(this).attr("data-form-prepend"));
+            obj.find("input, select, textarea").each(function() {
+                $(this).attr("name", function() {
+                return $(this)
+                    .attr("name")
+                    .replace("new_record", $('input:file').length);
+                });
+            });
+            obj.insertBefore(this);
+            return false;
+        });
     });
+
     $('#nomination_award_id').on('change', function() {
         var awardId = $(this).find(":selected").val();
         $('.hidden').show();
