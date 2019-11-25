@@ -392,8 +392,6 @@
         $('#btn'+mode).parent().addClass('active');
     }
     var nomination_id = -1;
-    
-   
 
     function setNominationID(id,editable){
         if(editable==false)
@@ -443,10 +441,12 @@
 
     function doForward() {
         var highlights = CKEDITOR.instances.highlights.getData();
+        var list_of_memebers = $('#commitee_member').val();
         if(highlights.includes('<ul>') && highlights.includes("<li>")){
             var url = '/nominations/' + nomination_id + '/forward'
             var data = {
-                summary: highlights
+                summary: highlights,
+                members: list_of_memebers
             }
             $.ajax({
                 type: "POST",
