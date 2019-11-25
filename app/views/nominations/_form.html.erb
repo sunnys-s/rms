@@ -1,4 +1,4 @@
-<%= form_with(model: nomination, local: true, :html => {:multipart => true} ) do |form| %> 
+<%= form_with(model: nomination,id: 'nomination_form',local: true, :html => {:multipart => true} ) do |form| %> 
   <div class="container-fluid" id="main-form" data-action=<%= params[:action] %> data-id=<%= @nomination.id %>>
       <div class='card'>
           <div class='card-header' data-background-color='blue'>
@@ -10,7 +10,9 @@
                       <div class="form-group label">
                           <label class="control-label ">Select Award Type</label>
                           <% if params[:action] != "team_nomination" %>
-                            <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {class: "form-control"}%>
+                            <%# <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {class: "form-control"}%>
+                            <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {:disabled => true, class: "form-control"}%>
+                            <%= form.hidden_field :award_id, :value => @award.id %>
                             <%= form.hidden_field :nomination_type, value: "individual"%>
                           <% else %>
                             <%= form.select :award_id, options_from_collection_for_select(@awards, 'id', 'title'), {}, {:disabled => true, class: "form-control"}%>
@@ -123,10 +125,8 @@
                   
                   <div class='col-md-12'>
                         <h5>Enter Justification</h5>
-                        <div class="form-group label">
-                            <%= form.text_area :justification %>
-                            
-                        </div>
+                        Please Enter Atleast 50 words.  
+                        <%= form.text_area :justification %>
                     </div>
                     <div class='col-md-12'>
                         <h5>Add Attachments</h5>
