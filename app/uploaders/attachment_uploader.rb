@@ -4,7 +4,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  # storage :file
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
@@ -44,4 +44,8 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
+  def cdn_url
+    "https://cybit-rewards-and-recognistion.s3.ap-south-1.amazonaws.com#{self.url}"
+    # self.url.gsub("https://sgp1.digitaloceanspaces.com/quodeck-assets/", "https://quodeck-assets.sgp1.cdn.digitaloceanspaces.com/")
+  end
 end

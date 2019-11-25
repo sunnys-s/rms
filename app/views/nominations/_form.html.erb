@@ -101,19 +101,19 @@
                     <div class='form-group'>
                     <div class="row">
                         <div class='col-md-4'>
-                            <input type='checkbox' name='sd_innovativeness'> Innovativeness
+                            <%= form.check_box :innovativeness, checked: @nomination.innovativeness %> Innovativeness
                         </div>
                          <div class='col-md-4'>
-                            <input type='checkbox' name='sd_agility'> Agility
+                            <%= form.check_box :agility %> Agility
                         </div>
                          <div class='col-md-4'>
-                            <input type='checkbox' name='sd_responsiveness'> Responsiveness
+                            <%= form.check_box :responsiveness %> Responsiveness
                         </div>
                          <div class='col-md-4'>
-                            <input type='checkbox' name='sd_performance_driven'>  Performance driven
+                            <%= form.check_box :performance_driven %> Performance driven
                         </div>
                          <div class='col-md-4'>
-                            <input type='checkbox' name='sd_ownership'>  Ownership
+                            <%= form.check_box :ownership %> Ownership
                         </div>
                         
                     </div>

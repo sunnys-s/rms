@@ -272,10 +272,7 @@
         <textarea name='highlights' id='highlights' placeholder="Enter A few key highlight points"></textarea>
         <hr>
         <h5>Select Sub-Committee Members to forward</h5>
-        <select name='subcom' style='width:100%;' multiple>
-        <option>04014 | Mr x. | CRP | Manager</option>
-        <option>04014 | Mr x. | CRP | Manager</option>
-        </select>
+        <%= select_tag "subcommittee_list", options_for_select(@commitee_members), {id: "commitee_member", multiple: true, style: 'width: 200px'} %>
         </div>
         <div class='col-md-6 justification-expandable'>
             <h4>Justification</h4>
