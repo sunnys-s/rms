@@ -147,6 +147,7 @@ td{
     vertical-align: top !important;
 }
 .action_td {
+    width: 15%;
     text-align: center;
     vertical-align: middle !important;
 }
@@ -156,6 +157,8 @@ td{
 }
 th{
     font-weight: bold !important;
+    /* color:white;
+    background-color: #2683da; */
 }
 .modal {
     display: none; /* Hidden by default */

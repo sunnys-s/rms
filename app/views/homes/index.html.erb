@@ -14,7 +14,7 @@
                     <li class='active'><a data-toggle="tab" class='tab' id='btnhome'  onclick='doSwitch("home")'>The Most Inspiring Leader</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenu1' onclick='doSwitch("menu1")'>The Best Employee</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenu2'  onclick='doSwitch("menu2")'>The Most Innovative Employee</a></li>
-                    <li><a data-toggle="tab" class='tab' id='btnmenu3' onclick='doSwitch("menu3")'>The Best Cross-Function Team</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenu3' onclick='doSwitch("menu3")'>The Best Cross-Functional Team</a></li>
                 </ul>
             </div>
             <div class='card-content'>
@@ -38,13 +38,13 @@
                                             <% nominee = nomination.nominees.last.user %>
                                             <td>
                                                 <p>Name : <%= nominee.employee.name %></p>
-                                                <p>Employee ID : <%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %></p>
-                                                <p>DOJ : 15-06-2017</p>
-                                                <p>Reporting Manager : <%= nominee.employee.reporting_manager %></p>
-                                                <p>Department : <%= nominee.employee.department %></p>
-                                                <p>Section : <%= nominee.employee.unit %></p>
-                                                <p>SBU : <%= nominee.employee.sbu %></p>
-                                                <p>Location :  <%= nominee.employee.location %></p>
+                                                    <p>Employee ID : <%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %></p>
+                                                    <p>Department : <%= nominee.employee.department %></p>
+                                                    <p>Section : <%= nominee.employee.unit %></p>
+                                                    <p>SBU : <%= nominee.employee.sbu %></p>
+                                                    <p>Location :  <%= nominee.employee.location %></p>
+                                                    <p>Functional Manager :  <%= nominee.employee.functional_manager %></p>
+                                                    <p>Administrative Manager :  <%= nominee.employee.administrative_manager %></p>
                                             </td>
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                             <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
@@ -96,13 +96,13 @@
                                             <% nominee = nomination.nominees.last.user %>
                                             <td>
                                                 <p>Name : <%= nominee.employee.name %></p>
-                                                <p>Employee ID : <%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %></p>
-                                                <p>DOJ : 15-06-2017</p>
-                                                <p>Reporting Manager : <%= nominee.employee.reporting_manager %></p>
-                                                <p>Department : <%= nominee.employee.department %></p>
-                                                <p>Section : <%= nominee.employee.unit %></p>
-                                                <p>SBU : <%= nominee.employee.sbu %></p>
-                                                <p>Location :  <%= nominee.employee.location %></p>
+                                                    <p>Employee ID : <%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %></p>
+                                                    <p>Department : <%= nominee.employee.department %></p>
+                                                    <p>Section : <%= nominee.employee.unit %></p>
+                                                    <p>SBU : <%= nominee.employee.sbu %></p>
+                                                    <p>Location :  <%= nominee.employee.location %></p>
+                                                    <p>Functional Manager :  <%= nominee.employee.functional_manager %></p>
+                                                    <p>Administrative Manager :  <%= nominee.employee.administrative_manager %></p>
                                             </td>
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                             <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
@@ -155,12 +155,12 @@
                                                 <td>
                                                     <p>Name : <%= nominee.employee.name %></p>
                                                     <p>Employee ID : <%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %></p>
-                                                    <p>DOJ : 15-06-2017</p>
-                                                    <p>Reporting Manager : <%= nominee.employee.reporting_manager %></p>
                                                     <p>Department : <%= nominee.employee.department %></p>
                                                     <p>Section : <%= nominee.employee.unit %></p>
                                                     <p>SBU : <%= nominee.employee.sbu %></p>
                                                     <p>Location :  <%= nominee.employee.location %></p>
+                                                    <p>Functional Manager :  <%= nominee.employee.functional_manager %></p>
+                                                    <p>Administrative Manager :  <%= nominee.employee.administrative_manager %></p>
                                                 </td>
                                                 <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                                 <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
@@ -268,14 +268,14 @@
         
         <div class='row'>
         <div class='col-md-6 highlightsHere'>
-        <h5>Enter a few key highlights in bulletins from justification on right side.</h5>
+        <h5><b>Enter a key highlights in bullet points.</b></h5>
         <textarea name='highlights' id='highlights' placeholder="Enter A few key highlight points"></textarea>
         <hr>
-        <h5>Select Sub-Committee Members to forward</h5>
+        <h5><b>Select Sub-Committee Members to forward</b></h5>
         <%= select_tag "subcommittee_list", options_for_select(@commitee_members), {id: "commitee_member", multiple: true, style: 'width: 200px'} %>
         </div>
         <div class='col-md-6 justification-expandable'>
-            <h4>Justification</h4>
+            <h4><b>Justification</b></h4>
             <div id='justificationHere' class='justification-class'></div>
             <hr>
             <h4>Attachments</h4>
@@ -309,7 +309,7 @@
                                     <th>Nominators</th>
                                     <th>Number of Nominations</th>
                                     <th>Average Points </th>
-                                    <th>Award Towards</th>
+                                    <th>Key Highligts</th>
                                     <th>Justification &amp; Attachments</th>
 
                                 </tr></thead>
