@@ -1,12 +1,12 @@
 <div class="field">
     <%#= p.label :attachment %><br>
-    <% if p.object.attachment.nil? %>
+    <% if p.object.attachment.identifier.nil? %>
         <%= p.file_field :attachment, data: { placeholder: p.object.attachment || "No file selected" } %>
     <% else %>
         <%#= p.file_field :attachment, data: { placeholder: p.object.attachment || "No file selected" } %>
         <a href="<%= p.object.attachment.url %>"><%= p.object.attachment.identifier %></a>
-        <%#= p.check_box :_destroy%>
-        <%#= p.label :delete%>
+        <%= p.check_box :_destroy%>
+        <%= p.label :delete%>
     <% end %>
     
 </div>

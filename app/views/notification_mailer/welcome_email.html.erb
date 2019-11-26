@@ -7,7 +7,7 @@
   <body>
     <p>Dear <%= @user.employee.name %>,</p>
     <p>&nbsp;</p>
-    <p>&nbsp; &nbsp; Your request for nomination of <%= "#{@nomination.nominees.last.user.employee.name} (#{@nomination.nominees.last.user.employee.emp_code})" %> for
+    <p>&nbsp; &nbsp; Your request for nomination of <%= @nomination.nomination_type == "individual" ? "#{@nomination.nominees.last.user.employee.name} (#{@nomination.nominees.last.user.employee.emp_code})" :  @nomination.nominees.map{ |i| "#{i.user.employee.name}(#{i.user.employee.emp_code})"}.join(", ") %> for
       <%= @nomination.award.title %> award is successfully registered. We will keep you updated.</p>
     <p>&nbsp;</p>
     <p>Thanks for joining and have a great day!</p>
