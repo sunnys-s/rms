@@ -30,7 +30,7 @@
                                             </div>
                                             <div class='card-content'>  
                                                 <p><%= nominee.employee.department %> </p>
-                                                <p><%= nominee.employee.emp_code %> </p>
+                                                <p><%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %> </p>
                                                 <div class='pull-right'><%= image_tag(nominee.companies.last.logo.url,{class:'company_logo'}) %></div>
                                             </div>
                                         </div>

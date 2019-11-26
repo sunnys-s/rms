@@ -23,7 +23,7 @@ class NominationsController < ApplicationController
   def new
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards - [@cycle.awards.find_by(title: "The Best Cross-Functional Team")]
-    @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @users = current_user.peers.map{|u| ["#{u.emp_code.rjust(5, '0')} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
     # @nomination.company_id = current_user.company.id rescue nil
     @nomination.nominees.build
@@ -51,7 +51,7 @@ class NominationsController < ApplicationController
       @award =  @cycle.awards.find_by(title: "The Most Innovative Employee")
     end
     @awards = [@award]
-    @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @users = current_user.peers.map{|u| ["#{u.emp_code.rjust(5, '0') rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
     @nomination.nominees.build
     @nomination.nomination_attachments.build
@@ -59,7 +59,7 @@ class NominationsController < ApplicationController
 
   def team_nomination
     @cycle = Cycle.current_cycle
-    @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @users = current_user.peers.map{|u| ["#{u.emp_code.rjust(5, '0') rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     @nomination = Nomination.new
     # @nomination.company_id = current_user.company.id rescue nil
     @nomination.nominees.build
@@ -88,7 +88,7 @@ class NominationsController < ApplicationController
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
     @award = @nomination.award
-    @users = current_user.peers.map{|u| ["#{u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @users = current_user.peers.map{|u| ["#{u.emp_code.rjust(5, '0') rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
     # @selected_nominees = @nomination.nominees
   end
 

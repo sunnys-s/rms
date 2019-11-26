@@ -38,7 +38,7 @@
                                             <% nominee = nomination.nominees.last.user %>
                                             <td>
                                                 <p>Name : <%= nominee.employee.name %></p>
-                                                <p>Employee ID : <%= nominee.employee.emp_code %></p>
+                                                <p>Employee ID : <%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %></p>
                                                 <p>DOJ : 15-06-2017</p>
                                                 <p>Reporting Manager : <%= nominee.employee.reporting_manager %></p>
                                                 <p>Department : <%= nominee.employee.department %></p>
@@ -96,7 +96,7 @@
                                             <% nominee = nomination.nominees.last.user %>
                                             <td>
                                                 <p>Name : <%= nominee.employee.name %></p>
-                                                <p>Employee ID : <%= nominee.employee.emp_code %></p>
+                                                <p>Employee ID : <%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %></p>
                                                 <p>DOJ : 15-06-2017</p>
                                                 <p>Reporting Manager : <%= nominee.employee.reporting_manager %></p>
                                                 <p>Department : <%= nominee.employee.department %></p>
@@ -154,7 +154,7 @@
                                                 <% nominee = nomination.nominees.last.user %>
                                                 <td>
                                                     <p>Name : <%= nominee.employee.name %></p>
-                                                    <p>Employee ID : <%= nominee.employee.emp_code %></p>
+                                                    <p>Employee ID : <%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %></p>
                                                     <p>DOJ : 15-06-2017</p>
                                                     <p>Reporting Manager : <%= nominee.employee.reporting_manager %></p>
                                                     <p>Department : <%= nominee.employee.department %></p>
@@ -214,7 +214,7 @@
                                                     <% nomination.nominees.each_with_index do |nominee, index| %>
                                                         <% nominee = nominee.user %>
                                                         <p>
-                                                            <b><%= index+1 %>. <%= nominee.employee.name %></b> (<%= nominee.employee.emp_code %>)<br>
+                                                            <b><%= index+1 %>. <%= nominee.employee.name %></b> (<%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %>)<br>
                                                             <%= nominee.employee.department %>
                                                         </p>
                                                     <% end %>
