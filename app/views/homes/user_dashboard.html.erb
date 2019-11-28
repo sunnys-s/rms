@@ -3,9 +3,9 @@
         <h4>Add New Nominations</h4>
         <div class="row">
             <%= link_to 'The Most Inspiring Leader', '/individual_nominations/tmil', class: 'btn btn-large btn-success', method: :get %>
-             <%= link_to 'The Best Employee', '/individual_nominations/tbe', class: 'btn btn-large btn-success', method: :get %>
-            <%= link_to 'The Most Innovative Employee', '/individual_nominations/tmie', class: 'btn btn-large btn-success', method: :get %>
-            <%= link_to 'The Best Cross Functional Team', '/team_nominations/new', class: 'btn btn-large btn-success', method: :get %>
+             <%= link_to 'The Best Employee', '/individual_nominations/tbe', class: 'btn btn-large btn-blue', method: :get %>
+            <%= link_to 'The Most Innovative Employee', '/individual_nominations/tmie', class: 'btn btn-large btn-orange', method: :get %>
+            <%= link_to 'The Best Cross Functional Team', '/team_nominations/new', class: 'btn btn-large btn-primary', method: :get %>
         </div>
         <hr style=' border-top: 1px dotted #2683da;'>
         <h5>Individual Nominations Added By You</h5>
@@ -13,13 +13,13 @@
             <% @my_default_nominees.each_with_index do |nominee, index| %>
                 <div class='col-md-4'>
                     <div class='card' >
-                        <div class='card-header'  data-background-color='blue'>
-                            <b><%= "#{index + 1}. #{nominee.award.title}" %></b>
+                        <div class='card-header bg_<%=nominee.award.award_master.id%>'>
+                            <b><%= " #{nominee.award.title}" %></b>
                         </div>
                         <div class='card-content point-div'>
                             <% emp = nominee.nominees.last.user %>
                             <h4><%= emp.employee.name %></h4>
-                            <h2 class='point point-indi'><%= nominee.ratings.map(&:value).compact.reduce(&:+) %></h2>
+                            <h2 class='point point-indi text_<%=nominee.award.award_master.id%>'><%= nominee.ratings.map(&:value).compact.reduce(&:+) %></h2>
                             Points
                         </div>
                         <div class='card-footer'>
@@ -30,7 +30,7 @@
                             <% elsif nominee.state == 'pushed_back' %>
                                 <span class='label label-danger'>Pushed Back</span>
                             <% else %>
-                                <span class='label label-info'>Pending</span>
+                                <span class='label label-info bg_<%=nominee.award.award_master.id%>'>Under Approval</span>
                             <% end %>
                             <% if nominee.state != 'pushed_back' %>
                                 <!--button data-nomination-id=<%= nominee.id%> class='btn btn-sm btn-info pull-right show-nominee'><i class='material-icons'>remove_red_eye</i></button-->
@@ -47,8 +47,8 @@
             <% @my_team_nominees.each_with_index do |nominee, index| %>
                 <div class='col-md-6'>
                     <div class='card' >
-                        <div class='card-header'  data-background-color='purple'>
-                            <b><%= "#{index + 1}. #{nominee.award.title}" %></b>
+                        <div class='card-header bg_<%=nominee.award.award_master.id%>'>
+                            <b><%= "#{nominee.award.title}" %></b>
                         </div>
                         <div class='card-content'>
                             <div class='row'>
@@ -60,7 +60,7 @@
                                     <% end %>
                                 </div>
                                 
-                                <div class='col-md-3 point-div '>
+                                <div class='col-md-3 point-div text_<%=nominee.award.award_master.id%> '>
                                     <h2 class='point point-team'><%= nominee.ratings.map(&:value).compact.reduce(&:+) %></h2>
                                     <p>Points</p>
                                 </div>
@@ -74,7 +74,7 @@
                             <% elsif nominee.state == 'pushed_back' %>
                                 <span class='label label-danger'>Pushed Back</span>
                             <% else %>
-                                <span class='label label-info'>Pending</span>
+                                <span class='label label-info bg_<%=nominee.award.award_master.id%>'>Under Approval</span>
                             <% end %>
                             <% if nominee.state != 'pushed_back' %>
                                     <!--button data-nomination-id=<%= nominee.id%>  class='btn btn-sm btn-info pull-right show-nominee'><i class='material-icons'>remove_red_eye</i></button-->

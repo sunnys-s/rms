@@ -157,8 +157,8 @@ td{
 }
 th{
     font-weight: bold !important;
-    /* color:white;
-    background-color: #2683da; */
+    background-color: #888888;
+    color:white;
 }
 .modal {
     display: none; /* Hidden by default */
@@ -252,4 +252,48 @@ body{
     width: 70px !important;
     height: auto;
     margin: 5px;
+}
+
+.btn-blue {
+   background-color:#0669c5 !important; 
+}
+
+.btn-orange{
+    background-color:#ff9800 !important;
+}
+
+.bg_2{
+    background-color: #5cb85c !important;
+    color:white;
+}
+
+.text_2{
+    color :#5cb85c !important;
+}
+
+.bg_3{
+    background-color: #2683da !important;
+    color:white;
+}
+
+.text_3{
+    color :#2683da !important;
+}
+
+.bg_4{
+    background-color: #ff9800  !important;
+    color:white;
+}
+
+.text_4{
+    color :#ff9800  !important;
+}
+
+.bg_1{
+    background-color: #9c27b0  !important;
+    color:white;
+}
+
+.text_1{
+    color :#9c27b0  !important;
 }
