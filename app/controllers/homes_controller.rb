@@ -28,14 +28,18 @@ class HomesController < ApplicationController
 
   def l1_dashboard
     @cycle = Cycle.current_cycle
-    @awards = @cycle.awards
-    states = ["l1_review_pending", "l2_review_pending", "rejected"]
-    @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations.where(:state => states, company_id: current_user.company.id) rescue []
-    @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations.where(:state => states, company_id: current_user.company.id) rescue []
-    @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(:state => states, company_id: current_user.company.id) rescue []
-    @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations.where(:state => states) rescue []
-    #@commitee_members = @cycle.commitees.find_by(level: "Level 1", company_id: current_user.company.id).commitee_members.map{|i| i.user.employee}.flatten
-    @commitee_members = @cycle.commitees.find_by(level: "Level 1 for #{current_user.company.name}", company_id: current_user.company.id).commitee_members.map{|i| i.user.employee}.flatten
+    if is_member?(@cycle, current_user)
+      @awards = @cycle.awards
+      states = ["l1_review_pending", "l2_review_pending", "rejected"]
+      @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations.where(:state => states, company_id: current_user.company.id) rescue []
+      @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations.where(:state => states, company_id: current_user.company.id) rescue []
+      @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations.where(:state => states, company_id: current_user.company.id) rescue []
+      @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations.where(:state => states) rescue []
+      #@commitee_members = @cycle.commitees.find_by(level: "Level 1", company_id: current_user.company.id).commitee_members.map{|i| i.user.employee}.flatten
+      @commitee_members = @cycle.commitees.find_by(level: "Level 1 for #{current_user.company.name}", company_id: current_user.company.id).commitee_members.map{|i| i.user.employee}.flatten
+    else
+      redirect_to '/', alert: "You are not authorized for that action."
+    end
   end
 
   def l2_dashboard

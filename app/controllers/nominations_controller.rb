@@ -263,7 +263,7 @@ class NominationsController < ApplicationController
       params.require(:nomination).permit(
         :award_id, :nomination_type, :nominator_type,
         :nominator_id, :date, :justification,
-        :summary, :review_feedback, :company_id, :subcommitee_member_ids
+        :summary, :review_feedback, :company_id, :subcommitee_member_ids,
         :innovativeness, :agility, :responsiveness, :performance_driven, :ownership,
         ratings_attributes: [:id, :title, :nomination_id, :value, :_destroy], 
         nominees_attributes: [:id, :nomination_id, :user_id, :emp_code, :_destroy],
