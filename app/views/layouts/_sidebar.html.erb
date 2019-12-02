@@ -42,7 +42,7 @@
                                 <td><%= current_employee.administrative_manager %></td>
                             </tr>
                             <tr>
-                                <td class="title">Functional Manager</td>
+                                <td clūass="title">Functional Manager</td>
                                 <td><%= current_employee.functional_manager %></td>
                             </tr>
                            
@@ -65,7 +65,7 @@
                     <% end %>
                 <% end %>
 
-                <% if current_user.l1? %>
+                <% if current_user.l1? and is_member?(@cycle, current_user)) %>
                     <%= link_to '/l1_dashboard' do %>
                         <i class="material-icons">done_outline</i> 
                         <b><p>Committee Dashboard</p></b>
