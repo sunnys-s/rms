@@ -15,7 +15,7 @@ class HomesController < ApplicationController
       @commitee_members = @cycle.commitees.find_by(level: "Level 1 for #{current_user.company.name}").commitee_members.map{|u| ["#{u.user.emp_code} | #{u.user.employee.name rescue ""} | #{u.user.employee.location rescue ""} | #{u.user.employee.sbu rescue ""}", u.user.id]}.flatten
       # render json: @commitee_members
       # return
-    elsif(current_user.l1? or current_user.l1_rep?)
+    elsif((current_user.l1? or current_user.l1_rep?) and is_member?(@cycle, current_user))
       redirect_to '/l1_dashboard'
     elsif(current_user.l2? or current_user.l2_rep?)
       redirect_to '/l2_dashboard'
@@ -78,5 +78,10 @@ class HomesController < ApplicationController
         @my_default_nominees << mn
       end
     end
+  end
+
+  private
+  def is_member(cycle, user)
+    cycle.awards.map{ |i| i.nominations.map(&:subcommitee_member_ids)}.flatten.compact.include?(user.id)
   end
 end
