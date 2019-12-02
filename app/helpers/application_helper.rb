@@ -34,4 +34,7 @@ module ApplicationHelper
         content_tag(:a, name, html_options, &block)
     end
       
+    def is_member(cycle, user)
+        cycle.awards.map{ |i| i.nominations.map(&:subcommitee_member_ids)}.flatten.compact.include?(user.id)
+    end
 end
