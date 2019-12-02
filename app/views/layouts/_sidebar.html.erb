@@ -58,14 +58,14 @@
                      <b><p>My Nominations</p></b>
                 <% end %>
 
-            <% if current_user.hr? %>
+                <% if current_user.hr? %>
                     <%= link_to '/' do %>
                         <i class="material-icons">call_split</i> 
                         <b><p>Moderator Dashboard</p></b>
                     <% end %>
                 <% end %>
 
-                <% if current_user.l1? and is_member?(@cycle, current_user)) %>
+                <% if current_user.l1? %>
                     <%= link_to '/l1_dashboard' do %>
                         <i class="material-icons">done_outline</i> 
                         <b><p>Committee Dashboard</p></b>
