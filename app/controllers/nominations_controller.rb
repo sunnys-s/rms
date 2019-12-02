@@ -160,7 +160,7 @@ class NominationsController < ApplicationController
   # POST /nominations/1/forward
   def forward
     @nomination.summary = params[:summary]
-    @nomination.subcommitee_ids = params[:members].map(&:to_i) rescue []
+    @nomination.subcommitee_member_ids = params[:members].map(&:to_i) rescue []
     @nomination.save!
     @nomination.forward
     render json: { message: "Pushed back successfully"}
@@ -263,7 +263,7 @@ class NominationsController < ApplicationController
       params.require(:nomination).permit(
         :award_id, :nomination_type, :nominator_type,
         :nominator_id, :date, :justification,
-        :summary, :review_feedback, :company_id,
+        :summary, :review_feedback, :company_id, :subcommitee_member_ids
         :innovativeness, :agility, :responsiveness, :performance_driven, :ownership,
         ratings_attributes: [:id, :title, :nomination_id, :value, :_destroy], 
         nominees_attributes: [:id, :nomination_id, :user_id, :emp_code, :_destroy],
