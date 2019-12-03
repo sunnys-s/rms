@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_one :employee, dependent: :destroy
   has_many :nominations, as: :nominator, dependent: :destroy
   has_many :nominees, dependent: :destroy
+  ############################################
+  has_many :commitee_members, dependent: :destroy
+  ############################################
 
   has_and_belongs_to_many :companies
   accepts_nested_attributes_for :employee
