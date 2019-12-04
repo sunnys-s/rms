@@ -65,8 +65,10 @@
                                                         <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
                                                     <% end %>
                                                 <% else %>
-                                                    <h5>Forwarded</h5>
-                                                    <p><strong>Highligts: </strong><br/><%= raw nomination.summary %><p>
+                                                    <% if nomination.state != 'pushed_back' %>
+                                                        <h5>Forwarded</h5>
+                                                        <p><strong>Highlights: </strong><br/><%= raw nomination.summary %><p>
+                                                    <% end %>
                                                 <% end %>
                                             </td>
                                         </tr>
@@ -123,8 +125,10 @@
                                                         <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
                                                     <% end %>
                                                 <% else %>
-                                                    <h5>Forwarded</h5>
-                                                    <p><strong>Highligts: </strong><br/><%= raw nomination.summary %><p>
+                                                     <% if nomination.state != 'pushed_back' %>
+                                                        <h5>Forwarded</h5>
+                                                        <p><strong>Highlights: </strong><br/><%= raw nomination.summary %><p>
+                                                    <% end %>
                                                 <% end %>
                                             </td>
                                         </tr>
@@ -181,8 +185,10 @@
                                                             <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
                                                         <% end %>
                                                     <% else %>
-                                                        <h5>Forwarded</h5>
-                                                        <p><strong>Highligts: </strong><br/><%= raw nomination.summary %><p>
+                                                        <% if nomination.state != 'pushed_back' %>
+                                                            <h5>Forwarded</h5>
+                                                            <p><strong>Highlights: </strong><br/><%= raw nomination.summary %><p>
+                                                        <% end %>
                                                     <% end %>
                                                 </td>
                                             </tr>
@@ -241,8 +247,10 @@
                                                             <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
                                                         <% end %>
                                                     <% else %>
-                                                        <h5>Forwarded</h5>
-                                                        <p><strong>Highligts: </strong><br/><%= raw nomination.summary %><p>
+                                                        <% if nomination.state != 'pushed_back' %>
+                                                            <h5>Forwarded</h5>
+                                                            <p><strong>Highlights: </strong><br/><%= raw nomination.summary %><p>
+                                                        <% end %>
                                                     <% end %>
                                                     
                                                 </td>
