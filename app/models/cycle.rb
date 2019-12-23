@@ -8,7 +8,7 @@ class Cycle < ApplicationRecord
     
     def create_cycle_awards
         AwardMaster.all.each do |award_master|
-            Award.create(award_master_id: award_master.id, cycle_id: self.id, financial_year: self.start_date.year, half: ((self.start_date.month >= 4 and self.start_date < 10) ? 1 : 2), title: award_master.title, award_type: award_master.award_type)
+            Award.create(award_master_id: award_master.id, cycle_id: self.id, financial_year: self.start_date.year, half: ((self.start_date.month >= 4 and self.start_date < 10) ? 1 : 2), title: award_master.title, award_type: award_master.award_type, cadre_coverage: award_master.cadre_coverage)
         end
     end
 

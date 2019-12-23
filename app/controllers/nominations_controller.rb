@@ -49,15 +49,23 @@ class NominationsController < ApplicationController
     @type = params[:type]
     if (@type == "tmil")
       @award = @cycle.awards.find_by(title: "The Most Inspiring Leader")
+      @users = current_user.peers.select { |u| @award.cadre_coverage.include?(u.employee.cadre) }.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
+      @color = "green"
     elsif (@type == "tbe")
       @award = @cycle.awards.find_by(title: "The Best Employee")
+      @users = current_user.peers.select { |u| @award.cadre_coverage.include?(u.employee.cadre) }.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
+      @color = "blue"
     elsif (@type == "tmie")
       @award = @cycle.awards.find_by(title: "The Most Innovative Employee")
+      @users = current_user.peers.select { |u| @award.cadre_coverage.include?(u.employee.cadre) }.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
+      @color = "orange"
     elsif (@type == "tbpm")
       @award = @cycle.awards.find_by(title: "The Best Project Manager")
+      @users = current_user.peers.select { |u| u.employee.designation == "Project Manager" }.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
+      @color = "gray"
     end
     @awards = [@award]
-    @users = current_user.peers.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
+
     @nomination = Nomination.new
     @nomination.nominees.build
     @nomination.nomination_attachments.build
@@ -72,11 +80,12 @@ class NominationsController < ApplicationController
 
   def team_nomination
     @cycle = Cycle.current_cycle
-    @users = current_user.peers.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
     @nomination = Nomination.new
     # @nomination.company_id = current_user.company.id rescue nil
+    @color = "purple"
     @nomination.nominees.build
     @award = @cycle.awards.find_by(title: "The Best Cross-Functional Team")
+    @users = current_user.peers.select { |u| @award.cadre_coverage.include?(u.employee.cadre) }.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
     @awards = [@award]
     @nomination.award = @award
     @award.award_master.rating_scales.each do |rs|
@@ -101,6 +110,18 @@ class NominationsController < ApplicationController
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
     @award = @nomination.award
+    case @award.title
+    when "The Most Inspiring Leader"
+      @color = "green"
+    when "The Best Employee"
+      @color = "blue"
+    when "The Most Innovative Employee"
+      @color = "orange"
+    when "The Best Project Manager"
+      @color = "grey"
+    when "The Best Cross-Functional Team"
+      @color = "purple"
+    end
     @users = current_user.peers.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
     # @selected_nominees = @nomination.nominees
   end

@@ -1,8 +1,8 @@
 <%= form_with(model: nomination,id: 'nomination_form',local: true, :html => {:multipart => true} ) do |form| %> 
   <div class="container-fluid" id="main-form" data-action=<%= params[:action] %> data-id=<%= @nomination.id %>>
       <div class='card'>
-          <div class='card-header' data-background-color='blue'>
-              <b>Add Nomination Information</b>
+          <div class='card-header' data-background-color='<%= @color %>'>
+              <b><%= @award.title %></b>
           </div>
           <div class='card-content'>
               <div class='row'>

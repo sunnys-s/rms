@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_23_071344) do
+ActiveRecord::Schema.define(version: 2019_12_23_112926) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 2019_12_23_071344) do
     t.string "award_type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.text "cadre_coverage", default: [], array: true
   end
 
   create_table "awards", force: :cascade do |t|
@@ -60,6 +61,7 @@ ActiveRecord::Schema.define(version: 2019_12_23_071344) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.text "final_verdict"
+    t.text "cadre_coverage", default: [], array: true
     t.index ["award_master_id"], name: "index_awards_on_award_master_id"
     t.index ["cycle_id"], name: "index_awards_on_cycle_id"
   end
@@ -120,6 +122,8 @@ ActiveRecord::Schema.define(version: 2019_12_23_071344) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "functional_manager"
     t.string "administrative_manager"
+    t.string "cadre"
+    t.string "designation"
     t.index ["user_id"], name: "index_employees_on_user_id"
   end
 
