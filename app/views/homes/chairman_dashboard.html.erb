@@ -10,6 +10,7 @@
                     <li class='active'><a data-toggle="tab" class='tab' id='btnhome'  onclick='doSwitch("home")'>The Most Inspiring Leader</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenu1' onclick='doSwitch("menu1")'>The Best Employee</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenu2'  onclick='doSwitch("menu2")'>The Most Innovative Employee</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenu4'  onclick='doSwitch("menu4")'>The Best Project Manager</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenu3' onclick='doSwitch("menu3")'>The Best Cross-Function Team</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenuall' onclick='doSwitch("all")'>All</a></li>
                 </ul>
@@ -140,6 +141,48 @@
                             <div class='col-md-6'>
                                 <h4>Comments</h4>
                                 <%= raw(@most_innovative_employee_verdict) %>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="menu4" class="tab-pane fade">
+                        <h3>The Best Project Manager</h3>
+                        <div class='row'>
+                            <div class='col-md-6'>
+                                <h4>Winners</h4>
+                                <% @best_project_manager_nominations.each do |nomination| %>
+                                    <% nominee = nomination.nominees.last.user %>
+                                    <div class='col-md-6'>
+                                        <div class='card'>
+                                            <div class='card-header card-header-middle' data-background-color="orange">
+                                                <h4><%= nominee.employee.name %></h4>
+                                            </div>
+                                            <div class='card-content'>
+                                                    <%= nominee.employee.department %> <br>
+                                                    <%= nominee.employee.emp_code %>
+                                                    <%= image_tag(nominee.companies.last.logo.url, height: '12', width: '12') %>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <% if nomination.state == 'approved' %>
+                                                    <p>Approved</p>
+                                                <% else %>
+                                                    <div class="col-md-4">
+                                                        <button class='btn btn-warning btn-sm' onclick="pushback(<%= nomination.id %>)"> PB <i class='material-icons'>done</i></button>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class='btn btn-success btn-sm' onclick="approve(<%= nomination.id %>)"> A <i class='material-icons'>done</i></button>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <button class='btn btn-danger btn-sm' onclick="reject(<%= nomination.id %>) ">R <i class='material-icons'>clear</i></button>
+                                                    </div>
+                                                <% end %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% end %>
+                            </div>
+                            <div class='col-md-6'>
+                                <h4>Comments</h4>
+                                <%= raw(@best_project_manager_verdict) %>
                             </div>
                         </div>
                     </div>

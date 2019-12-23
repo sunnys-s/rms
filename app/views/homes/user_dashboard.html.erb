@@ -5,6 +5,7 @@
             <%= link_to 'The Most Inspiring Leader', '/individual_nominations/tmil', class: 'btn btn-large btn-success', method: :get %>
              <%= link_to 'The Best Employee', '/individual_nominations/tbe', class: 'btn btn-large btn-blue', method: :get %>
             <%= link_to 'The Most Innovative Employee', '/individual_nominations/tmie', class: 'btn btn-large btn-orange', method: :get %>
+            <%= link_to 'The Best Project Manager', '/individual_nominations/tbpm', class: 'btn btn-large btn-orange', method: :get %>
             <%= link_to 'The Best Cross Functional Team', '/team_nominations/new', class: 'btn btn-large btn-primary', method: :get %>
         </div>
         <hr style=' border-top: 1px dotted #2683da;'>
@@ -17,8 +18,8 @@
                             <b><%= " #{nominee.award.title}" %></b>
                         </div>
                         <div class='card-content point-div'>
-                            <% emp = nominee.nominees.last.user %>
-                            <h4><%= emp.employee.name %></h4>
+                            <% emp = nominee.nominees.last.user rescue nil %>
+                            <h4><%= emp.employee.name rescue ""%></h4>
                             <h2 class='point point-indi text_<%=nominee.award.award_master.id%>'><%= nominee.ratings.map(&:value).compact.reduce(&:+) %></h2>
                             Points
                         </div>

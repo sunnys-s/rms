@@ -109,6 +109,49 @@
                     </div>
                   </div>
                   
+                  <div class="col-md-12">
+                    <h5>Please answer the following</h5>
+                    <table class='table table-bordered' id='rating-table'>
+                          <tr>
+                            <th>Assessment Params</th>
+                            <th>Question</th>
+                            <th>Feedback</th>
+                            <th>Value Addition</th>
+                            <th>Attachments</th>
+                          </tr>
+                          <%= form.fields_for :assessments do |assessment| %>
+                          <tr>
+                              <td>
+                                <%= assessment.object.assessment_param%>
+                                <%= assessment.hidden_field :assessment_param, value: assessment.object.assessment_param %>
+                              </td>
+                              <td style="width:40%;">  
+                                <%= assessment.object.statement%>
+                                <%= assessment.hidden_field :statement, value: assessment.object.statement %>
+                              </td>
+                              <td style="width:40%;">
+                                <%= assessment.text_area :feedback, col: ""%>
+                              </td>
+                              <td>
+                                <%= assessment.text_field :value_addition%>
+                              </td>
+                              <td>
+                                <%= assessment.fields_for :assessment_attachments, assessment.object.assessment_attachments do |p| %>
+                                    <%= render 'nomination_attachments', p: p%>
+                                    <!--
+                                    <div class="field">
+                                        <%#= p.label :attachment %><br>
+                                        <%#= p.file_field :attachment %>
+                                    </div>
+                                    -->
+                                <% end %>
+                              </td>
+                          </tr>
+                         
+                          <% end %>
+                      </table>
+                  </div>
+
                   <div class='col-md-12'>
                         <h5>Enter Justification</h5>
                         Please Enter Atleast 50 words.  

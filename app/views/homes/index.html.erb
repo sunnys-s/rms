@@ -14,6 +14,7 @@
                     <li class='active'><a data-toggle="tab" class='tab' id='btnhome'  onclick='doSwitch("home")'>The Most Inspiring Leader</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenu1' onclick='doSwitch("menu1")'>The Best Employee</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenu2'  onclick='doSwitch("menu2")'>The Most Innovative Employee</a></li>
+                    <li><a data-toggle="tab" class='tab' id='btnmenu4'  onclick='doSwitch("menu4")'>The Best Project Manager</a></li>
                     <li><a data-toggle="tab" class='tab' id='btnmenu3' onclick='doSwitch("menu3")'>The Best Cross-Functional Team</a></li>
                 </ul>
             </div>
@@ -35,9 +36,10 @@
                                 <tbody>
                                     <% @most_inspiring_leaders_nominations.each do |nomination| %>
                                         <tr id=<%= "nomination_#{nomination.id}"%>>
-                                            <% nominee = nomination.nominees.last.user %>
+                                            <% nominee = nomination.nominees.last.user rescue nil %>
                                             <td>
-                                                <p>Name : <%= nominee.employee.name %></p>
+                                                <% if !nominee.nil? %>
+                                                    <p>Name : <%= nominee.employee.name %></p>
                                                     <p>Employee ID : <%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %></p>
                                                     <p>Department : <%= nominee.employee.department %></p>
                                                     <p>Section : <%= nominee.employee.unit %></p>
@@ -45,6 +47,7 @@
                                                     <p>Location :  <%= nominee.employee.location %></p>
                                                     <p>Functional Manager :  <%= nominee.employee.functional_manager %></p>
                                                     <p>Administrative Manager :  <%= nominee.employee.administrative_manager %></p>
+                                                <% end %>
                                             </td>
                                             <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                             <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
@@ -199,6 +202,66 @@
                         </div>
                     </div>
 
+                    <div id="menu4" class="tab-pane fade">
+                        <h3>The Best Project Manager</h3>
+                        <div class='row'>
+                            <div class='col-md-12'>
+                                <table class='table table-bordered datatable'>
+                                    <thead>
+                                        <th>Nominee Information</th>
+                                        <th>Nominator</th>
+                                        <th>Date</th>
+                                        <th>Points (Out of 12) </th>
+                                        <th>Justification & Attachments</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody>
+                                        <% @best_project_manager_nominations.each do |nomination| %>
+                                            <tr id=<%= "nomination_#{nomination.id}"%>>
+                                                <% nominee = nomination.nominees.last.user %>
+                                                <td>
+                                                    <p>Name : <%= nominee.employee.name %></p>
+                                                    <p>Employee ID : <%= nominee.employee.emp_code.rjust(5,'0') rescue nominee.employee.emp_code %></p>
+                                                    <p>Department : <%= nominee.employee.department %></p>
+                                                    <p>Section : <%= nominee.employee.unit %></p>
+                                                    <p>SBU : <%= nominee.employee.sbu %></p>
+                                                    <p>Location :  <%= nominee.employee.location %></p>
+                                                    <p>Functional Manager :  <%= nominee.employee.functional_manager %></p>
+                                                    <p>Administrative Manager :  <%= nominee.employee.administrative_manager %></p>
+                                                </td>
+                                                <td><%= "#{User.find(nomination.nominator.employee).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
+                                                <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
+                                                <td><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></td>
+                                                <td class='action_td'>
+                                                <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
+                                                
+                                            </td>
+                                                <td class='action_td' id=<%= "action_td_#{nomination.id}"%>>
+                                                    <% if nomination.state != 'l1_review_pending' %>
+                                                        <button class='btn btn-success btn-sm' data-toggle="modal" data-target="#forwardModal" data-nomination-id="<%= nomination.id %>" onclick="setNominationID(<%= nomination.id %>,true)"> Forward <i class='material-icons'>send</i></button>
+                                                        <hr>
+                                                        <% if nomination.state != 'pushed_back' and  nomination.state != 'l1_review_pending' %>
+                                                            <input type='text' class='form-control' name='pushback_reason' id=<%= "rsn_nomination_#{nomination.id}" %> placeholder="Enter Reason for pushback">
+                                                            <button class='btn btn-warning btn-sm' data-nomination-id="<%= nomination.id %>" onclick="pushback(<%= nomination.id %>)"><i class='material-icons'>undo</i> Pushback</button>
+                                                        <% else %>
+                                                            <h5>Pushed Back</h5>
+                                                            <p><strong>Reason: </strong><br/><%= nomination.pushback_reason %><p>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <% if nomination.state != 'pushed_back' %>
+                                                            <h5>Forwarded</h5>
+                                                            <p><strong>Highlights: </strong><br/><%= raw nomination.summary %><p>
+                                                        <% end %>
+                                                    <% end %>
+                                                </td>
+                                            </tr>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                     <div id="menu3" class="tab-pane fade">
                         <h3>The Best Cross-Functional Team</h3>
                         <div class='row'>
@@ -283,6 +346,22 @@
         <%= select_tag "subcommittee_list", options_for_select(@commitee_members), {id: "commitee_member", multiple: true, style: 'width: 200px'} %>
         </div>
         <div class='col-md-6 justification-expandable'>
+            <div id="assessment">
+                <h4><b>Assessment</b></h4>
+                <div id="assessment-table">
+                    <table class='table table-bordered datatable'>
+                        <thead>
+                            <th>Assessment Param</th>
+                            <th>Statement</th>
+                            <th>Feedback</th>
+                            <th>Value Addition</th>
+                            <th>Attachment</th>
+                        </thead>
+                        <tbody id="assessment-table-tbody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <h4><b>Justification</b></h4>
             <div id='justificationHere' class='justification-class'></div>
             <hr>
@@ -429,6 +508,11 @@
                 $('#justificationHere').html(justification);
                 $('#attachment').html(data.attachment);
                 $('#attachement_url').attr('href', data.url);
+                if(data.assessments.length > 0){
+                    data.assessments.forEach(function(l1) { 
+                        $("#assessment-table-tbody").append('<tr><td>'+ l1.assessment_param +'</td><td style="width:30%;">'+ l1.statement +'</td><td>' + l1.feedback + '</td><td>'+ l1.value_addition +'</td><td><a href="'+ l1.assessment_attachments[0].attachment.url +'">Download</a></td></tr>')
+                    });
+                }
 
             },
         });

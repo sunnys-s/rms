@@ -8,7 +8,10 @@ class Nomination < ApplicationRecord
   accepts_nested_attributes_for :ratings
   belongs_to :award
   has_many :nomination_attachments, dependent: :destroy
+  has_many :assessments, dependent: :destroy
+
   accepts_nested_attributes_for :nomination_attachments, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :assessments, reject_if: :all_blank, allow_destroy: true
 
   after_create :notify_nominator
 
@@ -52,7 +55,7 @@ class Nomination < ApplicationRecord
     end
 
     event :forward do
-      transitions from: [:draft, :review_pending , :pushed_back], to: :l1_review_pending
+      transitions from: [:draft, :review_pending, :pushed_back], to: :l1_review_pending
       after_save do
         NotificationMailer.forward_notification(self).deliver_later
       end

@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_29_095000) do
+ActiveRecord::Schema.define(version: 2019_12_23_071344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "assessment_attachments", force: :cascade do |t|
+    t.bigint "assessment_id", null: false
+    t.string "attachment"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["assessment_id"], name: "index_assessment_attachments_on_assessment_id"
+  end
+
+  create_table "assessment_masters", force: :cascade do |t|
+    t.text "statement"
+    t.string "assessment_param"
+    t.bigint "award_master_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["award_master_id"], name: "index_assessment_masters_on_award_master_id"
+  end
+
+  create_table "assessments", force: :cascade do |t|
+    t.bigint "nomination_id", null: false
+    t.text "statement"
+    t.text "feedback"
+    t.string "value_addition"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "assessment_param"
+    t.index ["nomination_id"], name: "index_assessments_on_nomination_id"
+  end
 
   create_table "award_masters", force: :cascade do |t|
     t.string "title"
@@ -189,6 +217,9 @@ ActiveRecord::Schema.define(version: 2019_11_29_095000) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "assessment_attachments", "assessments"
+  add_foreign_key "assessment_masters", "award_masters"
+  add_foreign_key "assessments", "nominations"
   add_foreign_key "awards", "award_masters"
   add_foreign_key "awards", "cycles"
   add_foreign_key "commitee_members", "commitees"

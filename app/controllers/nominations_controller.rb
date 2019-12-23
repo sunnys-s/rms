@@ -9,21 +9,25 @@ class NominationsController < ApplicationController
   end
 
   # GET /nominations/1
-  # GET /nominations/1.json 
+  # GET /nominations/1.json
   def show
-    
   end
 
   def justification
     #@nomination = Nomination.find(params[:id]
-    render json:{justification: @nomination.justification, attachment: (@nomination.nomination_attachments.last.attachment.identifier rescue ''), url: (@nomination.nomination_attachments.last.attachment.url rescue '#') }
+    render json: {
+      justification: @nomination.justification,
+      attachment: (@nomination.nomination_attachments.last.attachment.identifier rescue ""),
+      url: (@nomination.nomination_attachments.last.attachment.url rescue "#"),
+      assessments: @nomination.assessments.as_json(:include => { :assessment_attachments => { only: :attachment } }),
+    }
   end
 
   # GET /nominations/new
   def new
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards - [@cycle.awards.find_by(title: "The Best Cross-Functional Team")]
-    @users = current_user.peers.map{|u| ["#{u.emp_code.rjust(5, '0')} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @users = current_user.peers.map { |u| ["#{u.emp_code.rjust(5, "0")} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
     @nomination = Nomination.new
     # @nomination.company_id = current_user.company.id rescue nil
     @nomination.nominees.build
@@ -43,23 +47,32 @@ class NominationsController < ApplicationController
   def individual_nominations
     @cycle = Cycle.current_cycle
     @type = params[:type]
-    if(@type=='tmil')
-      @award =  @cycle.awards.find_by(title: "The Most Inspiring Leader")
-    elsif(@type == 'tbe')
-      @award =  @cycle.awards.find_by(title: "The Best Employee")
-    elsif(@type == 'tmie')
-      @award =  @cycle.awards.find_by(title: "The Most Innovative Employee")
+    if (@type == "tmil")
+      @award = @cycle.awards.find_by(title: "The Most Inspiring Leader")
+    elsif (@type == "tbe")
+      @award = @cycle.awards.find_by(title: "The Best Employee")
+    elsif (@type == "tmie")
+      @award = @cycle.awards.find_by(title: "The Most Innovative Employee")
+    elsif (@type == "tbpm")
+      @award = @cycle.awards.find_by(title: "The Best Project Manager")
     end
     @awards = [@award]
-    @users = current_user.peers.map{|u| ["#{u.emp_code.rjust(5, '0') rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @users = current_user.peers.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
     @nomination = Nomination.new
     @nomination.nominees.build
     @nomination.nomination_attachments.build
+
+    @award.award_master.assessment_masters.each do |am|
+      a = @nomination.assessments.build(assessment_param: am.assessment_param, statement: am.statement)
+      a.assessment_attachments.build
+    end
+    # render json: @award.award_master.assessment_masters
+    # return
   end
 
   def team_nomination
     @cycle = Cycle.current_cycle
-    @users = current_user.peers.map{|u| ["#{u.emp_code.rjust(5, '0') rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @users = current_user.peers.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
     @nomination = Nomination.new
     # @nomination.company_id = current_user.company.id rescue nil
     @nomination.nominees.build
@@ -80,7 +93,7 @@ class NominationsController < ApplicationController
     else
       @rating_scales = @award.award_master.rating_scales
     end
-    render partial: 'rating_form'
+    render partial: "rating_form"
   end
 
   # GET /nominations/1/edit
@@ -88,7 +101,7 @@ class NominationsController < ApplicationController
     @cycle = Cycle.current_cycle
     @awards = @cycle.awards
     @award = @nomination.award
-    @users = current_user.peers.map{|u| ["#{u.emp_code.rjust(5, '0') rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id]}
+    @users = current_user.peers.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
     # @selected_nominees = @nomination.nominees
   end
 
@@ -107,7 +120,7 @@ class NominationsController < ApplicationController
     respond_to do |format|
       @nomination.company_id = current_user.company.id rescue nil
       if @nomination.save
-        format.html { redirect_to '/user_dashboard', notice: 'Nomination was successfully created.' }
+        format.html { redirect_to "/user_dashboard", notice: "Nomination was successfully created." }
         format.json { render :show, status: :created, location: @nomination }
       else
         # format.html { render :new }
@@ -124,7 +137,7 @@ class NominationsController < ApplicationController
       if @nomination.update(nomination_params)
         @nomination.state = "review_pending"
         @nomination.save
-        format.html { redirect_to '/user_dashboard', notice: 'Nomination was successfully updated.' }
+        format.html { redirect_to "/user_dashboard", notice: "Nomination was successfully updated." }
         format.json { render :show, status: :ok, location: @nomination }
       else
         format.html { render :edit }
@@ -138,7 +151,7 @@ class NominationsController < ApplicationController
   def destroy
     @nomination.destroy
     respond_to do |format|
-      format.html { redirect_to '/user_dashboard', notice: 'Nomination was successfully destroyed.' }
+      format.html { redirect_to "/user_dashboard", notice: "Nomination was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -153,7 +166,7 @@ class NominationsController < ApplicationController
     @nomination.pushback_reason = params[:reason]
     @nomination.save!
     @nomination.push_back
-    render json: { message: "Pushed back successfully"}
+    render json: { message: "Pushed back successfully" }
     return
   end
 
@@ -163,7 +176,7 @@ class NominationsController < ApplicationController
     @nomination.subcommitee_member_ids = params[:members].map(&:to_i) rescue []
     @nomination.save!
     @nomination.forward
-    render json: { message: "Pushed back successfully"}
+    render json: { message: "Pushed back successfully" }
     return
   end
 
@@ -175,33 +188,33 @@ class NominationsController < ApplicationController
       @nomination.approvers = members
       @nomination.save
       @nomination.l1_approve
-      render json: { message: "Approved Successfully"}
+      render json: { message: "Approved Successfully" }
       return
     elsif action_mode == "pushback"
       @nomination.pushback_reason = params[:comments]
       @nomination.save!
       @nomination.push_back
-      render json: { message: "Approved Successfully"}
+      render json: { message: "Approved Successfully" }
       return
     else
       @nomination.l1_rejection_reason = params[:comments]
       @nomination.rejectors = members
       @nomination.save
       @nomination.l1_reject
-      render json: { message: "Rejected Successfully"}
+      render json: { message: "Rejected Successfully" }
       return
-    end  
+    end
   end
 
   def reject_single_nominee
     @nominee = @nomination.nominees.find_by(user_id: params[:user_id])
     @nominee.l1_rejection_reason = params[:reason]
-    @nominee.state = 'rejected'
+    @nominee.state = "rejected"
     @nominee.save
-    render json: { message: "Rejected Successfully"}
+    render json: { message: "Rejected Successfully" }
     return
   end
-  
+
   def l2_approval
     action_mode = params[:action_mode]
     members = params[:members].map(&:to_i)
@@ -209,22 +222,22 @@ class NominationsController < ApplicationController
       @nomination.approvers = @nomination.approvers + members
       @nomination.save
       @nomination.l2_approve
-      render json: { message: "Approved Successfully"}
+      render json: { message: "Approved Successfully" }
       return
     elsif action_mode == "pushback"
       @nomination.pushback_reason = params[:comments]
       @nomination.save!
       @nomination.push_back
-      render json: { message: "Approved Successfully"}
+      render json: { message: "Approved Successfully" }
       return
     else
       @nomination.l1_rejection_reason = params[:comments]
       @nomination.rejectors = members
       @nomination.save
       @nomination.l2_reject
-      render json: { message: "Rejected Successfully"}
+      render json: { message: "Rejected Successfully" }
       return
-    end  
+    end
   end
 
   def chairman_approval
@@ -234,40 +247,43 @@ class NominationsController < ApplicationController
       @nomination.approvers = @nomination.approvers + members
       @nomination.save
       @nomination.approve
-      render json: { message: "Approved Successfully"}
+      render json: { message: "Approved Successfully" }
       return
     elsif action_mode == "pushback"
       @nomination.pushback_reason = params[:reason]
       @nomination.save!
       @nomination.push_back
-      render json: { message: "Approved Successfully"}
+      render json: { message: "Approved Successfully" }
       return
     else
       # @nomination.l1_rejection_reason = params[:comments]
       @nomination.rejectors = members
       @nomination.save
       @nomination.reject
-      render json: { message: "Rejected Successfully"}
+      render json: { message: "Rejected Successfully" }
       return
-    end  
+    end
   end
-  
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_nomination
-      @nomination = Nomination.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def nomination_params
-      params.require(:nomination).permit(
-        :award_id, :nomination_type, :nominator_type,
-        :nominator_id, :date, :justification,
-        :summary, :review_feedback, :company_id, :subcommitee_member_ids,
-        :innovativeness, :agility, :responsiveness, :performance_driven, :ownership,
-        ratings_attributes: [:id, :title, :nomination_id, :value, :_destroy], 
-        nominees_attributes: [:id, :nomination_id, :user_id, :emp_code, :_destroy],
-        nomination_attachments_attributes: [:id, :nomination_id, :attachment, :_destroy]
-      )
-    end
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_nomination
+    @nomination = Nomination.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def nomination_params
+    params.require(:nomination).permit(
+      :award_id, :nomination_type, :nominator_type,
+      :nominator_id, :date, :justification, :user_id,
+      :summary, :review_feedback, :company_id, :subcommitee_member_ids,
+      :innovativeness, :agility, :responsiveness, :performance_driven, :ownership,
+      ratings_attributes: [:id, :title, :nomination_id, :value, :_destroy],
+      nominees_attributes: [:id, :nomination_id, :user_id, :emp_code, :_destroy],
+      nomination_attachments_attributes: [:id, :nomination_id, :attachment, :_destroy],
+      assessments_attributes: [:id, :nomination_id, :assessment_param, :statement, :feedback, :value_addition, :_destroy,
+                               assessment_attachments_attributes: [:id, :assessment_id, :attachment, :_destroy]],
+    )
+  end
 end
