@@ -62,7 +62,7 @@ class NominationsController < ApplicationController
     elsif (@type == "tbpm")
       @award = @cycle.awards.find_by(title: "The Best Project Manager")
       @users = current_user.peers.select { |u| u.employee.designation == "Project Manager" }.map { |u| ["#{u.emp_code.rjust(5, "0") rescue u.emp_code} | #{u.employee.name rescue ""} | #{u.employee.location rescue ""} | #{u.employee.sbu rescue ""}", u.id] }
-      @color = "gray"
+      @color = "black"
     end
     @awards = [@award]
 
@@ -118,7 +118,7 @@ class NominationsController < ApplicationController
     when "The Most Innovative Employee"
       @color = "orange"
     when "The Best Project Manager"
-      @color = "grey"
+      @color = "black"
     when "The Best Cross-Functional Team"
       @color = "purple"
     end

@@ -650,7 +650,6 @@ h2.title {
 .wrapper {
     position: relative;
     top: 0;
-  
 }
 
 .sidebar,
@@ -2469,7 +2468,7 @@ a .material-icons {
 }
 
 a[data-toggle="collapse"][aria-expanded="true"] .caret {
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
+    filter: progid: DXImageTransform.Microsoft.BasicImage(rotation=2);
     -webkit-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
@@ -5310,6 +5309,11 @@ footer .btn {
 .card [data-background-color="red"] {
     background: linear-gradient(60deg, #ef5350, #e53935);
     box-shadow: 0 12px 20px -10px rgba(244, 67, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(244, 67, 54, 0.2);
+}
+
+.card [data-background-color="black"] {
+    background: linear-gradient(60deg, #000000, #000);
+    box-shadow: 0 12px 20px -10px rgba(0, 0, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 0, 54, 0.2);
 }
 
 .card [data-background-color] {

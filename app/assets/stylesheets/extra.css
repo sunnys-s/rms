@@ -1,237 +1,279 @@
-.control-label{
+.control-label {
     color: #676b67 !important;
     font-size: 13px !important;
     font-weight: 400 !important;
 }
 
-.title{
-                    font-weight: bold;
-                }
-                .cover{
-                    width: 100%;
-                    height: 100%;
-                    z-index:9999;
-                    position: fixed;
-                    background-color: white;
-                }
-.btn-warning{
-        color:black !important;
-    }
+.title {
+    font-weight: bold;
+}
+
+.cover {
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    position: fixed;
+    background-color: white;
+}
+
+.btn-warning {
+    color: black !important;
+}
+
+#customers {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td,
+#customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:hover {
+    background-color: #f2f2f2;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #888;
+    color: white;
+}
+
+.main-card {
+    background-color: #fcfcfc;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+.training_type {
+    font-weight: bolder;
+}
+
+.training_card {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+    box-shadow: 1px 3px 5px gray;
+    margin: 7px;
+}
+
+.container_check {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 
-    #customers {
-        border-collapse: collapse;
-        width: 100%;
-    }
+/* Hide the browser's default checkbox */
 
-    #customers td, #customers th {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
-
-
-
-    #customers tr:hover {background-color: #f2f2f2;}
-
-    #customers th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #888;
-        color: white;
-    }
-    .main-card{
-        background-color: #fcfcfc;padding:15px;
-        border-radius: 5px;
-    }
-    .training_type{
-        font-weight: bolder;
-    }
-    .training_card{
-        padding:10px;
-        border-radius: 5px;
-        background-color: white;
-        box-shadow: 1px 3px 5px gray;
-        margin: 7px;
-
-    }
-    .container_check {
-        display: block;
-        position: relative;
-        padding-left: 35px;
-        margin-bottom: 12px;
-        cursor: pointer;
-        font-size: 22px;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-    }
-
-    /* Hide the browser's default checkbox */
-    .container_check input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-    }
-
-    /* Create a custom checkbox */
-    .checkmark {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 25px;
-        width: 25px;
-        background-color: #84abd6;
-    }
+.container_check input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
 
 
-    /* On mouse-over, add a grey background color */
-    .container_check:hover input ~ .checkmark {
-        background-color: #84abd6;
-    }
+/* Create a custom checkbox */
 
-    /* When the checkbox is checked, add a blue background */
-    .container_check input:checked ~ .checkmark {
-        background-color: #2196F3;
-    }
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #84abd6;
+}
 
-    /* Create the checkmark/indicator (hidden when not checked) */
-    .checkmark:after {
-        content: "";
-        position: absolute;
-        display: none;
-    }
 
-    /* Show the checkmark when checked */
-    .container_check input:checked ~ .checkmark:after {
-        display: block;
-    }
+/* On mouse-over, add a grey background color */
 
-    /* Style the checkmark/indicator */
-    .container_check .checkmark:after {
-        left: 9px;
-        top: 5px;
-        width: 5px;
-        height: 10px;
-        border: solid white;
-        border-width: 0 3px 3px 0;
-        -webkit-transform: rotate(45deg);
-        -ms-transform: rotate(45deg);
-        transform: rotate(45deg);
-    }
+.container_check:hover input~.checkmark {
+    background-color: #84abd6;
+}
+
+
+/* When the checkbox is checked, add a blue background */
+
+.container_check input:checked~.checkmark {
+    background-color: #2196F3;
+}
+
+
+/* Create the checkmark/indicator (hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+
+/* Show the checkmark when checked */
+
+.container_check input:checked~.checkmark:after {
+    display: block;
+}
+
+
+/* Style the checkmark/indicator */
+
+.container_check .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
 .table_total_tr {
-    background-color : #efefef;
+    background-color: #efefef;
     text-align: right;
 }
 
 .infoTable tbody tr td {
     background-color: #efefef;
 }
-.select2-selection__choice{
+
+.select2-selection__choice {
     color: #232222;
     padding: 10px !important;
 }
-.badge{
-    padding:7px;
+
+.badge {
+    padding: 7px;
 }
 
 .nav-tabs {
-    background:none !important;
-    
+    background: none !important;
 }
 
-td{
+td {
     vertical-align: top !important;
 }
+
 .action_td {
     width: 15%;
     text-align: center;
     vertical-align: middle !important;
 }
-.tab{
+
+.tab {
     cursor: pointer;
     font-family: Arial, Helvetica, sans-serif !important;
 }
-th{
+
+th {
     font-weight: bold !important;
     background-color: #888888;
-    color:white;
+    color: white;
 }
+
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-  }
-  
-  /* Modal Content */
-  .modal-content {
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+
+/* Modal Content */
+
+.modal-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-  }
-  
-  /* The Close Button */
-  .close {
+}
+
+
+/* The Close Button */
+
+.close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
-  }
-  table th {
+}
+
+table th {
     min-width: 15% !important;
-  }
-  .card-header-middle{
-    text-align:  center;
+}
+
+.card-header-middle {
+    text-align: center;
     font-weight: bolder;
-  }
-
-.point-div
-{
-	text-align:center;
-}
-.point{
-	font-weight:bold;
-	font-size:50px;
-}
-.names-div{
-	text-align:center;
-}
-.names-div p{
-	border-radius:5px;
-	box-shadow:2px 2px 5px #bbb;
-	padding:5px;
 }
 
-.point-team{
-	color:#ab47bc;
+.point-div {
+    text-align: center;
 }
 
-.point-indi{
-	color:#2683da;
+.point {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.names-div {
+    text-align: center;
+}
+
+.names-div p {
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px #bbb;
+    padding: 5px;
+}
+
+.point-team {
+    color: #ab47bc;
+}
+
+.point-indi {
+    color: #2683da;
 }
 
 li a p {
-    color:white;
+    color: white;
     font-family: arial !important;
 }
 
@@ -239,61 +281,67 @@ li a p {
     font-family: arial !important;
 }
 
-body{
+body {
     /* //font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif !important; */
 }
-.justification-class{
-    border:2px solid gray;
-    padding:20px;
+
+.justification-class {
+    border: 2px solid gray;
+    padding: 20px;
     max-height: 50vh;
-    overflow-y:scroll;
+    overflow-y: scroll;
 }
-.company_logo{
+
+.company_logo {
     width: 70px !important;
     height: auto;
     margin: 5px;
 }
 
 .btn-blue {
-   background-color:#0669c5 !important; 
+    background-color: #0669c5 !important;
 }
 
-.btn-orange{
-    background-color:#ff9800 !important;
+.btn-orange {
+    background-color: #ff9800 !important;
 }
 
-.bg_2{
+.btn-black {
+    background-color: #000000 !important;
+}
+
+.bg_2 {
     background-color: #5cb85c !important;
-    color:white;
+    color: white;
 }
 
-.text_2{
-    color :#5cb85c !important;
+.text_2 {
+    color: #5cb85c !important;
 }
 
-.bg_3{
+.bg_3 {
     background-color: #2683da !important;
-    color:white;
+    color: white;
 }
 
-.text_3{
-    color :#2683da !important;
+.text_3 {
+    color: #2683da !important;
 }
 
-.bg_4{
-    background-color: #ff9800  !important;
-    color:white;
+.bg_4 {
+    background-color: #ff9800 !important;
+    color: white;
 }
 
-.text_4{
-    color :#ff9800  !important;
+.text_4 {
+    color: #ff9800 !important;
 }
 
-.bg_1{
-    background-color: #9c27b0  !important;
-    color:white;
+.bg_1 {
+    background-color: #9c27b0 !important;
+    color: white;
 }
 
-.text_1{
-    color :#9c27b0  !important;
+.text_1 {
+    color: #9c27b0 !important;
 }
