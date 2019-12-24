@@ -188,7 +188,7 @@
         $('select').select2();
 
         //Filling up ratings once
-        var awardId = $(this).find(":selected").val();
+        var awardId = $('#nomination_award_id').val();
         $('.hidden').show();
         if($('#main-form').data('action') !== 'edit') {
             $.get('/nominations/load_rating_form/' + awardId + '/' + $('#main-form').data('id'), function(data, status){
