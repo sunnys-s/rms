@@ -91,6 +91,10 @@ class NominationsController < ApplicationController
     @award.award_master.rating_scales.each do |rs|
       @nomination.ratings.build(title: rs.title)
     end
+    @award.award_master.assessment_masters.each do |am|
+      a = @nomination.assessments.build(assessment_param: am.assessment_param, statement: am.statement)
+      a.assessment_attachments.build
+    end
     @nomination.nomination_attachments.build
   end
 

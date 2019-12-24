@@ -19,8 +19,11 @@ class HomesController < ApplicationController
       # return
     elsif (current_user.l1? or current_user.l1_rep?)
       @cycle = Cycle.current_cycle
-      redirect_to "/l1_dashboard" if is_member(@cycle, current_user)
-      redirect_to "/user_dashboard"
+      if is_member(@cycle, current_user)
+        redirect_to "/l1_dashboard"
+      else
+        redirect_to "/user_dashboard"
+      end
     elsif (current_user.l2? or current_user.l2_rep?)
       redirect_to "/l2_dashboard"
     elsif (current_user.chairman?)
