@@ -15,8 +15,8 @@ class HomesController < ApplicationController
       @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations.where(nominator_id: location_peer_ids)
       # @commitee_members = @cycle.commitees.find_by(level: "Level 1 for #{current_user.company.name}", company_id: current_user.company.id).commitee_members.map{|i| i.user.employee}.flatten
       @commitee_members = @cycle.commitees.find_by(level: "Level 1 for #{current_user.company.name}").commitee_members.map { |u| ["#{u.user.emp_code} | #{u.user.employee.name rescue ""} | #{u.user.employee.location rescue ""} | #{u.user.employee.sbu rescue ""}", u.user.id] }
-      render json: @commitee_members
-      return
+      # render json: @commitee_members
+      # return
     elsif (current_user.l1? or current_user.l1_rep?)
       @cycle = Cycle.current_cycle
       if is_member(@cycle, current_user)
