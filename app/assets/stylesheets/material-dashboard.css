@@ -5312,8 +5312,8 @@ footer .btn {
 }
 
 .card [data-background-color="black"] {
-    background: linear-gradient(60deg, #000000, #000);
-    box-shadow: 0 12px 20px -10px rgba(0, 0, 54, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 0, 54, 0.2);
+    background: linear-gradient(60deg, #6f4e37, #6f4e30);
+    box-shadow: 0 12px 20px -10px rgba(43, 30, 21, 0.28), 0 4px 20px 0px rgba(43, 30, 21, 0.12), 0 7px 8px -5px rgba(43, 30, 21, 0.2);
 }
 
 .card [data-background-color] {
