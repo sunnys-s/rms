@@ -345,3 +345,7 @@ body {
 .text_1 {
     color: #9c27b0 !important;
 }
+
+tr td ul {
+    padding-inline-start: 15px !important;
+}
