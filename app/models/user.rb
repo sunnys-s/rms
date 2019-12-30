@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable, :password_expirable, :password_archivable
   
   has_many :roles, dependent: :destroy
   has_many :role_masters, through: :roles
@@ -12,9 +12,11 @@ class User < ApplicationRecord
   ############################################
   has_many :commitee_members, dependent: :destroy
   ############################################
-
+  
   has_and_belongs_to_many :companies
   accepts_nested_attributes_for :employee
+  
+  before_update :disable_reset_required, if: :encrypted_password_changed?
 
   def admin?
     self.role_masters.map(&:name).include?("admin")
@@ -74,6 +76,12 @@ class User < ApplicationRecord
         NotificationMailer.notify_hr(user, award_status).deliver_later
       end
     end
+  end
+
+  private
+  def disable_reset_required
+    self.is_password_reset_required = false
+    true
   end
   
 end

@@ -1,0 +1,50 @@
+<div class="wrap-login100" style="padding-top:15px;">
+	<div class="row row-eq-height">
+		<div class="col-md-12">
+			<div class="login-wrapper">
+				<div class="panel">
+					<div class="panel-body">
+						<center>
+							<h2><%= image_tag "logo.png", width: "180px", :class => "img-responsive" %></h2>
+							<h2>Renew your Password</h2>
+						</center>
+						<%= form_for(resource, :as => resource_name, :url => [resource_name, :password_expired], :html => {:method => :put, autocomplete: 'off'}) do |f| %>
+							<%= devise_error_messages! %>
+							<div class="form-group">
+								<div class="input-icon-left">
+									<i class="fa fa-lock input-icon"></i>
+									<%= f.password_field :current_password, :input_html => {:class => "form-control rounded"}, :placeholder => "Current Password", :label => false, :required => true %>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="input-icon-left">
+									<i class="fa fa-lock input-icon"></i>
+									<%= f.password_field :password, :input_html => {:class => "form-control rounded"}, :placeholder => "New Password", :label => false, :required => true %>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="input-icon-left">
+									<i class="fa fa-lock input-icon"></i>
+									<%= f.password_field :password_confirmation, :input_html => {:class => "form-control rounded"}, :placeholder => "Confirm New Password", :label => false, :required => true %>
+								</div>
+							</div>
+
+							<%= f.submit "Change my password", :class => 'btn btn-primary btn-block rounded' %>
+						<% end %>
+					</div>
+
+					<div class="panel-footer">
+						<span>
+							Not you?
+							<%= link_to destroy_user_session_path, method: :delete do %>
+								Sign Out
+							<% end %>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

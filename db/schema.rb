@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_23_112926) do
+ActiveRecord::Schema.define(version: 2019_12_30_044156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -175,6 +175,15 @@ ActiveRecord::Schema.define(version: 2019_12_23_112926) do
     t.index ["user_id"], name: "index_nominees_on_user_id"
   end
 
+  create_table "old_passwords", force: :cascade do |t|
+    t.string "encrypted_password", null: false
+    t.string "password_archivable_type", null: false
+    t.integer "password_archivable_id", null: false
+    t.string "password_salt"
+    t.datetime "created_at"
+    t.index ["password_archivable_type", "password_archivable_id"], name: "index_password_archivable"
+  end
+
   create_table "rating_scales", force: :cascade do |t|
     t.string "title"
     t.bigint "award_master_id", null: false
@@ -217,7 +226,10 @@ ActiveRecord::Schema.define(version: 2019_12_23_112926) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "emp_code"
     t.string "doj"
+    t.boolean "is_password_reset_required", default: true
+    t.datetime "password_changed_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["password_changed_at"], name: "index_users_on_password_changed_at"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

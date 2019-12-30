@@ -55,6 +55,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "devise", "~> 4.7"
+# gem 'devise_security_extension'
+gem 'devise-security'
 gem 'rails_admin', '~> 2.0'
 gem 'cancancan'
 gem 'faker'
