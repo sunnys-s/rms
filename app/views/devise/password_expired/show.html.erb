@@ -6,7 +6,7 @@
 					<div class="panel-body">
 						<center>
 							<h2><%= image_tag "logo.png", width: "180px", :class => "img-responsive" %></h2>
-							<h2>Renew your Password</h2>
+							<h2>Change your Password</h2>
 						</center>
 						<%= form_for(resource, :as => resource_name, :url => [resource_name, :password_expired], :html => {:method => :put, autocomplete: 'off'}) do |f| %>
 							<%= devise_error_messages! %>
