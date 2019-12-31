@@ -13,11 +13,11 @@
     </span>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="wrap-input100 validate-input">
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input100 has-val" %>
+        <%= f.text_field :emp_code, autofocus: true, autocomplete: "Employee Code", class: "input100 has-val", placeholder: "Employee Code"%>
       </div>
 
       <div class="wrap-input100 validate-input" data-validate="Enter password">
-        <%= f.password_field :password, autocomplete: "current-password", class:"input100 has-val" %>
+        <%= f.password_field :password, autocomplete: "current-password", class:"input100 has-val", placeholder: "Employee code" %>
       </div>
 
       <% if devise_mapping.rememberable? %>
