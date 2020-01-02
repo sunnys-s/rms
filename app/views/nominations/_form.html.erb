@@ -197,14 +197,14 @@
             });
         }
 
-        CKEDITOR.instances.nomination_justification.on("blur",function(e){
-            var data = CKEDITOR.instances.nomination_justification.getData();
-            if(data.split(' ').length < 50){
-                alert("More Detailing Required");
-                CKEDITOR.instances.nomination_justification.focus();
-            }
+        // CKEDITOR.instances.nomination_justification.on("blur",function(e){
+        //     var data = CKEDITOR.instances.nomination_justification.getData();
+        //     if(data.split(' ').length < 50){
+        //         alert("More Detailing Required");
+        //         CKEDITOR.instances.nomination_justification.focus();
+        //     }
 
-       });
+        // });
 
        $("[data-form-prepend]").click(function(e) {
             var obj = $($(this).attr("data-form-prepend"));

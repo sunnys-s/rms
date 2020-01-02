@@ -510,7 +510,7 @@
                 $('#attachement_url').attr('href', data.url);
                 if(data.assessments.length > 0){
                     data.assessments.forEach(function(l1) { 
-                        $("#assessment-table-tbody").append('<tr><td>'+ l1.assessment_param +'</td><td style="width:30%;">'+ l1.statement +'</td><td>' + l1.feedback + '</td><td>'+ l1.value_addition +'</td><td><a href="'+ l1.assessment_attachments[0].attachment.url +'">Download</a></td></tr>')
+                        $("#assessment-table-tbody").append('<tr><td>'+ l1.assessment_param +'</td><td style="width:30%;">'+ l1.statement +'</td><td>' + l1.feedback + '</td><td>'+ l1.value_addition +'</td><td><a href="'+ (l1.assessment_attachments.length > 0 ? l1.assessment_attachments[0].attachment.url : "#") +'">Download</a></td></tr>')
                     });
                 }
 
