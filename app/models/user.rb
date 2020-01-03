@@ -70,12 +70,15 @@ class User < ApplicationRecord
   end
 
   def self.notify_all_hr
+    total = []
     User.all_hr_group_by_location.map do |location, users| 
       award_status = Cycle.pending_status_by_location(location)
+      total << {location: location, award_status: award_status}
       users.each do |user|
         NotificationMailer.notify_hr(user, award_status).deliver_later
       end
     end
+    NotificationMailer.notify_admin(User.find_by(emp_code: "04533"), total).deliver_later
   end
 
   private

@@ -34,4 +34,10 @@ class NotificationMailer < ApplicationMailer
         @pending_status = pending_status
         mail(to: @user.email, subject: 'Pending awards nomination notification')
     end
+
+    def notify_admin(user, pending_status)
+        @user = user
+        @total_pending_status = pending_status
+        mail(to: @user.email, subject: 'Pending awards nomination notification')
+    end
 end

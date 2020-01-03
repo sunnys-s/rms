@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p>Dear <%= @user.employee.name %>,</p>
+    <p>&nbsp;</p>
+    <% @total_pending_status.each do |tps| %>
+      <p>
+        Actions in following needs to be taken at location <%= tps[:location] %>:
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Awards</th>
+            <th>Pending</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tps[:award_status].each do |ps| %>
+            <tr>
+              <td><%= ps[:title]%></td>
+              <td><%= ps[:count]%></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+    <p>Thanks for your contribution and have a great day!</p>
+  </body>
+</html>
