@@ -15,6 +15,8 @@ class Nomination < ApplicationRecord
 
   after_create :notify_nominator
 
+  # validates :justification, presence: true,  length: { minimum: 50 }
+
   state_machine do
     state :draft, initial: true
     state :review_pending
@@ -80,5 +82,16 @@ class Nomination < ApplicationRecord
 
   def notify_nominator
     NotificationMailer.welcome_email(self).deliver_later
+  end
+
+  def nomination_state
+    case self.state
+    when "draft"
+      "HR Review Pending"
+    when "review_pending"
+      "HR Review Pending"
+    else
+      self.state.titleize
+    end
   end
 end

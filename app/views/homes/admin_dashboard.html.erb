@@ -31,6 +31,7 @@
                                     <th>Date</th>
                                     <th>Points  </th>
                                     <th>Justification & Attachments</th>
+                                    <th>Status</th>
                                 </thead>
                                 <tbody>
                                     <% @most_inspiring_leaders_nominations.each do |nomination| %>
@@ -54,6 +55,7 @@
                                             <td class='action_td'>
                                                 <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
                                             </td>   
+                                            <td><%= nomination.nomination_state %></td>
                                         </tr>
                                     <% end %>
                                 </tbody>
@@ -73,6 +75,7 @@
                                     <th>Date</th>
                                     <th>Points (Out of 12) </th>
                                     <th>Justification & Attachments</th>
+                                    <th>Status</th>
                                 </thead>
                                 <tbody>
                                     <% @best_employee_nominations.each do |nomination| %>
@@ -96,6 +99,7 @@
                                             <td class='action_td'>
                                                 <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
                                             </td>
+                                            <td><%= nomination.nomination_state %></td>
                                         </tr>
                                     <% end %>
                                 </tbody>
@@ -115,6 +119,7 @@
                                         <th>Date</th>
                                         <th>Points (Out of 12) </th>
                                         <th>Justification & Attachments</th>
+                                        <th>Status</th>
                                     </thead>
                                     <tbody>
                                         <% @most_innovative_employee_nominations.each do |nomination| %>
@@ -138,7 +143,7 @@
                                                 <td class='action_td'>
                                                     <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
-                                                
+                                                <td><%= nomination.nomination_state %></td>
                                             </tr>
                                         <% end %>
                                     </tbody>
@@ -159,6 +164,7 @@
                                         <th>Points (Out of 12) </th>
                                         <th>Justification & Attachments</th>
                                         <th>Action</th>
+                                        <th>Status</th>
                                     </thead>
                                     <tbody>
                                         <% @best_project_manager_nominations.each do |nomination| %>
@@ -182,6 +188,7 @@
                                                 <td class='action_td'>
                                                     <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
+                                                <td><%= nomination.nomination_state %></td>
                                             </tr>
                                         <% end %>
                                     </tbody>
@@ -202,6 +209,7 @@
                                         <th>Points (Out of 9) </th>
                                         <th>Justification & Attachments</th>
                                         <th>Action</th>
+                                        <th>Status</th>
                                     </thead>
                                     <tbody>
                                         <% @best_team_nominations.each do |nomination| %>
@@ -224,6 +232,7 @@
                                                 <td class='action_td'>
                                                     <button class='btn btn-primary btn-sm' onclick="setNominationID(<%= nomination.id %>,false)"><i class='material-icons'>remove_red_eye</i></button><br>
                                                 </td>
+                                                <td><%= nomination.nomination_state %></td>
                                             </tr>
                                         <% end %>
                                     </tbody>
