@@ -229,7 +229,7 @@
                                                     <p>Functional Manager :  <%= nominee.employee.functional_manager %></p>
                                                     <p>Administrative Manager :  <%= nominee.employee.administrative_manager %></p>
                                                 </td>
-                                                <td><%= "#{User.find(nomination.nominator.employee).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
+                                                <td><%= "#{User.find(nomination.nominator_id).employee.name} (#{User.find(nomination.nominator_id).employee.emp_code})" %></td>
                                                 <td><%= nomination.date.strftime("%d-%m-%Y") %></td>
                                                 <td><%= nomination.ratings.map(&:value).compact.reduce(&:+)%></td>
                                                 <td class='action_td'>
