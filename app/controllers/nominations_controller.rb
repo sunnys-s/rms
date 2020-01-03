@@ -148,9 +148,9 @@ class NominationsController < ApplicationController
         format.html { redirect_to "/user_dashboard", notice: "Nomination was successfully created." }
         format.json { render :show, status: :created, location: @nomination }
       else
-        # format.html { render :new }
-        # format.json { render json: @nomination.errors, status: :unprocessable_entity }
-        render json: @nomination.errors
+        format.html { redirect_to reverse_map_award_to_keyword(@nomination), notice: @nomination.errors }
+        format.json { render json: @nomination.errors, status: :unprocessable_entity }
+        # render json: @nomination.errors
       end
     end
   end
@@ -291,6 +291,22 @@ class NominationsController < ApplicationController
   end
 
   private
+
+  def reverse_map_award_to_keyword(nomination)
+    @award = nomination.award
+    case @award.title
+    when "The Most Inspiring Leader"
+      "/individual_nominations/tmil"
+    when "The Best Employee"
+      "/individual_nominations/tbe"
+    when "The Most Innovative Employee"
+      "/individual_nominations/tmie"
+    when "The Best Project Manager"
+      "/individual_nominations/tbpm"
+    when "The Best Cross-Functional Team"
+      "team_nominations/new"
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_nomination
