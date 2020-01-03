@@ -28,8 +28,24 @@ class HomesController < ApplicationController
       redirect_to "/l2_dashboard"
     elsif (current_user.chairman?)
       redirect_to "/chairman_dashboard"
+    elsif (current_user.admin?)
+      redirect_to "/admin_dashboard"
     else
       redirect_to "/user_dashboard"
+    end
+  end
+
+  def admin_dashboard
+    if current_user.admin?
+      @cycle = Cycle.current_cycle
+      @awards = @cycle.awards
+      @most_inspiring_leaders_nominations = @awards.find_by(title: "The Most Inspiring Leader").nominations
+      @best_employee_nominations = @awards.find_by(title: "The Best Employee").nominations
+      @most_innovative_employee_nominations = @awards.find_by(title: "The Most Innovative Employee").nominations
+      @best_project_manager_nominations = @awards.find_by(title: "The Best Project Manager").nominations
+      @best_team_nominations = @awards.find_by(title: "The Best Cross-Functional Team").nominations
+    else
+      redirect_to "/user_dashboard", notice: "You are not authorized to see this"
     end
   end
 

@@ -60,7 +60,7 @@
                      <b><p>My Nominations</p></b>
                 <% end %>
 
-            <% if current_user.hr? %>
+                <% if current_user.hr? %>
                     <%= link_to '/' do %>
                         <i class="material-icons">call_split</i> 
                         <b><p>Moderator Dashboard</p></b>
@@ -78,6 +78,13 @@
                     <%= link_to '/l2_dashboard' do %>
                         <i class="material-icons">done_outline</i> 
                         <b><p>Apex Dashboard</p></b>
+                    <% end %>
+                <% end %>
+
+                <% if current_user.admin? %>
+                    <%= link_to '/admin_dashboard' do %>
+                        <i class="material-icons">done_outline</i> 
+                        <b><p>Admin Dashboard</p></b>
                     <% end %>
                 <% end %>
             </li>
